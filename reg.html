@@ -1,0 +1,66 @@
+<!Doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>注册页面</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5,user-scalable=yes"/>
+		<link rel="stylesheet" href="css/mui.min.css"/>
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="css/login.css" />
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+	</head>
+	<body>
+		<div class="mui-content" id="app">
+			<!-- <span v-if="is_loading" class="mui-icon iconfont icon-jiazaizhong"></span> -->
+			<div class="login_top">
+				<div class="logo"> 
+					<img src="picture/logo.png" alt="" />
+				</div>
+				<div class="golog">
+					<span><a href="login.html" style="color: cornsilk;">已有账户 去登陆>></a></span>
+				</div>
+			</div>
+			<div class="login_main">
+				<div class="title">注册</div>
+				<form class="mui-input-group" action="" method="POST" id="normal-form">
+					<div class="mui-input-row">
+						<label> <span class="fa fa-phone color-mormal"></span></label>
+						<input type="text" class="mui-input-clear" placeholder="请输入手机号" name="account" id="account">
+					</div>
+					<div class="mui-input-row">
+						<label> <span class="fa fa-yzm color-mormal"></span></label>
+						<input type="text"  class="mui-input-clear" placeholder="请输入验证码" name="yzm" id="yzm">
+						<div class="right-code">
+							<input class="reg-yzmbtn" type="button" value="获取验证码" id="yzmbtn">
+						</div>
+					</div>
+					<div class="mui-input-row">
+						<label> <span class=" fa mui-icon mui-icon-locked color-mormal"></span></label>
+						<input type="password" class="mui-input-clear" placeholder="请输入密码" name="password" id="password">
+					</div>
+				</form>
+				<button type="button" class="mui-btn mui-btn-blue reg-submit" id="reg">注册</button>
+			</div>
+			<div class="login_foot">
+				<div class="title">邀好友 拿福利</div>
+				<div class="yqm"><img src="picture/yqm.png" ></div>
+			</div>
+		</div>
+	</body>
+	<script>
+		(function($, doc) {	
+			$.plusReady(function() {
+				var regButton = doc.getElementById("reg");
+				regButton.addEventListener('tap',function(even){
+					jQuery("input").blur();
+					var thisButton = $(this);
+					$(this).button("loading");
+					_reg(thisButton);
+				})
+			})
+		}(mui, document))
+	</script>
+
+</html>
