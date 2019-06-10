@@ -8,9 +8,6 @@
 		<link rel="stylesheet" href="css/mui.min.css"/>
 		<link rel="stylesheet" href="css/app.css" />
 		<link rel="stylesheet" href="css/login.css" />
-		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script type="text/javascript" src="js/mui.min.js"></script>
-		<script type="text/javascript" src="js/common.js"></script>
 	</head>
 	<body>
 		<div class="mui-content" id="app">
@@ -27,7 +24,7 @@
 				<form class="mui-input-group" action="" method="POST" id="normal-form">
 					<div class="mui-input-row">
 						<label> <span class="fa fa-phone color-mormal"></span></label>
-						<input type="text" name="account" class="mui-input-clear" placeholder="请输入手机号" name="weixin" id="weixin">
+						<input type="text" name="mobile" class="mui-input-clear" placeholder="请输入手机号">
 					</div>
 					<!-- <div class="mui-input-row">
 						<label> <span class="fa fa-yzm color-mormal"></span></label>
@@ -38,7 +35,7 @@
 					</div> -->
 					<div class="mui-input-row">
 						<label> <span class=" fa mui-icon mui-icon-locked color-mormal"></span></label>
-						<input type="password" name="password" class="mui-input-clear" placeholder="请输入密码" name="weixin" id="weixin">
+						<input type="password" name="password" class="mui-input-clear" placeholder="请输入密码">
 					</div>
 				</form>
 				<button type="button" class="mui-btn mui-btn-blue reg-submit" id="login">登录</button>
@@ -48,10 +45,20 @@
 				<div class="yqm"><img src="picture/yqm.png" ></div>
 			</div>
 		</div>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script src="js/util.js"></script>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
 	</body>
 	<script>
 		(function($, doc) {	
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
 			$.plusReady(function() {
+				plus.navigator.setStatusBarStyle('light');   
+				plus.navigator.setStatusBarBackground('#5EC7F2');   
+	
 				var regButton = doc.getElementById("login");
 				regButton.addEventListener('tap',function(even){
 					jQuery("input").blur();

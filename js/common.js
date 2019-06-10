@@ -1,5 +1,5 @@
 // 获得当前网站目录
-var postUrl="http://api.0135.mobi",
+var postUrl="http://api.0135.mobi/",
 	photoweb="http://yangzifu.cn:8080/uploads/driver/";
 //登录验证
 loginRequired = function(callback){
@@ -224,7 +224,7 @@ function getPostData(){
 function _login(thisButton){
     var postData =  getPostData();
 	
-	if(postData["account"]==""){
+	if(postData["mobile"]==""){
 		showMessage("请输入手机号码");
 		thisButton.button("reset");
 		return false;
@@ -233,7 +233,7 @@ function _login(thisButton){
 		thisButton.button("reset");
 		return false;
 	}
-    save_url = postUrl+"/Home/member/login.html";
+    save_url = postUrl+"Home/member/login.html";
 	diyAjax(save_url,postData,function(result){
 		console.log("登录");
 		if (result.code == 1) {
@@ -270,10 +270,7 @@ function _reg(thisButton){
 		showMessage("请输入密码");
 		thisButton.button("reset");
 		return false;
-	}else if(postData["yzm"]==""){
-		showMessage("请输入验证码");
-		thisButton.button("reset");
-		return false;
+	}
     save_url = postUrl+"/api/driver/register";
 	diyAjax(save_url,postData,function(result){
 		console.log("注册");
@@ -350,154 +347,6 @@ function _layout(){
 	},function(xhr){
 		console.log(JSON.stringify(xhr));
 	});
-}
-function _saveDetail(thisButton){
-	var postData =  getPostData();
-	
-	if(postData["row[area_code]"]==""){
-		showMessage("请选择城市");
-		thisButton.button("reset");
-		return false;
-	}else if(postData["row[name]"]=="" || postData["row[idcard]"]=="" || postData["row[idcard_front_image]"]==""){
-		showMessage("请拍摄身份证人像面");
-		thisButton.button("reset");
-		return false;
-	}else if(postData["row[driving_license_image]"]==""){
-		showMessage("请拍摄驾驶证照片");
-		thisButton.button("reset");
-		return false;
-	}else if(postData["row[idcard_back_image]"]==""){
-		showMessage("请拍摄身份证国徽面");
-		thisButton.button("reset");
-		return false;
-	}else if(postData["row[license_plate_image]"]=="" || postData["row[license_plate]"]==""){
-		showMessage("请拍摄车牌号照片");
-		thisButton.button("reset");
-		return false;
-	}
-	var save_url = postUrl+"/api/driver/saveDetail";
-	
-	diyAjax(save_url,postData,function(result){
-		console.log("保存信息");
-		showMessage(result.msg);
-		thisButton.button("reset");
-	},function(xhr){
-		thisButton.button("reset");
-		console.log(JSON.stringify(xhr));
-	});
-	
-	return false;
-   
-}
-function _setLoginpwd(thisButton){
-	
-	var postData =  getPostData();
-	
-	if(postData["oldpassword"] == ""){
-		showMessage("请输入旧密码");
-		return false;
-	}else if(postData["newpassword"] == ""){
-		showMessage("请输入新密码");
-		return false;
-	}else if(postData["newpassword"] != postData["renewpassword"]){
-		showMessage("两次输入的密码不一致");
-		return false;
-	}
-	var dealData={};
-	for (var data in postData){
-		if(data=="renewpassword") continue;
-		dealData[data] = postData[data];
-	}
-
-	var save_url = postUrl+"/api/driver/resetPassword";
-	
-	diyAjax(save_url,dealData,function(result){
-		console.log("重置密码");
-		if (result.code == 1) {
-			//成功
-			showMessage(result.msg);
-			mui.back();
-			return false;
-		} else{
-			// 失败
-			showMessage(result.msg);
-			thisButton.button("reset");
-			return false;
-		}
-	},function(xhr){
-		thisButton.button("reset");
-		console.log(JSON.stringify(xhr));
-	});
-	
-	return false;
-}
-function _setpaypwd(thisButton){
-	
-	var postData =  getPostData();
-	
-	if(postData["captcha"] == ""){
-		showMessage("请输入验证码");
-		return false;
-	}else if(postData["securepassword"] == ""){
-		showMessage("请输入支付密码");
-		return false;
-	}else if(postData["securepassword"].length != 6){
-		showMessage("支付密码格式不正确");
-		return false;
-	}else if(postData["securepassword"] != postData["resecurepassword"]){
-		showMessage("两次输入的密码不一致");
-		return false;
-	}
-	var dealData={};
-	for (var data in postData){
-		if(data=="resecurepassword") continue;
-		dealData[data] = postData[data];
-	}
-
-	var save_url = postUrl+"/api/driver/changeSecure";
-	
-	diyAjax(save_url,dealData,function(result){
-		console.log("修改支付密码");
-		if (result.code == 1) {
-			//成功
-			showMessage(result.msg);
-			mui.back();
-			return false;
-		} else{
-			// 失败
-			showMessage(result.msg);
-			thisButton.button("reset");
-			return false;
-		}
-	},function(xhr){
-		thisButton.button("reset");
-		console.log(JSON.stringify(xhr));
-	});
-	
-	return false;
-}
-function _checkSecure(resultValue){
-	var save_url = postUrl+"/api/driver/checkSecure",
-		data = {
-			securepassword:resultValue
-		};
-	
-	diyAjax(save_url,data,function(result){
-		console.log("支付密码验证");
-		if (result.code == 1) {
-			//成功
-			window.location.href="payInfo.html";
-			return false;
-		} else{
-			// 失败
-			showMessage(result.msg);
-			return false;
-		}
-	},function(xhr){
-		console.log(JSON.stringify(xhr));
-	});
-	
-	return false;
 }
 // 获取手机号码
 function getAccount(){
