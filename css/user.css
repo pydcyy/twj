@@ -1,0 +1,95 @@
+p{
+	color:#7d7e82;
+	font-size: 12px;
+}
+span{
+	color: #3a3b3d;
+	font-size: 12px;
+}
+.mui-content-main{
+	
+	background: #fff;
+	/* box-shadow: 0 0 10px rgba(4,192,211,0.2); */
+	margin: 0 10px;
+	margin-top:10px;
+	border-radius: 3px;
+	padding-top: 10px;
+}
+
+.mui-content-main .useravter{
+	
+	height: 80px;
+	width: 80px;
+	border-radius: 50px;
+	background: #EBEEF5;
+	margin: 0 auto;
+	border:1px solid #dddddd;
+	
+}
+.mui-content-main .username{
+	text-align: center;
+}
+.mui-content-main .xingxi ul {
+	width: 100%;
+	margin:0;
+	padding: 0;
+}
+.mui-content-main .xingxi ul li{
+	float: left;
+	width: 50%;
+	text-align: center;
+}
+.mui-content-main .xingxi ul li p{
+	margin:0;
+	padding-bottom: 5px;
+}
+.mui-content-main .record {
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+.mui-content-main .record .mui-pull-left{
+	font-size: 14px;
+	padding-left: 15px;
+}
+.mui-content-main .record .mui-pull-right{
+	padding-right: 5px;
+}
+.mui-content-main .record-m ul {
+	width: 90%;
+	margin:0 auto;
+	padding: 0 ;
+	border-bottom: 1px solid #e5e5e5;
+}
+.mui-content-main .record-m ul li {
+	float: left;
+	width: 33.3333%;
+	text-align: center;
+}
+.mui-content-main .record-m ul li span {
+	font-size:20px;
+}
+.mui-content-main .record-f ul  {
+	width: 100%;
+	margin:0 auto;
+	margin-top: 8px;
+	padding: 0 ;
+}
+.mui-content-main .record-f ul li {
+	float: left;
+	width: 25%;
+	text-align: center;
+}
+.mui-content-main .record-f ul li p {
+	margin-bottom: 10px;
+}
+.mui-content-main .list{
+	margin: 0;
+	padding: 0;
+	
+}
+.mui-content-main .list .title{
+   margin-left: 5px;
+	
+	
+}
+
