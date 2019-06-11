@@ -18,34 +18,21 @@
 	  
 	  <!-- 主页面容器 -->
 	  <div class="mui-inner-wrap">
-		<!-- 主页面标题 -->
-		<header class="mui-bar mui-bar-nav">
-		  <a class="mui-icon mui-icon-gear  mui-pull-left " ></a>
-		  <h1 class="mui-title">我的</h1>
-		  <a class="mui-icon mui-icon-extra mui-icon-extra-share mui-pull-right" style="font-size: 20px;"></a>
+		<!-- 主页面标题 --> 
+		<header class="header">
+			<div class="mui-bar mui-bar-nav">
+				<div class="fa fa-gear"></div>
+				<h1 class="mui-title">我的</h1>
+				<div class="fa fa-more" style="float: right;font-weight: "></div>
+			</div>
 		</header>
-		<nav class="mui-bar mui-bar-tab">
-			<a class="mui-tab-item mui-active">
-				<span class="mui-icon mui-icon-home"></span>
-				<span class="mui-tab-label">首页</span>
-			</a>
-			<a class="mui-tab-item">
-				<span class=" mui-icon mui-icon-map"></span>
-				<span class="mui-tab-label">附近</span>
-			</a>
-			<a class="mui-tab-item">
-				<span class="mui-icon mui-icon-email"></span>
-				<span class="mui-tab-label">财富</span>
-			</a>
-			<a class="mui-tab-item">
-				<span class="mui-icon mui-icon-person"></span>
-				<span class="mui-tab-label">我的</span>
-			</a>
-		</nav>
+
+		
+
 		<div class="mui-content mui-scroll-wrapper" style="background: #f0f0f0;">
 		  <div class="mui-scroll">
 			<!-- 主界面具体展示内容 -->
-			<div class="mui-content-main">
+			<div class="mui-content-main first-main">
 				<div class="useravter" style="background: url(picture/yqm.png) ;background-size:100% 100%;">
 				</div>
 				<div class="username">
@@ -139,8 +126,8 @@
 	<script type="text/javascript">
 	mui.init();
 	mui('.mui-scroll-wrapper').scroll({
-	deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-});
+		deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+	});
 	mui('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
 	</script>
 </body>

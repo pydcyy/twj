@@ -1,5 +1,5 @@
 /*公共样式*/
-view,scroll-view,swiper,swiper-item,icon,text,progress,mask,input,button,label,form,textarea,checkbox,checkbox-group,picker,picker-item,radio,radio-group,switch,slider,slector-item,action-sheet,action-sheet-cancel,action-sheet-item,loading,toast,modal,navigator,image,audio,video,map,canvas,canvas,native{
+*,view,scroll-view,swiper,swiper-item,icon,text,progress,mask,input,button,label,form,textarea,checkbox,checkbox-group,picker,picker-item,radio,radio-group,switch,slider,slector-item,action-sheet,action-sheet-cancel,action-sheet-item,loading,toast,modal,navigator,image,audio,video,map,canvas,canvas,native{
   margin:0;
   padding:0;
   font-size: 14px;
@@ -21,9 +21,12 @@ li{list-style: none;}
 .text-c{text-align: center !important;}
 .pull-r{float: right;}
 .pull-l{float: left;}
+.pull-c{clear: both;}
+
 .color-org{color:#ff6600;}
 .color-mormal{color:#2482DA!important;}
 .color-88{color:#888888;}
+
 .page_wrap{
   background-color:#F3F3F3;
   min-height: 100%; 
@@ -377,6 +380,11 @@ border-radius: 4px;
 	font-size: 14px;
 	margin-right: 10px;
 }
+.mylabel{
+  border-left: 3px solid #2C75B9;
+  color: #A2A2A2;
+  padding: 0 7px;
+}
 
 
 /*字体*/
@@ -398,3 +406,33 @@ border-radius: 4px;
 .fa-yzm:before {
   content: "\e594";
 }
+.fa-index:before{
+  content:"\e591";
+}
+.fa-nearby:before{
+  content:"\e58f";
+}
+.fa-wealth:before{
+  content:"\e592";
+}
+.fa-user:before{
+  content:"\e590";
+}
+.fa-gear:before{
+  content:"\e532";
+} 
+.fa-more:before{
+  content:"\e563";
+} 
+.fa-payment:before{
+  content:"\e597";
+} 
+.fa-receivables:before{
+  content:"\e596";
+} 
+.fa-transfer:before{
+  content:"\e595";
+} 
+.fa-withdrawal:before{
+  content:"\e598";
+} 

@@ -1,0 +1,40 @@
+
+.header{
+	background: #2796F0;
+	color: #fff;
+	padding: 10px 0;
+}
+.header h4{
+	font-size: 16px;
+	letter-spacing: 3px;
+	padding:0 15px;
+}
+.headerul{
+	overflow: hidden;
+	line-height: normal;
+	margin-top: -15px;
+}
+.headerul li{
+	width: 25%;
+	float: left;
+	text-align: center;
+}
+.headerul .fa{
+	font-size: 90px;
+}
+.header p{
+	color: #fff;
+	margin-top: -18px;
+}
+.index-main{
+  padding: 7px 15px;
+}
+.shop-img img{
+	width: 100%;
+  	margin-top: 5px;
+}
+
+.mui-tab-item .fa{
+	display: block;
+}
+

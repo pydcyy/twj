@@ -1,6 +1,7 @@
 // 获得当前网站目录
-var postUrl="http://api.0135.mobi/",
-	photoweb="http://yangzifu.cn:8080/uploads/driver/";
+var postUrl="http://api.tongwujie.cn/",
+	photoweb="http://yangzifu.cn:8080/uploads/driver/",
+	key=1;
 //登录验证
 loginRequired = function(callback){
 	if(!getLoginStorage('$driverInfo')){
@@ -233,19 +234,16 @@ function _login(thisButton){
 		thisButton.button("reset");
 		return false;
 	}
+	postData["key"]=key;
     save_url = postUrl+"Home/member/login.html";
 	diyAjax(save_url,postData,function(result){
 		console.log("登录");
 		if (result.code == 1) {
 			//成功
-			localStorage.setItem('$driverInfo', JSON.stringify(result['data']['info']));
-			// console.log(JSON.stringify(result['data']['info']));
+			localStorage.setItem('$UserInfo', JSON.stringify(result['data']));
 			showMessage(result.msg);
-			
-			// 预加载首页
-			var indexPage =plus.webview.getLaunchWebview();
+			plus.webview.open('index.html', 'index', {}, 'slide-in-right', 200);			
 			thisButton.button("reset");
-			indexPage.show("pop-in");
 			return false;
 		}else{
 			// 失败

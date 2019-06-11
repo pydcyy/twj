@@ -88,8 +88,37 @@ span{
 	
 }
 .mui-content-main .list .title{
-   margin-left: 5px;
-	
-	
+   margin-left: 5px;	
 }
 
+
+.header{
+	height: 200px;
+	background: url(../picture/user-top.png);
+	background-size: cover;
+	overflow: hidden;
+}
+.header .mui-title{
+	color: #fff;
+}
+.header .mui-bar{
+	background: none;
+}
+.mui-scroll-wrapper{
+	top: 44px;
+	padding-top: 56px;
+	background: none!important;
+}
+.mui-content-main{
+	border-radius: 10px;
+}
+.first-main{
+	background: url(../picture/aaa.png);
+	background-size: 100% 100%;
+}
+.mui-bar-nav .fa{
+	color: #fff;
+	margin-top: 8px;
+	display: inline-block;
+	font-size: 26px;
+}
