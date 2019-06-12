@@ -2,51 +2,59 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<title>用户中心</title>
+	<title>附近</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 	<link rel="stylesheet" href="css/mui.min.css"/>
 	<link rel="stylesheet" href="css/app.css" />
-	<link rel="stylesheet" href="css/index.css" />
+	<link rel="stylesheet" href="css/nearby.css" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=HR3RRyTsXYdQ3QzzG5yUkg0q"></script>
 </head>
 <body>
-	<!-- 主界面不动、菜单移动 -->
-	<!-- 侧滑导航根容器 -->
-	<div class="mui-off-canvas-wrap mui-draggable mui-slide-in">
-	  
-	  <!-- 主页面容器 -->
-	  <div class="mui-inner-wrap">
-		<!-- 主页面标题 --> 
-
-
-		<div class="mui-content mui-scroll-wrapper" style="background: #f0f0f0;">
-		  <div class="mui-scroll">
-			<!-- 主界面具体展示内容 -->
-			
-			附近页
-			<div class="mui-content-main">
+	<header class="mui-bar mui-bar-nav">
+		<h1 class="mui-title">附近</h1>
+	</header>
+	
+	<div class="mui-content mui-scroll-wrapper">
+		<div class="mui-scroll">
+			<!--这里放置真实显示的DOM内容-->
+			<div class="map"  >
+				<span class="fa fa-map"></span>
+			</div>
+			<div id="allmap">
 				
 			</div>
-			<div class="mui-content-main">
-				
-			</div>
-			<div class="mui-content-main" style="padding-top: 0;margin-bottom: 10px;">
-				
-			</div>
-		  </div>
-		</div>  
-		<div class="mui-off-canvas-backdrop"></div>
-	  </div>
+		</div>
 	</div>
+	<div class="mui-bar shop">
+		<div class="shop-title">店铺名称</div>
+		<div class="shop-content">
+			<div class="mui-pull-left">
+				<span>经营内容：零售，烟酒</span><br>
+				<span>联系方式：18888888888</span><br>
+				<span>所在地址：杭州西湖风景名胜区</span>
+			</div>
+			<div class="mui-pull-right">
+				<button type="button" class="mui-btn mui-btn-blue">导航</button>
+			</div>
+		</div>
+	</div>
+	
 
 	
 	<script type="text/javascript">
-	mui.init();
-	mui('.mui-scroll-wrapper').scroll({
-		deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-	});
-	mui('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
+		(function($, doc) {	
+			mui.init();
+			$('.mui-scroll-wrapper').scroll({
+				deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+			});
+			$('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
+			
+			 
+		}(mui, document))
+		
 	</script>
 </body>
 </html>

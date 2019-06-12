@@ -1,0 +1,47 @@
+.mui-bar-nav{
+	background-color:rgba(0, 93, 255, 0.5);
+	
+}
+.mui-bar-nav .mui-title{
+	color:#fff;
+}
+.mui-content .map{
+	
+	
+}
+.shop{
+	position: fixed;
+	bottom: 50px;
+	padding: 0;
+	height: 170px;
+	/* display: none; */
+}
+.shop-title{
+	height: 40px;
+	background: #007aff;
+	color:#fff;
+	font-size:17px;
+	text-align: center;
+	line-height: 40px;
+}
+.shop-content{
+	height: 130px;
+	background: #f1f1f1;
+}
+.shop-content .mui-pull-left{
+	line-height: 32px;
+    padding-top: 15px;
+	padding-left: 15px;
+}
+
+.shop-content span{
+	font-size: 12px;
+}
+.shop-content .mui-pull-right{
+	padding-top: 40px;
+	padding-right: 20px;
+}
+.shop-content .mui-pull-right button{
+	padding-left: 20px;
+	padding-right: 20px;
+} 
