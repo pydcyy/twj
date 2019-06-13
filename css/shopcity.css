@@ -1,0 +1,54 @@
+.mui-bar-nav{
+	background-color:#2695ef;
+}
+.mui-search input[type="search"]{
+	background-color: #fff;
+	border-radius: 15px;
+}
+.mui-content-nav {
+	overflow: hidden;
+	background: #fff;
+}
+.mui-content-nav li{
+	width: 33.333%;
+	float:left;
+	text-align: center;
+	margin: 10px 0;
+	font-size: 14px;
+}
+.mui-content-nav li{
+	border-left: 1px solid #ccc;	
+}
+.mui-content .fastnav{
+	overflow: hidden;
+}
+.mui-content .fastnav li{
+	width: 20%;
+	float:left;
+	text-align: center;
+	margin: 10px 0;
+	font-size: 14px;
+}
+.mui-content .fastnav li p{
+	padding: 0;
+	margin: 0;
+	color: #000;
+}
+
+.mui-content .ad img{
+	width: 100%;
+}
+.p-list ul{
+	margin: 10px;
+	overflow: hidden;
+	background: #fff;
+	padding: 10px;
+}
+.p-list li{
+	float: left;
+	overflow: hidden;
+	width: 50%;
+}
+.p-list li img{
+	width: 60px;
+}

@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<title>用户中心</title>
+	<title>商场</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 	<link rel="stylesheet" href="css/mui.min.css"/>
 	<link rel="stylesheet" href="css/app.css" />
-	<link rel="stylesheet" href="" />
+	<link rel="stylesheet" href="css/shopcity.css" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/mui.min.js"></script>
 	
@@ -16,56 +16,151 @@
 	<!-- 侧滑导航根容器 -->
 	<div class="mui-off-canvas-wrap mui-draggable mui-slide-in">
 	  <!-- 菜单容器 -->
-	  <aside class="mui-off-canvas-left" id="offCanvasSide">
-		<div class="mui-scroll-wrapper">
-		  <div class="mui-scroll">
-			<!-- 菜单具体展示内容 -->
-			
-		  </div>
-		</div>
-	  </aside>
 	  <!-- 主页面容器 -->
 	  <div class="mui-inner-wrap">
 		<!-- 主页面标题 -->
 		<header class="mui-bar mui-bar-nav">
-		  <a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left" href="#offCanvasSide"></a>
-		  <h1 class="mui-title">标题</h1>
+			<div class="mui-input-row mui-search">
+				<input type="search" class="mui-input-clear" placeholder="搜索商品">
+			</div>
 		</header>
 		<nav class="mui-bar mui-bar-tab">
-			<a class="mui-tab-item mui-active">
-				<span class="mui-icon mui-icon-home"></span>
+			<a class="mui-tab-item mui-active" href="index.html">
+				<span class="fa fa-index"></span>
 				<span class="mui-tab-label">首页</span>
 			</a>
-			<a class="mui-tab-item">
-				<span class=" mui-icon mui-icon-map"></span>
+			<a class="mui-tab-item" href="nearby.html">
+				<span class="fa fa-nearby"></span>
 				<span class="mui-tab-label">附近</span>
 			</a>
-			<a class="mui-tab-item">
-				<span class="mui-icon mui-icon-email"></span>
+			<a class="mui-tab-item" href="wealth.html">
+				<span class="fa fa-wealth"></span>
 				<span class="mui-tab-label">财富</span>
 			</a>
-			<a class="mui-tab-item">
-				<span class="mui-icon mui-icon-person"></span>
+			<a class="mui-tab-item" href="user.html">
+				<span class="fa fa-user"></span>
 				<span class="mui-tab-label">我的</span>
 			</a>
 		</nav>
 		<div class="mui-content mui-scroll-wrapper">
 		  <div class="mui-scroll">
 			<!-- 主界面具体展示内容 -->
-			
+			<div class="mui-content-nav">
+				<ul>
+					<li>现金商城</li>
+					<li>积分商城</li>
+					<li>金珠商城</li>
+				</ul>
+			</div>
+			<div id="slider" class="mui-slider" >
+			  <div class="mui-slider-group mui-slider-loop">
+				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+				  <a href="#">
+					<img src="http:\/\/placehold.it\/400x300">
+				  </a>
+				</div>
+				<!-- 第一张 -->
+				<div class="mui-slider-item">
+				  <a href="#">
+					<img src="http:\/\/placehold.it\/400x300">
+				  </a>
+				</div>
+				<!-- 第二张 -->
+				<div class="mui-slider-item">
+				  <a href="#">
+					<img src="http:\/\/placehold.it\/400x300">
+				  </a>
+				</div>
+				<!-- 第三张 -->
+				<div class="mui-slider-item">
+				  <a href="#">
+					<img src="http:\/\/placehold.it\/400x300">
+				  </a>
+				</div>
+				<!-- 第四张 -->
+				<div class="mui-slider-item">
+				  <a href="#">
+					<img src="http:\/\/placehold.it\/400x300">
+				  </a>
+				</div>
+				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+				  <a href="#">
+					<img src="http:\/\/placehold.it\/400x300">
+				  </a>
+				</div>
+			  </div>
+			  <div class="mui-slider-indicator">
+				<div class="mui-indicator mui-active"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+			  </div>
+			</div>
+			<div class="fastnav">
+			  <ul>
+			  	<li>
+					<img src="picture/01.png" >
+					<p><span>方便素食</span></p>
+				</li>
+				<li>
+					<img src="picture/01.png" >
+					<p><span>方便素食</span></p>
+				</li>
+				<li>
+					<img src="picture/01.png" >
+					<p><span>方便素食</span></p>
+				</li>
+				<li>
+					<img src="picture/01.png" >
+					<p><span>方便素食</span></p>
+				</li>
+				<li>
+					<img src="picture/01.png" >
+					<p><span>方便素食</span></p>
+				</li>
+			  </ul>
+			</div>
+			<div class="ad">
+				<img src="picture/02.png" >
+			</div>
+			<div class="p-list">
+				<ul>
+					<li>
+						<div class="mui-pull-left">
+							<img src="picture/03.png" >
+						</div>
+						<div class="mui-pull-right">
+							
+						</div>
+					</li>
+					<li> 
+						<div class="mui-pull-left">
+							<img src="picture/03.png" >
+						</div>
+						<div class="mui-pull-right">
+							
+						</div>
+					</li>
+					<li></li>
+				</ul>
+			</div>
 		  </div>
 		</div>  
 		<div class="mui-off-canvas-backdrop"></div>
 	  </div>
 	</div>
-
-	
 	<script type="text/javascript">
-	mui.init();
-	mui('.mui-scroll-wrapper').scroll({
-		deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-	});
-	mui('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
+		var gallery = mui('.mui-slider');
+			gallery.slider({
+			  interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
+			});
+		mui.init();
+		mui('.mui-scroll-wrapper').scroll({
+			deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+		});
+		mui('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
 	</script>
 </body>
 </html>
