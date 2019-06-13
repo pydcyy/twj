@@ -8,17 +8,34 @@
 .mui-content-nav {
 	overflow: hidden;
 	background: #fff;
+	padding: 0 4%;
 }
+
 .mui-content-nav li{
 	width: 33.333%;
 	float:left;
 	text-align: center;
 	margin: 10px 0;
 	font-size: 14px;
+	position: relative;
+	
 }
-.mui-content-nav li{
+.mui-content-nav li.on {
+	font-weight: bold;
+}
+.mui-content-nav li.on div{
+	width: 100%;
+	position: absolute;
+	border-bottom: 3px solid red;
+	bottom:-10px;
+	
+}
+/* .mui-content-nav li:nth-child(2){
 	border-left: 1px solid #ccc;	
 }
+.mui-content-nav li:nth-child(3){
+	border-left: 1px solid #ccc;	
+} */
 .mui-content .fastnav{
 	overflow: hidden;
 }
@@ -34,21 +51,60 @@
 	margin: 0;
 	color: #000;
 }
+.mui-content .fastnav li p span{
+	font-size: 12px;
+}
+.mui-content .fastnav li img{
+	width: 40px;
+}
 
 .mui-content .ad img{
 	width: 100%;
 }
 .p-list ul{
-	margin: 10px;
 	overflow: hidden;
-	background: #fff;
-	padding: 10px;
+	margin:0 5px;
+	margin-top: 6px;
+	
 }
 .p-list li{
 	float: left;
 	overflow: hidden;
 	width: 50%;
+	margin-bottom: 10px;	
 }
-.p-list li img{
-	width: 60px;
+.p-list li .p-content{
+	margin: 0 5px;
+	background: #fff;
+	border-radius: 3px;
+	overflow: hidden;
 }
+.p-list li .p-content img{
+	width: 100%;
+}
+.p-content-title{
+	padding: 0 10px;
+	height: 45px;
+	line-height: 18px;
+}
+.p-content-title span{
+	font-size: 12px;
+}
+.p-content-price{
+	overflow: hidden;
+	width: 100%;
+	padding: 0 10px;
+	margin-bottom: 10px;
+}
+.p-content-price .pull-l{
+	color: red;
+}
+.p-content-price .pull-r button{
+	color: red;
+	border: 1px solid red;
+	border-radius: 2px;
+	padding: 1px 5px;
+	font-size: 12px;
+}
+
+
