@@ -5,19 +5,24 @@
 .login_top{
 	width: 100%;
 	height: 250px;
-	background: url(../images/login_top.jpg);
-	background-size: 100% 100%;
+	background: url(../picture/login_top.png);
+	background-size: cover;
 }
 .login_top .logo{
 	width: 210px;
 	margin: 0px auto;
 	/*padding: 50px 0;*/
 }
-.login_top .golog{
+.golog{
+	width: 325px;
+	margin: 0 auto;
 	padding-top: 8px;
 	text-align: center;
-	
-	
+	padding: 0 10%;
+	overflow: hidden;
+}
+.golog span a{
+	color: #2695EF;
 }
 .login_top .logo img{
 	width: 100%;
@@ -71,7 +76,7 @@
 	text-align: center;
 	
 }
-.login_main button{
+.login_main .reg-submit{
 	width: 80%;
 	height: 40px;
 	margin: 20px auto;
@@ -85,12 +90,14 @@
 .right-code{
 	position: absolute;
 	right: 15px;
-	top: 0px;
+	top: 5px;
 }
 .right-code .reg-yzmbtn{
 	background: #2791DD;
 	color: #fff;
 	border-radius: 5px;
+	border: none;
+	padding: 5px 15px;
 }
 .reg-submit{
 	border-radius: 20px;
@@ -116,4 +123,11 @@
 }
 .login_foot .yqm img{
 	width: 40%;
+}
+
+.top-menu{
+	color: #fff;
+	font-size: 30px;
+	margin-top: 15px;
+	margin-left: 15px;
 }

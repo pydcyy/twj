@@ -8,7 +8,10 @@
 	<link rel="stylesheet" href="css/app.css" />
 	<link rel="stylesheet" href="css/index.css" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script src="js/util.js"></script>
 	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+
 </head>
 <body>
 	<!-- 主界面不动、菜单移动 -->
@@ -18,7 +21,7 @@
 	  <!-- 主页面容器 -->
 	  <div class="mui-inner-wrap">
 		  
-		 <nav class="mui-bar mui-bar-tab" style="background: #fff;">
+		 <!-- <nav class="mui-bar mui-bar-tab" style="background: #fff;">
 		  	<a class="mui-tab-item mui-active" href="index.html">
 		  		<span class="fa fa-index"></span>
 		  		<span class="mui-tab-label">首页</span>
@@ -35,7 +38,7 @@
 		  		<span class="fa fa-user"></span>
 		  		<span class="mui-tab-label">我的</span>
 		  	</a>
-		</nav>
+		</nav> -->
 		
 		<div class="header">
 			<h4>兑换交易</h4>
@@ -58,7 +61,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="mui-content mui-scroll-wrapper" style="background: #f0f0f0;top:140px;">
+		<div class="mui-content mui-scroll-wrapper" style="background: #f0f0f0;top:130px;margin-bottom:50px;">
 		  <div class="mui-scroll">
 			<div class="index-main">
 				<span class="mylabel">
@@ -81,68 +84,88 @@
 
 <script type="text/javascript">
 	mui.init({
-					swipeBack: true //启用右滑关闭功能
-				});
+		swipeBack: true //启用右滑关闭功能
+	});
 	mui('.mui-scroll-wrapper').scroll({
 		deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
 	});
 	mui('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
 	
-	//1、定义底部导航子页面(页面id)，点击底部导航跳转到子页面风格
-	var subpages = ['index.html', 'nearby.html', 'wealth.html', 'user.html'];
-	var subpage_style = {
-		top: '0px',
-		bottom: '49px'
-	};
 	//2、创建子页面，首个选项卡页面显示，其它均隐藏
 	var view_show = {};
 	mui.plusReady(function() {
-		//2.1、获得当前主页面信息数据
-		var current = plus.webview.currentWebview();
-		//2.2、循环创建各子页面
-		for(var i = 0; i < subpages.length; i++) {
-			var temp = {};
-			if(i!=0){
-				var sub_view = plus.webview.create(subpages[i], subpages[i], subpage_style);
-			}
-			//2.3、将首个子页面进行显示|其他隐藏
-			if(i > 0) {
-				sub_view.hide();
-			} else {
-				temp[subpages[i]] = "true";
-				mui.extend(view_show, temp);
-			}
-			//2.4、将各子页面添加到当前主页下
-			current.append(sub_view);
-		}
-	});
-	//3、当前激活选项
-	var activeTab = subpages[0];
-	//4、底部导航选项卡点击事件
-	mui(".mui-bar-tab").on('tap', 'a', function() {
-		//4.1、获取当前点击元素的href属性|判断如果和当前激活选项相同，则不进行操作|否则显示新的页面
-		var targetTab = this.getAttribute('href');
+		plus.navigator.setStatusBarStyle('light');   
+		plus.navigator.setStatusBarBackground('#2695EF');
+		
+		
+		var self = plus.webview.currentWebview();
+		
+		// 创建子webview窗口 并初始化
+		var aniShow = {};
+		util.initSubpage(aniShow);
+		
+		var nview = plus.nativeObj.View.getViewById('tabBar'),
+			activePage = plus.webview.currentWebview(),
+			targetPage,
+			subpages = util.options.subpages,
+			pageW = window.innerWidth,
+			currIndex = 0;
+		
+		/**
+		 * 根据判断view控件点击位置判断切换的tab
+		 */
+		nview.addEventListener('click', function(e) {
+			loginRequired(function(){
+				var clientX = e.clientX;
+				if(clientX > 0 && clientX <= parseInt(pageW * 0.25)) {
+					currIndex = 0;
+				} else if(clientX > parseInt(pageW * 0.25) && clientX <= parseInt(pageW * 0.45)) {
+					currIndex = 1;
+				} else if(clientX > parseInt(pageW * 0.45) && clientX <= parseInt(pageW * 0.8)) {
+					currIndex = 2;
+				} else {
+					currIndex = 3;
+				}
+				// 匹配对应tab窗口	
+				if(currIndex > 0) {
+					var sub = mui.openWindow({
+						url: subpages[currIndex - 1],
+						id: subpages[currIndex - 1],
+						styles:{},
+						extras:{},
+						createNew:false,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+						show:{
+						  autoShow:true,//页面loaded事件发生后自动显示，默认为true
+						  aniShow:'',//页面显示动画，默认为”slide-in-right“；
+						  duration:200//页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting:{
+						  autoShow:false,//自动显示等待框，默认为true
+						  title:'正在加载...',//等待对话框上显示的提示内容
+						  options:{}
+						}
+					});
+					self.append(sub);
+					targetPage = plus.webview.getWebviewById(subpages[currIndex - 1]);
+				} else {
+					targetPage = plus.webview.currentWebview();
+				}
+			
+				if(targetPage == activePage) {
+					return;
+				}
+			
+				//底部选项卡切换
+				util.toggleNview(currIndex);
+				// 子页面切换
+				util.changeSubpage(targetPage, activePage, aniShow);
+				//更新当前活跃的页面
+				activePage = targetPage;
+			})
 
-		if(targetTab == activeTab) {
-			return false;
-		}
-		//4.2、如果当前点击不是当前激活的选项卡则显示点击目标选项卡
-		//4.2.1、若为iOS平台或非首次显示，则直接显示
-		if(mui.os.ios || view_show[targetTab]) {
-			plus.webview.show(targetTab);
-		} else {
-			//4.2.2、否则，使用fade-in动画，且保存变量
-			var temp = {};
-			temp[targetTab] = "true";
-			mui.extend(view_show, temp);
-			plus.webview.show(targetTab, "fade-in", 50);
-		}
-
-		plus.webview.hide(activeTab);
-		//4.4、更改当前活跃的选项卡
-		activeTab = targetTab;
-		//4.3、隐藏当前;
+		});
 	});
+
 
 
 </script>

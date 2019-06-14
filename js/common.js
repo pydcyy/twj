@@ -1,11 +1,11 @@
 // 获得当前网站目录
 var postUrl="http://api.tongwujie.cn/",
 	photoweb="http://yangzifu.cn:8080/uploads/driver/",
-	key=1;
+	appkey=1;
 //登录验证
 loginRequired = function(callback){
-	if(!getLoginStorage('$driverInfo')){
-		plus.webview.open('login.html', 'login', {}, 'slide-in-right', 200);
+	if(!getLoginStorage('$UserInfo')){
+		openView('login.html', 'login');
 	}else{
 		callback();
 	}
@@ -29,12 +29,30 @@ editRequired = function(callback){
 		console.log("失败"+JSON.stringify(xhr));
 	})
 }
+
+// 打开新页面
+function openView(url,id){
+	mui.openWindow({
+		url: url,
+		id: id,
+		preload: true,
+		show: {
+			aniShow: 'pop-in'
+		},
+		styles: {
+			popGesture: 'hide'
+		},
+		waiting: {
+			autoShow: false
+		}
+	});
+}
 // HTTP_TOKEN
 function getToken(){
-	if(!getLoginStorage('$driverInfo')){
+	if(!getLoginStorage('$UserInfo')){
 		return false;
 	}else{
-		return getLoginStorage('$driverInfo')['token'];
+		return getLoginStorage('$UserInfo')['token'];
 	}
 }
 //返回父页面
@@ -50,10 +68,15 @@ function gobackRefresh(){
 function diyAjax(url,data,callback,errcallback){
 	if(onNetChange()){
 		var token = getToken();
+		
+		if(token){
+			data['token']=token;
+		}
+
 		return jQuery.ajax({
 			url:url,
 			dataType: 'json', 
-			headers:{'http-token':token},
+			// headers:{'http-token':token},
 			type: 'POST',
 			timeout: 20000, 
 			data:data,
@@ -63,14 +86,10 @@ function diyAjax(url,data,callback,errcallback){
 			error: function(xhr, type, errorThrown) { 
 				if( eval('(' + xhr['responseText'] + ')')['code']==401){
 					showMessage('登录失效，请重新登录!');
-					localStorage.removeItem("$driverInfo");		
-					mui.openWindow({
-						url: 'login.html',
-						id: 'login',
-					    show: {
-							aniShow: 'pop-in'
-						}
-					});
+					localStorage.removeItem("$UserInfo");	
+						
+					openView('login.html','login');
+
 					errcallback(xhr);
 				}else{
 					errcallback(xhr);
@@ -179,14 +198,15 @@ function getLoginStorage(key){
 		return false;
 	}else{	
 		var dataObj = JSON.parse(key);
-		var timestamp = Date.parse(new Date()) / 1000;
-		var expire_time = dataObj['expire_time'];
-		// 1551426881  expire_time
-		if (expire_time < timestamp) {
-			return false;
-		}else{
-			return dataObj;
-		}
+// 		var timestamp = Date.parse(new Date()) / 1000;
+// 		var expire_time = dataObj['expire_time'];
+// 		// 1551426881  expire_time
+// 		if (expire_time < timestamp) {
+// 			return false;
+// 		}else{
+// 			return dataObj;
+// 		}
+		return dataObj;
 	}
 }
 /*封装localStorage的时间*/
@@ -234,7 +254,7 @@ function _login(thisButton){
 		thisButton.button("reset");
 		return false;
 	}
-	postData["key"]=key;
+	postData["key"]=appkey;
     save_url = postUrl+"Home/member/login.html";
 	diyAjax(save_url,postData,function(result){
 		console.log("登录");
@@ -242,7 +262,15 @@ function _login(thisButton){
 			//成功
 			localStorage.setItem('$UserInfo', JSON.stringify(result['data']));
 			showMessage(result.msg);
-			plus.webview.open('index.html', 'index', {}, 'slide-in-right', 200);			
+			
+			var indexPage =plus.webview.getLaunchWebview();
+			if(plus.webview.getWebviewById('nearby.html')){
+				plus.webview.getWebviewById('nearby.html').hide();
+				plus.webview.getWebviewById('wealth.html').hide();
+				plus.webview.getWebviewById('user.html').hide();
+			}
+			indexPage.show("pop-in");
+			
 			thisButton.button("reset");
 			return false;
 		}else{
@@ -260,7 +288,7 @@ function _login(thisButton){
 }
 function _reg(thisButton){
     var postData =  getPostData();
-	if(postData["account"]==""){
+	if(postData["mobile"]==""){
 		showMessage("请输入手机号码");
 		thisButton.button("reset");
 		return false;
@@ -269,13 +297,16 @@ function _reg(thisButton){
 		thisButton.button("reset");
 		return false;
 	}
-    save_url = postUrl+"/api/driver/register";
+	postData["key"]=appkey;
+	postData["tcode"]=0;
+    save_url = postUrl+"Home/member/reg.html";
 	diyAjax(save_url,postData,function(result){
 		console.log("注册");
 		if (result.code == 1) {
 			//成功
+			localStorage.setItem('$UserInfo', JSON.stringify(result['data']));
 			showMessage(result.msg);
-			mui.back();
+			openView('index.html', 'index');
 			return false;
 		} else{
 			// 失败
@@ -290,22 +321,23 @@ function _reg(thisButton){
 }
 function _forgetpwd(thisButton){
     var postData =  getPostData();
-	if(postData["account"]==""){
+	if(postData["mobile"]==""){
 		showMessage("请输入手机号码");
 		thisButton.button("reset");
 		return false;
 	}else if(postData["password"]==""){
-		showMessage("请输入密码");
+		showMessage("请输入新密码");
 		thisButton.button("reset");
 		return false;
 	}
-    save_url = postUrl+"/api/driver/forget";
+    save_url = postUrl+"Home/member/updatePwd.html";
 	diyAjax(save_url,postData,function(result){
 		console.log("忘记密码");
 		if (result.code == 1) {
 			//成功
+			localStorage.setItem('$UserInfo', JSON.stringify(result['data']));
 			showMessage(result.msg);
-			mui.back();
+			openView('index.html', 'index');
 			return false;
 		} else{
 			// 失败
@@ -320,31 +352,34 @@ function _forgetpwd(thisButton){
 				
 }
 function _layout(){
+	console.log("退出登录");
+	localStorage.removeItem("$UserInfo");
+	openView('login.html','login')
 	save_url = postUrl+"/api/driver/logout";
 
-	diyAjax(save_url," ",function(result){
-		console.log("退出登录");
-		if (result.code == 1) {
-			//成功
-			showMessage(result.msg);
-			localStorage.removeItem("$driverInfo");
-
-			mui.openWindow({
-				url: 'login.html',
-				id: 'login',
-			    show: {
-					aniShow: 'pop-in'
-				}
-		    });
-			return false;
-		} else{
-			// 失败
-			showMessage(result.msg);
-			return false;
-		}
-	},function(xhr){
-		console.log(JSON.stringify(xhr));
-	});
+// 	diyAjax(save_url," ",function(result){
+// 		console.log("退出登录");
+// 		if (result.code == 1) {
+// 			//成功
+// 			showMessage(result.msg);
+// 			localStorage.removeItem("$driverInfo");
+// 
+// 			mui.openWindow({
+// 				url: 'login.html',
+// 				id: 'login',
+// 			    show: {
+// 					aniShow: 'pop-in'
+// 				}
+// 		    });
+// 			return false;
+// 		} else{
+// 			// 失败
+// 			showMessage(result.msg);
+// 			return false;
+// 		}
+// 	},function(xhr){
+// 		console.log(JSON.stringify(xhr));
+// 	});
 }
 // 获取手机号码
 function getAccount(){
@@ -383,25 +418,29 @@ function getcaptchaAjax(account,type){
 
 $(function(){
 	//验证码获取
-	$('#check-btn').bind('click',function(){
-		var token = getToken();
-		var account = $('#account').val();
+	$('#yzmbtn').bind('click',function(){
+		thisButton = mui(this);
+		var mobile = $('#mobile').val();
 		var type = $('#type').val();
 
-		if(account == ''){
+		if(mobile == ''){
 			showMessage('手机号不能为空');
-			$("#account").focus();
+			$("#mobile").focus();
 			return false;
 		}
-        var url = postUrl+"/api/sms/sendCaptcha",
+        var url = postUrl+"Home/sms/index.html",
             data = {
-                "account": account,
+                "mobile": mobile,
 				"type":type,
+				"key":appkey
             };
+			
+		thisButton.button("loading");
+		
 		diyAjax(url,data,function(result){
 			console.log(JSON.stringify(result));
-			$("#check-btn").attr("disabled","disabled");
-			$("#check-btn").css("cursor","not-allowed");
+			$("#yzmbtn").attr("disabled","disabled");
+			$("#yzmbtn").css("cursor","not-allowed");
 			if(result.code == 1){
 				//用户存在
 				var secondd = 300;
@@ -409,21 +448,23 @@ $(function(){
 				timerr = setInterval(function(){
 					secondd -= 1;
 					if(secondd >0 ){
-						$("#check-btn").val("倒计时"+secondd+"秒");
+						$("#yzmbtn").text("倒计时"+secondd+"秒");
 					}else{
-						$("#check-btn").val("获取验证码");
-						$("#check-btn").attr("disabled",false);
-						$("#check-btn").css("cursor","pointer");
+						$("#yzmbtn").text("获取验证码");
+						$("#yzmbtn").attr("disabled",false);
+						$("#yzmbtn").css("cursor","pointer");
 						clearInterval(timerr);	
 					}
 				},1000);
 			}else{
-				showMessage(result.showMessage);
-				$("#check-btn").attr("disabled",false);
-				$("#check-btn").css("cursor","pointer");
+				showMessage(result.msg);
+				$("#yzmbtn").attr("disabled",false);
+				$("#yzmbtn").css("cursor","pointer");
+				thisButton.button("reset");
 			}
 		},function(xhr){
 			console.log(JSON.stringify(xhr));
+			thisButton.button("reset");
 		});
 
 	})

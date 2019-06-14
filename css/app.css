@@ -385,7 +385,12 @@ border-radius: 4px;
   color: #A2A2A2;
   padding: 0 7px;
 }
-
+header.mui-bar-nav{
+	background: #2695EF;
+}
+header.mui-bar-nav a,header.mui-bar-nav h1{
+	color: #fff;
+}
 
 /*字体*/
 @font-face{

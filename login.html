@@ -1,4 +1,4 @@
-<!-- lasdjflkaj -->
+
 <!Doctype html>
 <html>
 	<head>
@@ -14,9 +14,10 @@
 			<!-- <span v-if="is_loading" class="mui-icon iconfont icon-jiazaizhong"></span> -->
 			<div class="login_top">
 				<div class="logo"> <img src="picture/logo.png" alt="" /></div>
-				<div class="golog">
-					<span><a href="reg.html" style="color: cornsilk;">去注册>></a></span>
-				</div>
+				<!-- <div class="golog">
+					<span class="pull-l"><a id="reg" style="color: cornsilk;">去注册>></a></span>
+					<span class="pull-r"><a id="reg" style="color: cornsilk;">忘记密码</a></span>
+				</div> -->
 			</div>
 			
 			<div class="login_main">
@@ -35,10 +36,15 @@
 					</div> -->
 					<div class="mui-input-row">
 						<label> <span class=" fa mui-icon mui-icon-locked color-mormal"></span></label>
-						<input type="password" name="password" class="mui-input-clear" placeholder="请输入密码">
+						<input type="password" name="password" class="mui-input-password" placeholder="请输入密码">
 					</div>
 				</form>
 				<button type="button" class="mui-btn mui-btn-blue reg-submit" id="login">登录</button>
+				
+				<div class="golog">
+					<span class="pull-l"><a id="reg">去注册>></a></span>
+					<span class="pull-r"><a id="forget">忘记密码</a></span>
+				</div>
 			</div>
 			<div class="login_foot">
 				<div class="title">邀好友 拿福利</div>
@@ -52,21 +58,49 @@
 	</body>
 	<script>
 		(function($, doc) {	
-			mui.init({
-				swipeBack: true //启用右滑关闭功能
+			$.init({
+				
 			});
 			$.plusReady(function() {
 				plus.navigator.setStatusBarStyle('light');   
 				plus.navigator.setStatusBarBackground('#2695EF');   
 	
-				var regButton = doc.getElementById("login");
-				regButton.addEventListener('tap',function(even){
+				var loginButton = doc.getElementById("login");
+				var regButton = doc.getElementById("reg");
+				var forgetButton = doc.getElementById("forget");
+				
+				
+				loginButton.addEventListener('tap',function(even){
 					jQuery("input").blur();
 					var thisButton = $(this);
 					$(this).button("loading");
 					_login(thisButton);
 				})
+				
+				regButton.addEventListener('tap', function(event) {
+					openView("reg.html","reg");
+				}, false);
+				
+				forgetButton.addEventListener('tap', function(event) {
+					openView("forget.html","forget");
+				}, false);
+				
+				var backButtonPress = 0;
+				$.back = function(event) {
+					backButtonPress++;
+					if (backButtonPress > 1) {
+						plus.runtime.quit();
+					} else {
+						plus.nativeUI.toast('再按一次退出应用');
+					}
+					setTimeout(function() {
+						backButtonPress = 0;
+					}, 1000);
+					return false;
+				};
 			})
+			
+			
 		}(mui, document))
 	</script>
 

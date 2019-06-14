@@ -1,8 +1,8 @@
 var util = {
 	options: {
-		ACTIVE_COLOR: "#ff9224",
+		ACTIVE_COLOR: "#2695EF",
 		NORMAL_COLOR: "#000",
-		subpages: ["order.html","backcar.html","center.html"]
+		subpages: ["nearby.html","wealth.html","user.html"]
 	},
 	/**
 	 *  简单封装了绘制原生view控件的方法

@@ -20,7 +20,7 @@
 	text-align: center;
 }
 .headerul .fa{
-	font-size: 90px;
+	font-size: 80px;
 }
 .header p{
 	color: #fff;
@@ -34,7 +34,4 @@
   	margin-top: 5px;
 }
 
-.mui-tab-item .fa{
-	display: block;
-}
 
