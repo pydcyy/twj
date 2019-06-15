@@ -6,39 +6,116 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 	<link rel="stylesheet" href="css/mui.min.css"/>
 	<link rel="stylesheet" href="css/app.css" />
-	<link rel="stylesheet" href="css/index.css" />
+	<link rel="stylesheet" href="css/wealth.css" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/mui.min.js"></script>
 </head>
 <body>
-	<!-- 主界面不动、菜单移动 -->
-	<!-- 侧滑导航根容器 -->
-	<div class="mui-off-canvas-wrap mui-draggable mui-slide-in">
-	  
-	  <!-- 主页面容器 -->
-	  <div class="mui-inner-wrap">
-		<!-- 主页面标题 --> 
-
-
-		<div class="mui-content mui-scroll-wrapper" style="background: #f0f0f0;">
-		  <div class="mui-scroll">
-				财富页
-			<!-- 主界面具体展示内容 -->
-			<div class="mui-content-main">
-				
+	
+	<header class="mui-bar mui-bar-nav">
+		<h1 class="mui-title">财富</h1>
+		<div class="zichan">
+			<span class="fa fa-zichan "></span>
+			<span>总资产（元）</span>
+			<div class="zichan-num">
+					10.00
 			</div>
-			<div class="mui-content-main">
-				
+			<div class="zichan-zi">
+				<ul>
+					<li>
+						<div>积分</div>
+						<div>100</div>
+					</li>
+					<li>
+						<div>金珠</div>
+						<div>2000</div>
+					</li>
+				</ul>
 			</div>
-			<div class="mui-content-main" style="padding-top: 0;margin-bottom: 10px;">
-				
+		</div>
+	</header>
+	
+	<div class="mui-content mui-scroll-wrapper">
+		<div class="mui-scroll">
+			<!--这里放置真实显示的DOM内容-->
+			<div class="shouyi">
+				<div class="shouyi-h">
+					<span class="mylabel">
+						金珠收益
+					</span>
+				</div>
+				<div class="shouyi-c">
+					<ul>
+						<li>
+							<div>总收益</div>
+							<div class="num">2000</div>
+						</li>
+						<li>
+							<div>昨日收益</div>
+							<div class="num">2000</div>
+						</li>
+					</ul>
+				</div>
 			</div>
-		  </div>
-		</div>  
-		<div class="mui-off-canvas-backdrop"></div>
-	  </div>
+			<div class="shouyi">
+				<div class="shouyi-h">
+					<span class="mylabel">
+						余额收益
+					</span>
+				</div>
+				<div class="shouyi-c">
+					<ul>
+						<li>
+							<div>总收益</div>
+							<div class="num">2000</div>
+						</li>
+						<li>
+							<div>昨日收益</div>
+							<div class="num">2000</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="shouyi">
+				<div class="shouyi-h">
+					<span class="mylabel">
+						积分收益
+					</span>
+				</div>
+				<div class="shouyi-c">
+					<ul>
+						<li>
+							<div>总收益</div>
+							<div class="num">2000</div>
+						</li>
+						<li>
+							<div>昨日收益</div>
+							<div class="num">2000</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="shouyi">
+				<div class="shouyi-h">
+					<span class="mylabel">
+						推荐收益
+					</span>
+				</div>
+				<div class="shouyi-c">
+					<ul>
+						<li>
+							<div>总收益</div>
+							<div class="num">2000</div>
+						</li>
+						<li>
+							<div>昨日收益</div>
+							<div class="num">2000</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
-
 	
 	<script type="text/javascript">
 	mui.init();
