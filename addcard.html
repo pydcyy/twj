@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="css/bankcard.css" />
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
 	</head>
 	<body>
 		<header class="mui-bar mui-bar-nav">
@@ -19,36 +20,47 @@
 			<div class="mui-scroll" style="height: 100%;">
 				<!--这里放置真实显示的DOM内容-->
 				<div class="bankcard-form">
-					<form class="mui-input">
+					<form class="mui-input" action="" method="POST" id="normal-form">
 						<div class="mui-input-row" style="border-bottom: 1px solid #f1f1f1;">
 							<label>持卡人</label>
-							<input type="text" class="mui-input-clear" placeholder="请输入姓名">
+							<input type="text" class="mui-input-clear" placeholder="请输入姓名" name="name" id="name" value="1">
 							
 						</div>
 						<div class="mui-input-row">
 							<label>卡号</label>
-							<input type="text" class="mui-input-clear" placeholder="请输入卡号">
+							<input type="number" class="mui-input-clear" placeholder="请输入卡号" name="bankid" id="bankid" value="1" >
 							
 						</div>
 						<div class="mui-input-row">
 							<label>开户行</label>
-							<input type="text" class="mui-input-clear" placeholder="请输入开户银行">
+							<input type="text" class="mui-input-clear" placeholder="请输入开户银行" name="bankname" id="bankname" value="是">
 							
 						</div>
 						<div class="bankcard-add">
-							<button type="button" class="mui-btn mui-btn-blue mui-btn-block"> 保存</button>
+							<button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="savecrad"> 保存</button>
 						</div>
 					</form>
 				</div>
-				
 			</div>
 		</div>
 		<script type="text/javascript">
-		mui.init();
-		mui('.mui-scroll-wrapper').scroll({
-			deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-		});
-		mui('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
+			(function($, doc) {
+				$.init();
+				$('.mui-scroll-wrapper').scroll({
+					deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+				});
+				$('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
+				$.plusReady(function() {
+					var savecradButton = doc.getElementById("savecrad");
+					savecradButton.addEventListener('tap',function(even){
+						jQuery("input").blur();
+						var thisButton = $(this);
+						$(this).button("loading");
+						_savecrad(thisButton);
+					})
+					
+				})
+			}(mui, document))
 		</script>
 	</body>
 </html>

@@ -321,7 +321,14 @@ function _reg(thisButton){
 			//成功
 			localStorage.setItem('$UserInfo', JSON.stringify(result['data']));
 			showMessage(result.msg);
-			openView('index.html', 'index');
+			var indexPage =plus.webview.getLaunchWebview();
+			if(plus.webview.getWebviewById('nearby.html')){
+				plus.webview.getWebviewById('nearby.html').hide();
+				plus.webview.getWebviewById('wealth.html').hide();
+				plus.webview.getWebviewById('user.html').hide();
+			}
+			indexPage.show("pop-in");
+			thisButton.button("reset");
 			return false;
 		} else{
 			// 失败
@@ -352,7 +359,14 @@ function _forgetpwd(thisButton){
 			//成功
 			localStorage.setItem('$UserInfo', JSON.stringify(result['data']));
 			showMessage(result.msg);
-			openView('index.html', 'index');
+			var indexPage =plus.webview.getLaunchWebview();
+			if(plus.webview.getWebviewById('nearby.html')){
+				plus.webview.getWebviewById('nearby.html').hide();
+				plus.webview.getWebviewById('wealth.html').hide();
+				plus.webview.getWebviewById('user.html').hide();
+			}
+			indexPage.show("pop-in");
+			thisButton.button("reset");
 			return false;
 		} else{
 			// 失败
@@ -394,6 +408,57 @@ function _layout(){
 // 	},function(xhr){
 // 		console.log(JSON.stringify(xhr));
 // 	});
+}
+//添加银行卡
+function _savecrad(thisButton){
+    var postData =  getPostData();
+	if(postData["name"]==""){
+		showMessage("请输入姓名");
+		thisButton.button("reset");
+		return false;
+	}else if(postData["bankid"]==""){
+		showMessage("请输入卡号");
+		thisButton.button("reset");
+		return false;
+	}else if(postData["bankname"]==""){
+		showMessage("请输入开户行名称");
+		thisButton.button("reset");
+		return false;
+	}
+	postData["type"]=2;
+    save_url = postUrl+"Home/member/editBanks.html";
+	diyAjax(save_url,postData,function(result){
+		console.log(result);
+		if (result.code == 1) {
+			//成
+			showMessage(result.msg);
+			mui.openWindow({
+					url:'bankcard.html',
+					id:'bankcard',
+					show:{
+					  autoShow:true,//页面loaded事件发生后自动显示，默认为true
+					  aniShow:animationType,//页面显示动画，默认为”slide-in-right“；
+					  duration:animationTime//页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+					}
+					
+					
+					
+				});
+			// openView('bankcard.html','bankcard');
+			
+			plus.webview.getWebviewById('addcard').hide();
+			thisButton.button("reset");
+			return false;
+		} else{
+			// 失败
+			showMessage(result.msg);
+			thisButton.button("reset");
+			return false;
+		}
+	},function(xhr){
+		thisButton.button("reset");
+		console.log(JSON.stringify(xhr));
+	});
 }
 // 获取手机号码
 function getAccount(){

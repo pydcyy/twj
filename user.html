@@ -100,7 +100,7 @@
 			</div>
 			<div class="mui-content-main" style="padding-top: 0;margin-bottom: 10px;">
 				<ul class="list">
-					<li class="mui-table-view-cell">
+					<li class="mui-table-view-cell" id="bankcard">
 						<a class="mui-navigate-right">
 							<span class="mui-icon-extra mui-icon-extra-card"></span><span class="title">银行卡</span>
 						</a>
@@ -142,10 +142,16 @@
 			
 			var settingButton = doc.getElementById("setting");
 			var addressButton = doc.getElementById("address");
+			var bankcardButton = doc.getElementById("bankcard");
 			
 			settingButton.addEventListener('tap',function(even){
 				loginRequired(function(){
 					openView('setting.html', 'setting');
+				})
+			})
+			bankcardButton.addEventListener('tap',function(even){
+				loginRequired(function(){
+					openView('bankcard.html', 'bankcard');
 				})
 			})
 			
