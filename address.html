@@ -15,61 +15,41 @@
 </style>
 </head>
 <body>
-	<div id="app">
+	<div id="app" v-cloak >
 		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="gobackRefresh()"></a>
-			<h1 class="mui-title">我的收获地址</h1>
-			<a class="mui-pull-right" style="height: 44px;line-height: 44px;" id="editaddress">添加新地址</a>
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()"></a>
+			<h1 class="mui-title" style="right: 80px;left: 80px;">我的收货地址</h1>
+			<a class="mui-pull-right" style="height: 44px;line-height: 44px;float: right;" id="addaddress">添加新地址</a>
 		</header>
 		<div class="mui-page-content">
 			<div class="mui-scroll-wrapper">
 				<div class="mui-scroll" style="min-height: 100%;">
-					<div class="nosta">
+					<div class="nosta" v-if="address.length==0">
 						<img src="picture/nosta.png" alt="">
 					</div>
-					<!-- <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
-						
-					    <li class="mui-table-view-cell">
+					<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed" v-if="address.length!=0">
+					    <li class="mui-table-view-cell" v-for="item,index in address">
 					        <div class="mui-table align-items-center">
 								<div class="mui-table-cell mui-col-xs-2 mui-text-center">
-								    <span class="cell-left">裴</span>
+								    <span class="cell-left" v-text="item.first_str"></span>
 								</div>
 					            <div class="mui-table-cell mui-col-xs-8">
 									<div class="cell-mid-a">
-										<div class="mui-ellipsis mui-h4 mgr-1">裴炎</div>
-										<div class="mui-h6 mui-ellipsis">18895615007</div>
+										<div class="mui-ellipsis mui-h4 mgr-1" v-text="item.cname"></div>
+										<div class="mui-h6 mui-ellipsis" v-text="item.mobile"></div>
 									</div>
 									<div class="cell-mid-b">
-										<span class="default mgr-1">默认</span>
-										<span class="address">李明明，申请交行信息卡，100元等你拿，李明明，申请交行信息卡，100元等你拿</span>
+										<span class="default mgr-1" v-if="item.default==1">默认</span>
+										<span class="address" v-text="item.address"></span>
 									</div>
 					            </div>
 					            <div class="mui-table-cell mui-col-xs-2 mui-text-right">
-					                <span class="mui-h5 cell-right">编辑</span>
+					                <span class="mui-h5 cell-right editaddress" :data-id="index">编辑</span>
 					            </div>
 					        </div>
 					    </li>
-					    <li class="mui-table-view-cell">
-					        <div class="mui-table align-items-center">
-								<div class="mui-table-cell mui-col-xs-2 mui-text-center">
-								    <span class="cell-left">裴</span>
-								</div>
-					            <div class="mui-table-cell mui-col-xs-8">
-									<div class="cell-mid-a">
-										<div class="mui-ellipsis mui-h4 mgr-1">裴炎</div>
-										<div class="mui-h6 mui-ellipsis">18895615007</div>
-									</div>
-									<div class="cell-mid-b">
-										<span class="address">李明明，申请交行信息卡，100元等你拿，李明明，申请交行信息卡，100元等你拿</span>
-									</div>
-					            </div>
-					            <div class="mui-table-cell mui-col-xs-2 mui-text-right">
-					                <span class="mui-h5 cell-right">编辑</span>
-					            </div>
-					        </div>
-					    </li>
-
-					</ul> -->
+					    
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -78,47 +58,101 @@
 	<script type="text/javascript" src="js/mui.min.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
 	<script src="js/vue.min.js"></script>
+
+	<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
 </body>
 <script>
+	
 	(function($, doc) {
-		$.init();
-		$.plusReady(function() {
-			var editaddressButton = doc.getElementById("editaddress");
-
-
-			editaddressButton.addEventListener('tap',function(even){
-				loginRequired(function(){
-					openView('editaddress.html', 'editaddress');
-				})
-			})
-			
-			document.addEventListener('getUserAddress', function(event) {
-				// var cityName = getNameByCode(event['detail']["data"]["area_code"]);
-				console.log(JSON.stringify(event));
-// 				var app = new Vue({
-// 					el: '#app',
-// 					data: function() {
-// 						return {
-// 							userInfo: {
-// 								name: event['detail']['data']['name'],
-// 								idcard : event['detail']['data']['idcard'] ,
-// 								license_plate : event['detail']['data']['license_plate'],
-// 								area_code: cityName,
-// 								idcard_front_image : photoweb+event['detail']["data"]["idcard_front_image"],
-// 								idcard_back_image : photoweb+event['detail']["data"]["idcard_back_image"],
-// 								driving_license_image : photoweb+event['detail']["data"]["driving_license_image"],
-// 								license_plate_image : photoweb+event['detail']["data"]["license_plate_image"],
-// 							}
-// 						}
-// 					},
-// 					methods: {
-// 			
-// 					}
-// 				});
-			})
-			
-		})
+	    $.init({
+	        swipeBack: true //启用右滑关闭功能
+	    });
+	    var app = new Vue({
+	        el: '#app',
+	        data: function() {
+	            return {
+	                address: []
+	            }
+	        },
+	        mounted: function(){
+	            this._init();
+	        },
+	        methods: {
+	            edit: function(orderid){
+	                var nwating = plus.nativeUI.showWaiting();
+	                var webview_sub = plus.webview.create(
+	                    'publish.html',
+	                    'publish', {}, {
+	                        id: orderid
+	                    }); 
+	                //后台创建webview并打开页面
+	                webview_sub.addEventListener('loaded', function() {
+	                    nwating.close(); //关闭等待框
+	                    webview_sub.show('slide-in-right', 150); //把新的webview窗口显示出来
+	                }, false);
+	            },
+	            _init: function(){
+					var that = this;
+					addressRequired(function(result){
+						var address=result['data']['address'];
+						for (i = 0; i < address.length; i++) { 
+							address[i]['address'] = getNameByCode(address[i]['cityid'])+" "+address[i]['address'];
+							address[i]['aid'] = address[i]['id'];
+						}
+						that.address=result['data']['address'];
+					}) 
+					
+	                $.ready(function() {
+						var addaddressButton = doc.getElementById("addaddress");
+						
+						
+						addaddressButton.addEventListener('tap',function(even){
+							loginRequired(function(){
+								openView('addaddress.html', 'addaddress');
+							})
+						})
+						
+						$("body").on("tap", ".editaddress", function() {
+							var that = this;
+							var index = that.dataset.id;
+							var addresobj = app.address[index];
+							openView('editaddress.html', 'editaddress',addresobj);		
+						})
+						
+						
+						window.addEventListener('refresh', function(e) {  
+							location.reload();   
+						})
+						
+	                    //循环初始化所有下拉刷新，上拉加载。
+	                    $.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+	                        $(pullRefreshEl).pullToRefresh({
+	                            down: {
+	                                callback: function() {
+	                                    var self = this;
+	                                    alert(index);
+	                                    setTimeout(function() {
+	                                        self.endPullDownToRefresh();
+	                                    }, 2000);
+	                                }
+	                            },
+	                            up: {
+	                                callback: function() {
+	                                    var self = this;
+	                                    alert(2);
+	                                    setTimeout(function() {
+	                                        self.endPullUpToRefresh();
+	                                    }, 2000);
+	                                }
+	                            }
+	                        });
+	                    });
+	               });
+	            }
+	        }
+	    });
 	}(mui, document))
+
 
 </script>
 </html>

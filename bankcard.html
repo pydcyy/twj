@@ -11,41 +11,36 @@
 		<script type="text/javascript" src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/common.js"></script>
 	</head>
-	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">银行卡</h1>
-		</header>
-		
-		<div class="mui-content mui-scroll-wrapper">
-			<div class="mui-scroll">
-				<!--这里放置真实显示的DOM内容-->
-				<div class="bankcard-list">
-					<div class="bankcard-list-content">
-						<p class="cardname">XX银行<span>XX卡</span></p>
-						<p class="cardnum">**** **** **** 1234 </p>
-						<button type="button" class="mui-btn mui-btn-outlined">删除</button>
+	<body style="min-height: 100%;">
+		<div id="app" v-cloak >
+			<header class="mui-bar mui-bar-nav" >
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()"></a>
+				<h1 class="mui-title">银行卡</h1>
+			</header>
+			<div class="mui-content ">
+				<div >
+					<!--这里放置真实显示的DOM内容-->
+					 <div class="bankcard-list" v-for="item,index in bankcard">
+						<div class="bankcard-list-content">
+							<p class="cardname" v-text="item.bankname"></p>
+							<p class="cardnum" v-text="item.bankid"> </p>
+							<button type="button" class="mui-btn mui-btn-outlined delbankcard" :data-bid = "item.id">删除</button>
+						</div>
+					</div> 
+					<div class="bankcard-add" >
+						<button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="addcard"><span class="fa fa-add"></span> 添加银行卡</button>
 					</div>
-				</div>
-				<div class="bankcard-list">
-					<div class="bankcard-list-content">
-						<p class="cardname">XX银行<span>XX卡</span></p>
-						<p class="cardnum">**** **** **** 1234 </p>
-						<button type="button" class="mui-btn mui-btn-outlined">删除</button>
-					</div>
-				</div>
-				<div class="bankcard-add" >
-					<button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="addcard"><span class="fa fa-add"></span> 添加银行卡</button>
 				</div>
 			</div>
+			<div class="mui-off-canvas-backdrop"></div>
 		</div>
+		<script src="js/vue.min.js"></script>
 		<script type="text/javascript">
 			(function($, doc) {
-				$.init();
-				$('.mui-scroll-wrapper').scroll({
-					deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-				});
-				$('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
+			    $.init({
+			        swipeBack: true //启用右滑关闭功能
+			    });
+				
 				$.plusReady(function() {
 					var addcardButton = doc.getElementById("addcard");
 					addcardButton.addEventListener('tap',function(even){
@@ -54,7 +49,48 @@
 						})
 					})
 				})
+			    var app = new Vue({
+			        el: '#app',
+			        data: function() {
+			            return {
+			                bankcard: []
+			            }
+			        },
+			        mounted: function(){
+			            this._init();
+			        },
+			        methods: {
+			            
+			            _init: function(){
+							var that = this;
+							bankcardRequired(function(result){
+								console.log(JSON.stringify(result));
+								var banks=result['data']['banks'];
+								
+								that.bankcard=banks;
+							}) 
+							
+			                $.ready(function() {
+								$("body").on("tap", ".delbankcard", function() {
+									var that = this;
+									var bid= that.dataset.bid;
+									sureMessage("确定删除",function(){
+										_delbankcard(bid);
+									})		
+								})
+								
+								window.addEventListener('refresh', function(e) {  
+									location.reload();   
+								})
+								
+			                    //循环初始化所有下拉刷新，上拉加载。
+			                    
+			               });
+			            }
+			        }
+			    });
 			}(mui, document))
+			
 		</script>
 	</body>
 </html>

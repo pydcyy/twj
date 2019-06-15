@@ -43,8 +43,22 @@ addressRequired = function(callback){
 		console.log("失败"+JSON.stringify(xhr));
 	})
 }
+//获取银行卡
+bankcardRequired = function(callback){
+	var url=postUrl+"Home/member/getBanks.html";
+	var postData = {};
+	diyAjax(url,postData,function(result){
+		console.log(JSON.stringify(result));
+		if(result.code == 1){
+			//进入司机编辑资料页面
+			callback(result);
+		}
+	},function(xhr){
+		console.log("失败"+JSON.stringify(xhr));
+	})
+}
 // 打开新页面
-function openView(url,id){
+function openView(url,id,data=""){
 	mui.openWindow({
 		url: url,
 		id: id,
@@ -52,6 +66,7 @@ function openView(url,id){
 		show: {
 			aniShow: 'pop-in'
 		},
+		extras: data,
 		styles: {
 			popGesture: 'hide'
 		},
@@ -77,9 +92,16 @@ function goback(){
 function gobackRefresh(){
 	mui.back();
 }
+function gobackRefreshTrue(){
+	var list = plus.webview.currentWebview().opener();
+	//触发列表界面的自定义事件（refresh）,从而进行数据刷新   
+	mui.fire(list, 'refresh');  
+	//返回true，继续页面关闭逻辑     
+	return true;  
+}
 // 封装ajax
 function diyAjax(url,data,callback,errcallback){
-	if(onNetChange()){
+	// if(onNetChange()){
 		var token = getToken();
 		
 		if(token){	
@@ -90,6 +112,7 @@ function diyAjax(url,data,callback,errcallback){
 			data['key']=appkey;
 		}	
 		
+		console.log(data['token']);
 		return jQuery.ajax({
 			url:url,
 			dataType: 'json', 
@@ -113,7 +136,7 @@ function diyAjax(url,data,callback,errcallback){
 				}	
 			} 
 		})
-	}
+	// }
 }
 /*普通弹框*/
 function showMessage(message){
@@ -321,6 +344,7 @@ function _reg(thisButton){
 			//成功
 			localStorage.setItem('$UserInfo', JSON.stringify(result['data']));
 			showMessage(result.msg);
+
 			var indexPage =plus.webview.getLaunchWebview();
 			if(plus.webview.getWebviewById('nearby.html')){
 				plus.webview.getWebviewById('nearby.html').hide();
@@ -359,6 +383,7 @@ function _forgetpwd(thisButton){
 			//成功
 			localStorage.setItem('$UserInfo', JSON.stringify(result['data']));
 			showMessage(result.msg);
+
 			var indexPage =plus.webview.getLaunchWebview();
 			if(plus.webview.getWebviewById('nearby.html')){
 				plus.webview.getWebviewById('nearby.html').hide();
@@ -432,21 +457,9 @@ function _savecrad(thisButton){
 		if (result.code == 1) {
 			//成
 			showMessage(result.msg);
-			mui.openWindow({
-					url:'bankcard.html',
-					id:'bankcard',
-					show:{
-					  autoShow:true,//页面loaded事件发生后自动显示，默认为true
-					  aniShow:animationType,//页面显示动画，默认为”slide-in-right“；
-					  duration:animationTime//页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-					}
-					
-					
-					
-				});
-			// openView('bankcard.html','bankcard');
-			
-			plus.webview.getWebviewById('addcard').hide();
+			if(gobackRefreshTrue()){
+				goback();
+			}
 			thisButton.button("reset");
 			return false;
 		} else{
@@ -459,6 +472,53 @@ function _savecrad(thisButton){
 		thisButton.button("reset");
 		console.log(JSON.stringify(xhr));
 	});
+}
+
+//删除银行卡
+function _delbankcard(id){
+    var postData =  {};
+	
+	postData["type"]=1;
+	postData["id"]=id;
+    save_url = postUrl+"Home/member/editBanks.html";
+	diyAjax(save_url,postData,function(result){
+		console.log(result);
+		if (result.code == 1) {
+			//成
+			showMessage(result.msg);
+			location.reload();  
+			return false;
+		} else{
+			// 失败
+			showMessage(result.msg);
+			thisButton.button("reset");
+			return false;
+		}
+	},function(xhr){
+		thisButton.button("reset");
+		console.log(JSON.stringify(xhr));
+	});
+}
+function _addaddress(flag){
+	var postData =  getPostData();
+	var save_url = postUrl+"Home/member/editAddress.html";
+	
+	if(flag=="del"){
+		postData['type']="1";
+	}
+	diyAjax(save_url,postData,function(result){
+		console.log("添加收货地址");
+		showMessage(result.msg);
+		if(gobackRefreshTrue()){
+			goback();
+		}
+		
+	},function(xhr){
+		console.log(JSON.stringify(xhr));
+	});
+	
+	return false;
+   
 }
 // 获取手机号码
 function getAccount(){

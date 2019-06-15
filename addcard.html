@@ -13,7 +13,7 @@
 	</head>
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()"></a>
 			<h1 class="mui-title">添加银行卡</h1>
 		</header>
 		<div class="mui-content mui-scroll-wrapper">
@@ -23,17 +23,17 @@
 					<form class="mui-input" action="" method="POST" id="normal-form">
 						<div class="mui-input-row" style="border-bottom: 1px solid #f1f1f1;">
 							<label>持卡人</label>
-							<input type="text" class="mui-input-clear" placeholder="请输入姓名" name="name" id="name" value="1">
+							<input type="text" class="mui-input-clear" placeholder="请输入姓名" name="name" id="name" >
 							
 						</div>
 						<div class="mui-input-row">
 							<label>卡号</label>
-							<input type="number" class="mui-input-clear" placeholder="请输入卡号" name="bankid" id="bankid" value="1" >
+							<input type="number" class="mui-input-clear" placeholder="请输入卡号" name="bankid" id="bankid"  >
 							
 						</div>
 						<div class="mui-input-row">
 							<label>开户行</label>
-							<input type="text" class="mui-input-clear" placeholder="请输入开户银行" name="bankname" id="bankname" value="是">
+							<input type="text" class="mui-input-clear" placeholder="请输入开户银行" name="bankname" id="bankname" >
 							
 						</div>
 						<div class="bankcard-add">
