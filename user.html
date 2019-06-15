@@ -135,10 +135,10 @@
 		$('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
 		$.plusReady(function() {
 			
-			var address = $.preload({
-				url: 'address.html',
-				id: 'address'
-			});
+// 			var address = $.preload({
+// 				url: 'address.html',
+// 				id: 'address'
+// 			});
 			
 			var settingButton = doc.getElementById("setting");
 			var addressButton = doc.getElementById("address");
@@ -151,12 +151,11 @@
 			
 			addressButton.addEventListener('tap',function(even){
 				loginRequired(function(){
-					addressRequired(function(result){
-						var nwating = plus.nativeUI.showWaiting();
-						// $.fire(address, 'getUserAddress', result);
+					openView('address.html', 'address');
+// 						plus.nativeUI.showWaiting();
+// 						$.fire(address, 'getUserAddress', result);
 // 						address.show("slide-in-right", 300);
-// 						nwating.close();
-					})
+// 						plus.nativeUI.closeWaiting();
 					
 				})
 			})

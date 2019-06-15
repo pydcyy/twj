@@ -44,7 +44,7 @@ addressRequired = function(callback){
 	})
 }
 // 打开新页面
-function openView(url,id){
+function openView(url,id,data=""){
 	mui.openWindow({
 		url: url,
 		id: id,
@@ -52,6 +52,7 @@ function openView(url,id){
 		show: {
 			aniShow: 'pop-in'
 		},
+		extras: data,
 		styles: {
 			popGesture: 'hide'
 		},
@@ -77,9 +78,16 @@ function goback(){
 function gobackRefresh(){
 	mui.back();
 }
+function gobackRefreshTrue(){
+	var list = plus.webview.currentWebview().opener();
+	//触发列表界面的自定义事件（refresh）,从而进行数据刷新   
+	mui.fire(list, 'refresh');  
+	//返回true，继续页面关闭逻辑     
+	return true;  
+}
 // 封装ajax
 function diyAjax(url,data,callback,errcallback){
-	if(onNetChange()){
+	// if(onNetChange()){
 		var token = getToken();
 		
 		if(token){	
@@ -90,6 +98,7 @@ function diyAjax(url,data,callback,errcallback){
 			data['key']=appkey;
 		}	
 		
+		console.log(data['token']);
 		return jQuery.ajax({
 			url:url,
 			dataType: 'json', 
@@ -113,7 +122,7 @@ function diyAjax(url,data,callback,errcallback){
 				}	
 			} 
 		})
-	}
+	// }
 }
 /*普通弹框*/
 function showMessage(message){
@@ -321,7 +330,16 @@ function _reg(thisButton){
 			//成功
 			localStorage.setItem('$UserInfo', JSON.stringify(result['data']));
 			showMessage(result.msg);
-			openView('index.html', 'index');
+			
+			var indexPage =plus.webview.getLaunchWebview();
+			if(plus.webview.getWebviewById('nearby.html')){
+				plus.webview.getWebviewById('nearby.html').hide();
+				plus.webview.getWebviewById('wealth.html').hide();
+				plus.webview.getWebviewById('user.html').hide();
+			}
+			indexPage.show("pop-in");
+			
+			thisButton.button("reset");
 			return false;
 		} else{
 			// 失败
@@ -352,7 +370,16 @@ function _forgetpwd(thisButton){
 			//成功
 			localStorage.setItem('$UserInfo', JSON.stringify(result['data']));
 			showMessage(result.msg);
-			openView('index.html', 'index');
+			
+			var indexPage =plus.webview.getLaunchWebview();
+			if(plus.webview.getWebviewById('nearby.html')){
+				plus.webview.getWebviewById('nearby.html').hide();
+				plus.webview.getWebviewById('wealth.html').hide();
+				plus.webview.getWebviewById('user.html').hide();
+			}
+			indexPage.show("pop-in");
+			
+			thisButton.button("reset");
 			return false;
 		} else{
 			// 失败
@@ -395,6 +422,30 @@ function _layout(){
 // 		console.log(JSON.stringify(xhr));
 // 	});
 }
+
+function _addaddress(flag){
+	var postData =  getPostData();
+	var save_url = postUrl+"Home/member/editAddress.html";
+	
+	if(flag=="del"){
+		postData['type']="1";
+	}
+	diyAjax(save_url,postData,function(result){
+		console.log("添加收货地址");
+		showMessage(result.msg);
+		if(gobackRefreshTrue()){
+			goback();
+		}
+		
+	},function(xhr){
+		console.log(JSON.stringify(xhr));
+	});
+	
+	return false;
+   
+}
+
+
 // 获取手机号码
 function getAccount(){
 	var telephone = getLoginStorage('$driverInfo');
