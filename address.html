@@ -14,15 +14,15 @@
 </style>
 </head>
 <body>
-	<div id="app" v-clock>
+	<div id="app" v-cloak >
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()"></a>
 			<h1 class="mui-title" style="right: 80px;left: 80px;">我的收货地址</h1>
 			<a class="mui-pull-right" style="height: 44px;line-height: 44px;float: right;" id="addaddress">添加新地址</a>
 		</header>
-		<div class="mui-page-content">
-			<div class="mui-scroll-wrapper">
-				<div class="mui-scroll" style="min-height: 100%;">
+		<div class="mui-page-content" style="padding: 0;">
+			<div>
+				<div style="min-height: 100%;">
 					<div class="nosta" v-if="address.length==0">
 						<img src="picture/nosta.png" alt="">
 					</div>
@@ -49,6 +49,7 @@
 					    </li>
 					    
 					</ul>
+
 				</div>
 			</div>
 		</div>
@@ -123,29 +124,7 @@
 							location.reload();   
 						})
 						
-	                    //循环初始化所有下拉刷新，上拉加载。
-	                    $.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
-	                        $(pullRefreshEl).pullToRefresh({
-	                            down: {
-	                                callback: function() {
-	                                    var self = this;
-	                                    alert(index);
-	                                    setTimeout(function() {
-	                                        self.endPullDownToRefresh();
-	                                    }, 2000);
-	                                }
-	                            },
-	                            up: {
-	                                callback: function() {
-	                                    var self = this;
-	                                    alert(2);
-	                                    setTimeout(function() {
-	                                        self.endPullUpToRefresh();
-	                                    }, 2000);
-	                                }
-	                            }
-	                        });
-	                    });
+	                    
 	               });
 	            }
 	        }

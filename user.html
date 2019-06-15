@@ -111,7 +111,7 @@
 							<span class="title" >收货地址管理</span>
 						</a>
 					</li>
-					<li class="mui-table-view-cell" style="display: flex;justify-content:space-between;"  >
+					<li class="mui-table-view-cell" style="display: flex;justify-content:space-between;"  id="phoneline">
 						<a class="mui-navigate-right" style="display: flex;align-items:center;">
 							<span class="mui-icon-extra mui-icon-extra-custom"></span>
 							<span class="title" >联系客服</span>
@@ -141,7 +141,12 @@
 // 			});
 			
 			var settingButton = doc.getElementById("setting");
-			var addressButton = doc.getElementById("address");
+			var addressButton = doc.getElementById("address");		
+			var phonelineButton = doc.getElementById("phoneline");
+			
+			phonelineButton.addEventListener('tap',function(even){
+				plus.device.dial('88888888', true);
+			})
 			
 			settingButton.addEventListener('tap',function(even){
 				loginRequired(function(){
