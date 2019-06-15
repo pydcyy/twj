@@ -13,6 +13,11 @@
 	margin: 0px auto;
 	/*padding: 50px 0;*/
 }
+.login_top .reg{
+	width: 210px;
+	margin: 0px auto;
+	/*padding: 50px 0;*/
+}
 .golog{
 	width: 325px;
 	margin: 0 auto;
@@ -27,6 +32,9 @@
 .login_top .logo img{
 	width: 100%;
 	margin-top: 40px;
+}
+.login_top .reg img{
+	width: 100%;
 }
 .login_main{
 	width: 325px;

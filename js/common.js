@@ -43,6 +43,20 @@ addressRequired = function(callback){
 		console.log("失败"+JSON.stringify(xhr));
 	})
 }
+//获取银行卡
+bankcardRequired = function(callback){
+	var url=postUrl+"Home/member/getBanks.html";
+	var postData = {};
+	diyAjax(url,postData,function(result){
+		console.log(JSON.stringify(result));
+		if(result.code == 1){
+			//进入司机编辑资料页面
+			callback(result);
+		}
+	},function(xhr){
+		console.log("失败"+JSON.stringify(xhr));
+	})
+}
 // 打开新页面
 function openView(url,id,data=""){
 	mui.openWindow({
@@ -330,7 +344,7 @@ function _reg(thisButton){
 			//成功
 			localStorage.setItem('$UserInfo', JSON.stringify(result['data']));
 			showMessage(result.msg);
-			
+
 			var indexPage =plus.webview.getLaunchWebview();
 			if(plus.webview.getWebviewById('nearby.html')){
 				plus.webview.getWebviewById('nearby.html').hide();
@@ -338,7 +352,6 @@ function _reg(thisButton){
 				plus.webview.getWebviewById('user.html').hide();
 			}
 			indexPage.show("pop-in");
-			
 			thisButton.button("reset");
 			return false;
 		} else{
@@ -370,7 +383,7 @@ function _forgetpwd(thisButton){
 			//成功
 			localStorage.setItem('$UserInfo', JSON.stringify(result['data']));
 			showMessage(result.msg);
-			
+
 			var indexPage =plus.webview.getLaunchWebview();
 			if(plus.webview.getWebviewById('nearby.html')){
 				plus.webview.getWebviewById('nearby.html').hide();
@@ -378,7 +391,6 @@ function _forgetpwd(thisButton){
 				plus.webview.getWebviewById('user.html').hide();
 			}
 			indexPage.show("pop-in");
-			
 			thisButton.button("reset");
 			return false;
 		} else{
@@ -422,7 +434,71 @@ function _layout(){
 // 		console.log(JSON.stringify(xhr));
 // 	});
 }
+//添加银行卡
+function _savecrad(thisButton){
+    var postData =  getPostData();
+	if(postData["name"]==""){
+		showMessage("请输入姓名");
+		thisButton.button("reset");
+		return false;
+	}else if(postData["bankid"]==""){
+		showMessage("请输入卡号");
+		thisButton.button("reset");
+		return false;
+	}else if(postData["bankname"]==""){
+		showMessage("请输入开户行名称");
+		thisButton.button("reset");
+		return false;
+	}
+	postData["type"]=2;
+    save_url = postUrl+"Home/member/editBanks.html";
+	diyAjax(save_url,postData,function(result){
+		console.log(result);
+		if (result.code == 1) {
+			//成
+			showMessage(result.msg);
+			if(gobackRefreshTrue()){
+				goback();
+			}
+			thisButton.button("reset");
+			return false;
+		} else{
+			// 失败
+			showMessage(result.msg);
+			thisButton.button("reset");
+			return false;
+		}
+	},function(xhr){
+		thisButton.button("reset");
+		console.log(JSON.stringify(xhr));
+	});
+}
 
+//删除银行卡
+function _delbankcard(id){
+    var postData =  {};
+	
+	postData["type"]=1;
+	postData["id"]=id;
+    save_url = postUrl+"Home/member/editBanks.html";
+	diyAjax(save_url,postData,function(result){
+		console.log(result);
+		if (result.code == 1) {
+			//成
+			showMessage(result.msg);
+			location.reload();  
+			return false;
+		} else{
+			// 失败
+			showMessage(result.msg);
+			thisButton.button("reset");
+			return false;
+		}
+	},function(xhr){
+		thisButton.button("reset");
+		console.log(JSON.stringify(xhr));
+	});
+}
 function _addaddress(flag){
 	var postData =  getPostData();
 	var save_url = postUrl+"Home/member/editAddress.html";
@@ -444,8 +520,6 @@ function _addaddress(flag){
 	return false;
    
 }
-
-
 // 获取手机号码
 function getAccount(){
 	var telephone = getLoginStorage('$driverInfo');

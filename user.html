@@ -17,7 +17,6 @@
 	<!-- 主界面不动、菜单移动 -->
 	<!-- 侧滑导航根容器 -->
 	<div class="mui-off-canvas-wrap mui-draggable mui-slide-in">
-	  
 	  <!-- 主页面容器 -->
 	  <div class="mui-inner-wrap">
 		<!-- 主页面标题 --> 
@@ -28,9 +27,6 @@
 				<div class="fa fa-more" style="float: right;font-weight: "></div>
 			</div>
 		</header>
-
-		
-
 		<div class="mui-content mui-scroll-wrapper" style="background: #f0f0f0;margin-bottom: 50px;">
 		  <div class="mui-scroll">
 			<!-- 主界面具体展示内容 -->
@@ -100,7 +96,7 @@
 			</div>
 			<div class="mui-content-main" style="padding-top: 0;margin-bottom: 10px;">
 				<ul class="list">
-					<li class="mui-table-view-cell">
+					<li class="mui-table-view-cell" id="bankcard">
 						<a class="mui-navigate-right">
 							<span class="mui-icon-extra mui-icon-extra-card"></span><span class="title">银行卡</span>
 						</a>
@@ -114,7 +110,7 @@
 					<li class="mui-table-view-cell" style="display: flex;justify-content:space-between;"  id="phoneline">
 						<a class="mui-navigate-right" style="display: flex;align-items:center;">
 							<span class="mui-icon-extra mui-icon-extra-custom"></span>
-							<span class="title" >联系客服</span>
+							<span class="title"  >联系客服</span>
 						</a>	
 						<p class="mui-pull-right" >88888888</p>
 					</li>
@@ -141,16 +137,26 @@
 // 			});
 			
 			var settingButton = doc.getElementById("setting");
+<<<<<<< HEAD
 			var addressButton = doc.getElementById("address");		
 			var phonelineButton = doc.getElementById("phoneline");
 			
 			phonelineButton.addEventListener('tap',function(even){
 				plus.device.dial('88888888', true);
 			})
+=======
+			var addressButton = doc.getElementById("address");
+			var bankcardButton = doc.getElementById("bankcard");
+>>>>>>> 17d0dc9316c805f005811e21d0a04d7af7df67f9
 			
 			settingButton.addEventListener('tap',function(even){
 				loginRequired(function(){
 					openView('setting.html', 'setting');
+				})
+			})
+			bankcardButton.addEventListener('tap',function(even){
+				loginRequired(function(){
+					openView('bankcard.html', 'bankcard');
 				})
 			})
 			

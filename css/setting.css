@@ -212,3 +212,7 @@ body {
 	padding: 5px 5px;
 	font-size: 12px;
 }
+.mui-table-view-cell > a:not(.mui-btn) {
+    margin: -11px -10px;
+	}
+	

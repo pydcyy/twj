@@ -15,7 +15,7 @@
 	background: url(../picture/bank.png) no-repeat no-repeat;
 	background-size: 100% 100%;
 	position: relative;
-	z-index: 100;
+	
 }
 .mui-content .bankcard-list button{
 	position: absolute;
