@@ -29,7 +29,20 @@ editRequired = function(callback){
 		console.log("失败"+JSON.stringify(xhr));
 	})
 }
-
+//获取地址验证
+addressRequired = function(callback){
+	var url=postUrl+"Home/member/getAddress.html";
+	var postData = {};
+	diyAjax(url,postData,function(result){
+		console.log(JSON.stringify(result));
+		if(result.code == 1){
+			//进入司机编辑资料页面
+			callback(result);
+		}
+	},function(xhr){
+		console.log("失败"+JSON.stringify(xhr));
+	})
+}
 // 打开新页面
 function openView(url,id){
 	mui.openWindow({
@@ -69,10 +82,14 @@ function diyAjax(url,data,callback,errcallback){
 	if(onNetChange()){
 		var token = getToken();
 		
-		if(token){
+		if(token){	
 			data['token']=token;
 		}
 
+		if(appkey){
+			data['key']=appkey;
+		}	
+		
 		return jQuery.ajax({
 			url:url,
 			dataType: 'json', 
@@ -254,7 +271,6 @@ function _login(thisButton){
 		thisButton.button("reset");
 		return false;
 	}
-	postData["key"]=appkey;
     save_url = postUrl+"Home/member/login.html";
 	diyAjax(save_url,postData,function(result){
 		console.log("登录");
@@ -297,7 +313,6 @@ function _reg(thisButton){
 		thisButton.button("reset");
 		return false;
 	}
-	postData["key"]=appkey;
 	postData["tcode"]=0;
     save_url = postUrl+"Home/member/reg.html";
 	diyAjax(save_url,postData,function(result){
@@ -355,7 +370,6 @@ function _layout(){
 	console.log("退出登录");
 	localStorage.removeItem("$UserInfo");
 	openView('login.html','login')
-	save_url = postUrl+"/api/driver/logout";
 
 // 	diyAjax(save_url," ",function(result){
 // 		console.log("退出登录");
@@ -432,7 +446,6 @@ $(function(){
             data = {
                 "mobile": mobile,
 				"type":type,
-				"key":appkey
             };
 			
 		thisButton.button("loading");

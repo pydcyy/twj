@@ -168,7 +168,7 @@ body {
 	display: none !important;
 }
 .mui-table-view-cell{
-	padding: 13px;
+	padding: 10px;
 }
 .mui-table-view-cell i{
 	margin-right: 5px;
@@ -183,4 +183,32 @@ body {
 }
 .mui-table-view-cell:after{
 	width:calc(100% - 30px);
+}
+.cell-left{
+	background: #BCBEBD;
+	font-size: 16px;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	display: inline-block;
+	color: #fff;
+	border-radius: 50%;
+}
+.cell-mid-a div{
+	display: inline-block;
+}
+.cell-mid-b .default{
+	background: #FFF3ED;
+	color: #DB663A;
+	padding: 2px 7px;
+}
+.cell-mid-b .address{
+	font-size: 12px;
+	line-height: 10px;
+}
+.cell-right{
+	border-left:1px solid #BFBFBF;
+	padding: 5px 5px;
+	font-size: 12px;
 }

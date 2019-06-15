@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>编辑收货地址</title>
+	<link href="css/mui.min.css" rel="stylesheet" />
+	<link href="css/app.css" rel="stylesheet"/>
+	<link href="css/setting.css" rel="stylesheet" />
+<style>
+	.mui-table-view-cell{
+		padding:10px 3px;
+	}
+
+	.mui-input-group .mui-input-row {
+	    height: 45px;
+	}
+	
+	.mui-input-group .mui-input-row::after {
+		left: 0;
+	}
+	.mui-input-row a{
+		line-height: 45px;
+		padding: 0 15px;
+		color:#767676;
+	}
+</style>
+</head>
+<body>
+	<div id="app">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()"></a>
+			<h1 class="mui-title">添加收获地址</h1>
+			<a class="mui-pull-right" style="height: 44px;line-height: 44px;" id="editaddress">保存</a>
+		</header>
+		<div class="mui-page-content">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					
+					<div class="mui-input-group">
+						<div class="mui-input-row">
+							<input type="text" placeholder="收货人">
+						</div>
+						<div class="mui-input-row">
+							<input type="text" class="mui-input-clear" placeholder="手机号码">
+						</div>
+						<div class="mui-input-row">
+							<a href="#" class="mui-navigate-right">
+								所在地区
+							</a>
+						</div>
+						<div class="mui-input-row" style="height: 90px;border-bottom: 10px solid #efeff4;">
+							<textarea rows="" cols="" placeholder="详细地址:如道路,门牌号,小区,楼栋号,单元室等" style="padding: 15px;height: 100%;"></textarea>
+						</div>
+						<div class="mui-input-row" style="height: 55px;border-bottom: 10px solid #efeff4;">
+							<label for="" style="line-height: 24px;">设为默认地址</label>
+							<div class="mui-switch">
+								<div class="mui-switch-handle"></div>
+							</div>
+						</div>
+						<div class="mui-input-row">
+							<label for="" style="line-height: 24px;color: red;width: 100%;" id="deladdress">删除地址</label>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+</body>
+<script>
+	(function($, doc) {
+		$.init();
+		$.plusReady(function() {
+			var deladdressButton = doc.getElementById("deladdress");
+
+
+			deladdressButton.addEventListener('tap',function(even){
+				loginRequired(function(){
+					alert(1);
+				})
+			})
+			
+		})
+	}(mui, document))
+
+</script>
+</html>

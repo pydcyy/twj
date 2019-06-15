@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
@@ -106,7 +106,7 @@
 						</a>
 					</li>
 					<li class="mui-table-view-cell">
-						<a class="mui-navigate-right" style="display: flex;align-items:center;">
+						<a class="mui-navigate-right" style="display: flex;align-items:center;" id="address">
 							<span class="mui-icon mui-icon-location"></span> 
 							<span class="title" >收货地址管理</span>
 						</a>
@@ -134,11 +134,30 @@
 		});
 		$('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
 		$.plusReady(function() {
+			
+			var address = $.preload({
+				url: 'address.html',
+				id: 'address'
+			});
+			
 			var settingButton = doc.getElementById("setting");
+			var addressButton = doc.getElementById("address");
 			
 			settingButton.addEventListener('tap',function(even){
 				loginRequired(function(){
 					openView('setting.html', 'setting');
+				})
+			})
+			
+			addressButton.addEventListener('tap',function(even){
+				loginRequired(function(){
+					addressRequired(function(result){
+						var nwating = plus.nativeUI.showWaiting();
+						// $.fire(address, 'getUserAddress', result);
+// 						address.show("slide-in-right", 300);
+// 						nwating.close();
+					})
+					
 				})
 			})
 			

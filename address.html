@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>设 置</title>
+	<link href="css/mui.min.css" rel="stylesheet" />
+	<link href="css/app.css" rel="stylesheet"/>
+	<link href="css/setting.css" rel="stylesheet" />
+<style>
+	.mui-table-view-cell{
+		padding:10px 3px;
+	}
+</style>
+</head>
+<body>
+	<div id="app">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="gobackRefresh()"></a>
+			<h1 class="mui-title">我的收获地址</h1>
+			<a class="mui-pull-right" style="height: 44px;line-height: 44px;" id="editaddress">添加新地址</a>
+		</header>
+		<div class="mui-page-content">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll" style="min-height: 100%;">
+					<div class="nosta">
+						<img src="picture/nosta.png" alt="">
+					</div>
+					<!-- <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+						
+					    <li class="mui-table-view-cell">
+					        <div class="mui-table align-items-center">
+								<div class="mui-table-cell mui-col-xs-2 mui-text-center">
+								    <span class="cell-left">裴</span>
+								</div>
+					            <div class="mui-table-cell mui-col-xs-8">
+									<div class="cell-mid-a">
+										<div class="mui-ellipsis mui-h4 mgr-1">裴炎</div>
+										<div class="mui-h6 mui-ellipsis">18895615007</div>
+									</div>
+									<div class="cell-mid-b">
+										<span class="default mgr-1">默认</span>
+										<span class="address">李明明，申请交行信息卡，100元等你拿，李明明，申请交行信息卡，100元等你拿</span>
+									</div>
+					            </div>
+					            <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+					                <span class="mui-h5 cell-right">编辑</span>
+					            </div>
+					        </div>
+					    </li>
+					    <li class="mui-table-view-cell">
+					        <div class="mui-table align-items-center">
+								<div class="mui-table-cell mui-col-xs-2 mui-text-center">
+								    <span class="cell-left">裴</span>
+								</div>
+					            <div class="mui-table-cell mui-col-xs-8">
+									<div class="cell-mid-a">
+										<div class="mui-ellipsis mui-h4 mgr-1">裴炎</div>
+										<div class="mui-h6 mui-ellipsis">18895615007</div>
+									</div>
+									<div class="cell-mid-b">
+										<span class="address">李明明，申请交行信息卡，100元等你拿，李明明，申请交行信息卡，100元等你拿</span>
+									</div>
+					            </div>
+					            <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+					                <span class="mui-h5 cell-right">编辑</span>
+					            </div>
+					        </div>
+					    </li>
+
+					</ul> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script src="js/vue.min.js"></script>
+</body>
+<script>
+	(function($, doc) {
+		$.init();
+		$.plusReady(function() {
+			var editaddressButton = doc.getElementById("editaddress");
+
+
+			editaddressButton.addEventListener('tap',function(even){
+				loginRequired(function(){
+					openView('editaddress.html', 'editaddress');
+				})
+			})
+			
+			document.addEventListener('getUserAddress', function(event) {
+				// var cityName = getNameByCode(event['detail']["data"]["area_code"]);
+				console.log(JSON.stringify(event));
+// 				var app = new Vue({
+// 					el: '#app',
+// 					data: function() {
+// 						return {
+// 							userInfo: {
+// 								name: event['detail']['data']['name'],
+// 								idcard : event['detail']['data']['idcard'] ,
+// 								license_plate : event['detail']['data']['license_plate'],
+// 								area_code: cityName,
+// 								idcard_front_image : photoweb+event['detail']["data"]["idcard_front_image"],
+// 								idcard_back_image : photoweb+event['detail']["data"]["idcard_back_image"],
+// 								driving_license_image : photoweb+event['detail']["data"]["driving_license_image"],
+// 								license_plate_image : photoweb+event['detail']["data"]["license_plate_image"],
+// 							}
+// 						}
+// 					},
+// 					methods: {
+// 			
+// 					}
+// 				});
+			})
+			
+		})
+	}(mui, document))
+
+</script>
+</html>
