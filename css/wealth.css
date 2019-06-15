@@ -1,5 +1,5 @@
 .mui-bar-nav{
-	height:100px;
+	height:145px;
 	background-color: #007aff;
 	color:#fff;
 	
@@ -7,6 +7,67 @@
 .mui-bar-nav .mui-title{
 	color:#fff;
 }
-.zichan {
-	font-size:16px;
+.zichan   {
+	
+	margin-top: 40px;
+}
+.zichan span  {
+	font-size:12px;
+}
+.zichan span.fa-zichan{
+	font-size: 14px;
+}
+.zichan-num{
+	text-align: center;
+	font-size: 16px;
+}
+.zichan-zi ul{
+	margin-top: 8px;
+	overflow: hidden;
+}
+.zichan-zi ul li{
+	text-align: center;
+	width: 50%;
+	float: left;
+}
+.zichan-zi ul li:first-child{
+	border-right: 1px solid #248DE3;
+}
+.zichan-zi ul li div{
+	font-size: 12px;
+}
+.mui-content{
+	padding-top: 146px !important;
+}
+.mui-content .shouyi{
+	margin: 10px 0;
+	height:100px;
+	background:#fff;
+}
+ .mui-content .shouyi .shouyi-h{
+	padding-top: 5px;
+ }
+.mui-content .shouyi .mylabel{
+	font-size: 12px;
+	margin-left:10px;
+	color:#000;
+	border-left: 3px solid #007aff;
+}
+.shouyi-c ul{
+	overflow: hidden;
+}
+.shouyi-c ul li{
+	float:left;
+	width: 50%;
+	text-align: center;
+	margin-top: 5px;
+}
+.shouyi-c ul li:first-child{
+	border-right: 1px solid #F2F2F2;
+}
+.shouyi-c ul li div{
+	font-size: 12px;
+}
+.shouyi-c ul li .num{
+	color: #7d7e82;
 }

@@ -1,0 +1,63 @@
+.mui-bar-nav{
+	background-color:#2695ef;
+	color:#fff;
+}
+.mui-bar-nav .mui-action-back{
+	color:#fff;
+}
+.mui-bar-nav h1{
+	color:#fff;
+}
+.mui-content .bankcard-list{
+	margin: 10px 10px;
+	padding: 10px;
+	height: 100px;
+	background: url(../picture/bank.png) no-repeat no-repeat;
+	background-size: 100% 100%;
+	position: relative;
+	z-index: 100;
+}
+.mui-content .bankcard-list button{
+	position: absolute;
+	top: 35px;
+	right: 10px;
+	color: #fff;
+	font-size: 12px;
+}
+.mui-content .bankcard-list-content .cardname{
+	font-size: 17px;
+}
+.mui-content .bankcard-list-content .cardnum{
+	margin-top: 38px;
+	font-size: 17px;
+}
+.mui-content .bankcard-list-content p{
+	margin: 0;
+	color:#fff;
+}
+.mui-content .bankcard-form{
+	padding-top: 10px;
+	background: #fff;
+	border-radius: 6px;
+	height: 100%;
+}
+.mui-content .bankcard-form .mui-input-row {
+	border-bottom: 1px solid #f1f1f1;
+}
+.mui-content .bankcard-add{
+	display: flex;
+	align-items:center;
+	height: 120px;
+	margin: 10px 10px;
+	border-radius: 6px;
+	justify-content:center;
+}
+.mui-content .bankcard-add button{
+	font-size: 16px;
+	width: 50%;
+	padding: 8px 15px;
+}
+.mui-content .bankcard-add button span{
+	font-size: 16px;
+	
+}
