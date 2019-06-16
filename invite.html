@@ -1,0 +1,56 @@
+
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>联系我们</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="css/invite.css" />
+	</head>
+
+	<body class="contact_us">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">推广注册</h1>
+		</header>
+		<div class="mui-content" id="contact_us">
+		    <div class="c_main" id="code">
+		    </div>
+		    <div style="color: #fff; text-align: center;padding: 30px; font-size: 14px;">您的推广码是：<span id="uid"></span></div>
+		    <!--<button class="mui-btn mui-btn-blue public_bg_color" @click="save_img">保存二维码</button>-->
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script src="js/common.js"></script>
+		<script src="js/jquery.qrcode.min.js"></script>
+		
+		<script>
+			
+			(function($, doc) {
+				$.init();
+				var uid = doc.getElementById('uid');
+				//
+				window.addEventListener('show', function() {
+					var state = getUid();
+					uid.innerText = state;	
+						
+					jQuery("#code").qrcode({
+						width: 175, //宽度
+						height:175, //高度
+						text: weburl+"?uid="+state //任意内容
+					});
+					console.log(weburl+"?uid="+state);
+					
+				}, false);
+				
+
+				$.plusReady(function() {
+					
+				});
+			}(mui, document));
+		</script>
+	</body>
+</html>

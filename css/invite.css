@@ -1,0 +1,36 @@
+/*联系我们*/
+html,body{
+	width: 100%;
+	height: 100%;
+}
+.contact_us {
+	background: url(../picture/contact_bg.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+.mui-content{
+	background: none!important;
+}
+#contact_us .c_main {
+	width: 196px;
+	height: 208px;
+	background: url(../picture/er_b.png);
+	background-size: 100% 100%;
+	margin: 45% auto 0 auto;
+	display: flex;display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;
+	align-items: flex-start;
+	justify-content: space-around;
+	padding-top: 10px;
+}
+
+#contact_us .c_main img {
+	width: 90%;
+}
+
+#contact_us button {
+	width: 80%;
+	margin: 50px auto;
+	display: block;
+	height: 44px;
+	background: rgba(39, 156, 255, 0.8);
+}

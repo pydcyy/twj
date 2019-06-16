@@ -17,16 +17,20 @@
 	<!-- 主界面不动、菜单移动 -->
 	<!-- 侧滑导航根容器 -->
 	<div class="mui-off-canvas-wrap mui-draggable mui-slide-in">
+	  
 	  <!-- 主页面容器 -->
 	  <div class="mui-inner-wrap">
 		<!-- 主页面标题 --> 
 		<header class="header">
 			<div class="mui-bar mui-bar-nav">
 				<div class="fa fa-gear" id="setting"></div>
-				<h1 class="mui-title">我的</h1>
-				<div class="fa fa-more" style="float: right;font-weight: "></div>
+				<h1 class="mui-title"  style="right: 80px;left: 80px;">我的</h1>
+				<div class="fa fa-more" style="float: right;" id="invite"></div>
 			</div>
 		</header>
+
+		
+
 		<div class="mui-content mui-scroll-wrapper" style="background: #f0f0f0;margin-bottom: 50px;">
 		  <div class="mui-scroll">
 			<!-- 主界面具体展示内容 -->
@@ -110,7 +114,7 @@
 					<li class="mui-table-view-cell" style="display: flex;justify-content:space-between;"  id="phoneline">
 						<a class="mui-navigate-right" style="display: flex;align-items:center;">
 							<span class="mui-icon-extra mui-icon-extra-custom"></span>
-							<span class="title"  >联系客服</span>
+							<span class="title" >联系客服</span>
 						</a>	
 						<p class="mui-pull-right" >88888888</p>
 					</li>
@@ -131,32 +135,53 @@
 		$('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
 		$.plusReady(function() {
 			
-// 			var address = $.preload({
-// 				url: 'address.html',
-// 				id: 'address'
-// 			});
 			
 			var settingButton = doc.getElementById("setting");
-<<<<<<< HEAD
 			var addressButton = doc.getElementById("address");		
 			var phonelineButton = doc.getElementById("phoneline");
+			var bankcardButton = doc.getElementById("bankcard");
+			var inviteButton = doc.getElementById("invite");
+
+
+			
+			// 去推广注册页面
+			var invite = plus.webview.getWebviewById("invite");
+			var invite_loaded_flag = false;
+			if(!invite){
+				invite = $.preload({
+					"id": 'invite',
+					"url": 'invite.html'
+				});
+			}else{
+				invite_loaded_flag = true;
+			}
+			
+			invite.addEventListener("loaded",function () {
+				invite_loaded_flag = true;
+			});
+			var toInvite = function() {
+				//使用定时器的原因：
+				//可能执行太快，main页面loaded事件尚未触发就执行自定义事件，此时必然会失败
+				var id = setInterval(function () {
+					if(invite_loaded_flag){
+						clearInterval(id);
+						$.fire(invite, 'show', null);
+						invite.show("pop-in");
+					}
+				},20);
+			};
+			
+			inviteButton.addEventListener('tap',function(even){
+				toInvite();
+			})
 			
 			phonelineButton.addEventListener('tap',function(even){
 				plus.device.dial('88888888', true);
 			})
-=======
-			var addressButton = doc.getElementById("address");
-			var bankcardButton = doc.getElementById("bankcard");
->>>>>>> 17d0dc9316c805f005811e21d0a04d7af7df67f9
 			
 			settingButton.addEventListener('tap',function(even){
 				loginRequired(function(){
 					openView('setting.html', 'setting');
-				})
-			})
-			bankcardButton.addEventListener('tap',function(even){
-				loginRequired(function(){
-					openView('bankcard.html', 'bankcard');
 				})
 			})
 			
@@ -167,6 +192,12 @@
 // 						$.fire(address, 'getUserAddress', result);
 // 						address.show("slide-in-right", 300);
 // 						plus.nativeUI.closeWaiting();
+					
+				})
+			})
+			bankcardButton.addEventListener('tap',function(even){
+				loginRequired(function(){
+					openView('bankcard.html', 'bankcard');
 					
 				})
 			})

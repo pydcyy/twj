@@ -1,6 +1,7 @@
 // 获得当前网站目录
 var postUrl="http://api.tongwujie.cn/",
 	photoweb="http://yangzifu.cn:8080/uploads/driver/",
+	weburl="http://www.baidu.com",
 	appkey=1;
 //登录验证
 loginRequired = function(callback){
@@ -10,25 +11,7 @@ loginRequired = function(callback){
 		callback();
 	}
 }
-//获取资料验证
-editRequired = function(callback){
-	var url=postUrl+"/api/driver/getDetail";
-	
-	diyAjax(url,"",function(result){
-		console.log(JSON.stringify(result));
-		if(result.code == 1){
-			//进入司机编辑资料页面
-			callback(result);
-		}else{
-			//进入司机注册资料页面
-			sureMessage('您还未注册司机信息，请先注册',function(){
-				plus.webview.open('driverInfo.html', 'driverInfo', {}, 'slide-in-right', 200);
-			});
-		}
-	},function(xhr){
-		console.log("失败"+JSON.stringify(xhr));
-	})
-}
+
 //获取地址验证
 addressRequired = function(callback){
 	var url=postUrl+"Home/member/getAddress.html";
@@ -101,7 +84,7 @@ function gobackRefreshTrue(){
 }
 // 封装ajax
 function diyAjax(url,data,callback,errcallback){
-	// if(onNetChange()){
+	if(onNetChange()){
 		var token = getToken();
 		
 		if(token){	
@@ -112,7 +95,6 @@ function diyAjax(url,data,callback,errcallback){
 			data['key']=appkey;
 		}	
 		
-		console.log(data['token']);
 		return jQuery.ajax({
 			url:url,
 			dataType: 'json', 
@@ -136,7 +118,7 @@ function diyAjax(url,data,callback,errcallback){
 				}	
 			} 
 		})
-	// }
+	}
 }
 /*普通弹框*/
 function showMessage(message){
@@ -254,7 +236,8 @@ function getLoginStorage(key){
 // 判断联网信息
 function onNetChange() { 
 	var nt = plus.networkinfo.getCurrentType();　　  
-	if(nt == plus.networkinfo.CONNECTION_NONE) {  
+	if(nt == plus.networkinfo.CONNECTION_NONE) { 
+		mui("button").button("reset");
 		showMessage('请检查网络连接！');
 		return false;
 	} else {  
@@ -280,6 +263,11 @@ function getPostData(){
 	    }
 	});
 	return postData;
+}
+// 获取uid
+function getUid(){
+	var telephone = getLoginStorage('$UserInfo');
+	return telephone['id'];
 }
 //所有提交方法
 function _login(thisButton){
@@ -336,7 +324,10 @@ function _reg(thisButton){
 		thisButton.button("reset");
 		return false;
 	}
-	postData["tcode"]=0;
+	if(postData["tcode"]==""){
+		postData["tcode"]=0;
+	}
+
     save_url = postUrl+"Home/member/reg.html";
 	diyAjax(save_url,postData,function(result){
 		console.log("注册");
@@ -520,11 +511,7 @@ function _addaddress(flag){
 	return false;
    
 }
-// 获取手机号码
-function getAccount(){
-	var telephone = getLoginStorage('$driverInfo');
-	return telephone['account'];
-}
+
 function getcaptchaAjax(account,type){	
 	var url = postUrl+"/api/sms/sendCaptcha",
 		data = {

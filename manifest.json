@@ -106,158 +106,157 @@
         "launchwebview" : {
             "bottom" : "0px",
             "background" : "#fff",
-			"subNViews" : [
-				{
-					"id" : "tabBar",
-					"styles" : {
-						"bottom" : "0px",
-						"left" : "0",
-						"height" : "51px",
-						"width" : "100%",
-						"backgroundColor" : "#fff"
-					},
-					"tags" : [
-						{
-							"tag" : "font",
-							"id" : "indexIcon",
-							"text" : "\ue591",
-							"position" : {
-								"top" : "5px",
-								"left" : "0",
-								"width" : "25%",
-								"height" : "24px"
-							},
-							"textStyles" : {
-								"fontSrc" : "_www/fonts/iconfont.ttf",
-								"align" : "center",
-								"size" : "32px"
-							}
-						},
-						{
-							"tag" : "font",
-							"id" : "indexText",
-							"text" : "首页",
-							"position" : {
-								"top" : "25px",
-								"left" : "0",
-								"width" : "25%",
-								"height" : "24px"
-							},
-							"textStyles" : {
-								"align" : "center",
-								"size" : "10px"
-							}
-						},
-						{
-							"tag" : "font",
-							"id" : "newsIcon",
-							"text" : "\ue58f",
-							"position" : {
-								"top" : "5px",
-								"left" : "25%",
-								"width" : "25%",
-								"height" : "24px"
-							},
-							"textStyles" : {
-								"fontSrc" : "_www/fonts/iconfont.ttf",
-								"align" : "center",
-								"size" : "32px"
-							}
-						},
-						{
-							"tag" : "font",
-							"id" : "newsText",
-							"text" : "附近",
-							"position" : {
-								"top" : "25px",
-								"left" : "25%",
-								"width" : "25%",
-								"height" : "24px"
-							},
-							"textStyles" : {
-								"align" : "center",
-								"size" : "10px"
-							}
-						},
-						{
-							"tag" : "font",
-							"id" : "contactIcon",
-							"text" : "\ue592",
-							"position" : {
-								"top" : "5px",
-								"left" : "50%",
-								"width" : "25%",
-								"height" : "24px"
-							},
-							"textStyles" : {
-								"fontSrc" : "_www/fonts/iconfont.ttf",
-								"align" : "center",
-								"size" : "32px"
-							}
-						},
-						{
-							"tag" : "font",
-							"id" : "contactText",
-							"text" : "财富",
-							"position" : {
-								"top" : "25px",
-								"left" : "50%",
-								"width" : "25%",
-								"height" : "24px"
-							},
-							"textStyles" : {
-								"align" : "center",
-								"size" : "10px"
-							}
-						},
-						{
-							"tag" : "font",
-							"id" : "newwindowIcon",
-							"text" : "\ue590",
-							"position" : {
-								"top" : "5px",
-								"left" : "75%",
-								"width" : "25%",
-								"height" : "24px"
-							},
-							"textStyles" : {
-								"fontSrc" : "_www/fonts/iconfont.ttf",
-								"align" : "center",
-								"size" : "32px"
-							}
-						},
-						{
-							"tag" : "font",
-							"id" : "newwindowText",
-							"text" : "我的",
-							"position" : {
-								"top" : "25px",
-								"left" : "75%",
-								"width" : "25%",
-								"height" : "24px"
-							},
-							"textStyles" : {
-								"align" : "center",
-								"size" : "10px"
-							}
-						},
-						{
-							"tag" : "rect",
-							"id" : "tabBorder",
-							"position" : {
-								"top" : "0",
-								"left" : "0",
-								"width" : "100%",
-								"height" : "1px"
-							},
-							"rectStyles" : {
-								"color" : "#ccc"
-							}
-						}
-					]
-				}
-			]
-			
+            "subNViews" : [
+                {
+                    "id" : "tabBar",
+                    "styles" : {
+                        "bottom" : "0px",
+                        "left" : "0",
+                        "height" : "51px",
+                        "width" : "100%",
+                        "backgroundColor" : "#fff"
+                    },
+                    "tags" : [
+                        {
+                            "tag" : "font",
+                            "id" : "indexIcon",
+                            "text" : "",
+                            "position" : {
+                                "top" : "5px",
+                                "left" : "0",
+                                "width" : "25%",
+                                "height" : "24px"
+                            },
+                            "textStyles" : {
+                                "fontSrc" : "_www/fonts/iconfont.ttf",
+                                "align" : "center",
+                                "size" : "32px"
+                            }
+                        },
+                        {
+                            "tag" : "font",
+                            "id" : "indexText",
+                            "text" : "首页",
+                            "position" : {
+                                "top" : "25px",
+                                "left" : "0",
+                                "width" : "25%",
+                                "height" : "24px"
+                            },
+                            "textStyles" : {
+                                "align" : "center",
+                                "size" : "10px"
+                            }
+                        },
+                        {
+                            "tag" : "font",
+                            "id" : "newsIcon",
+                            "text" : "",
+                            "position" : {
+                                "top" : "5px",
+                                "left" : "25%",
+                                "width" : "25%",
+                                "height" : "24px"
+                            },
+                            "textStyles" : {
+                                "fontSrc" : "_www/fonts/iconfont.ttf",
+                                "align" : "center",
+                                "size" : "32px"
+                            }
+                        },
+                        {
+                            "tag" : "font",
+                            "id" : "newsText",
+                            "text" : "附近",
+                            "position" : {
+                                "top" : "25px",
+                                "left" : "25%",
+                                "width" : "25%",
+                                "height" : "24px"
+                            },
+                            "textStyles" : {
+                                "align" : "center",
+                                "size" : "10px"
+                            }
+                        },
+                        {
+                            "tag" : "font",
+                            "id" : "contactIcon",
+                            "text" : "",
+                            "position" : {
+                                "top" : "5px",
+                                "left" : "50%",
+                                "width" : "25%",
+                                "height" : "24px"
+                            },
+                            "textStyles" : {
+                                "fontSrc" : "_www/fonts/iconfont.ttf",
+                                "align" : "center",
+                                "size" : "32px"
+                            }
+                        },
+                        {
+                            "tag" : "font",
+                            "id" : "contactText",
+                            "text" : "财富",
+                            "position" : {
+                                "top" : "25px",
+                                "left" : "50%",
+                                "width" : "25%",
+                                "height" : "24px"
+                            },
+                            "textStyles" : {
+                                "align" : "center",
+                                "size" : "10px"
+                            }
+                        },
+                        {
+                            "tag" : "font",
+                            "id" : "newwindowIcon",
+                            "text" : "",
+                            "position" : {
+                                "top" : "5px",
+                                "left" : "75%",
+                                "width" : "25%",
+                                "height" : "24px"
+                            },
+                            "textStyles" : {
+                                "fontSrc" : "_www/fonts/iconfont.ttf",
+                                "align" : "center",
+                                "size" : "32px"
+                            }
+                        },
+                        {
+                            "tag" : "font",
+                            "id" : "newwindowText",
+                            "text" : "我的",
+                            "position" : {
+                                "top" : "25px",
+                                "left" : "75%",
+                                "width" : "25%",
+                                "height" : "24px"
+                            },
+                            "textStyles" : {
+                                "align" : "center",
+                                "size" : "10px"
+                            }
+                        },
+                        {
+                            "tag" : "rect",
+                            "id" : "tabBorder",
+                            "position" : {
+                                "top" : "0",
+                                "left" : "0",
+                                "width" : "100%",
+                                "height" : "1px"
+                            },
+                            "rectStyles" : {
+                                "color" : "#ccc"
+                            }
+                        }
+                    ]
+                }
+            ]
         },
         "splashscreen" : {
             "autoclose" : true, /*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
@@ -321,14 +320,14 @@
                         "settings-normal" : "", /*iPhone4设置页面程序图标，分辨率：29x29*/
                         "settings-retina" : "", /*iPhone4S/5/6设置页面程序图标，分辨率：58x58*/
                         "settings-retina8" : "",
-                        "app@2x" : "C:/Users/Administrator/Desktop/新建文件夹/logo.png",
-                        "app@3x" : "C:/Users/Administrator/Desktop/新建文件夹/logo.png",
-                        "spotlight@2x" : "C:/Users/Administrator/Desktop/新建文件夹/logo.png",
-                        "spotlight@3x" : "C:/Users/Administrator/Desktop/新建文件夹/logo.png",
-                        "settings@2x" : "C:/Users/Administrator/Desktop/新建文件夹/logo.png",
-                        "settings@3x" : "C:/Users/Administrator/Desktop/新建文件夹/logo.png",
-                        "notification@2x" : "C:/Users/Administrator/Desktop/新建文件夹/logo.png",
-                        "notification@3x" : "C:/Users/Administrator/Desktop/新建文件夹/logo.png"
+                        "app@2x" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone/120-120.png",
+                        "app@3x" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone/180-180.png",
+                        "spotlight@2x" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone/80-80.png",
+                        "spotlight@3x" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone/120-120.png",
+                        "settings@2x" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone/58-58.png",
+                        "settings@3x" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone/87-87.png",
+                        "notification@2x" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone/40-40.png",
+                        "notification@3x" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone/60-60.png"
                     },
                     "ipad" : {
                         "normal" : "", /*iPad普通屏幕程序图标，分辨率：72x72*/
@@ -342,34 +341,34 @@
                         "settings-normal" : "", /*iPad设置页面程序图标，分辨率：29x29*/
                         "settings-retina" : ""
                     },
-                    "appstore" : "C:/Users/Administrator/Desktop/新建文件夹/logo.png"
+                    "appstore" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone/1024-1024.png"
                 },
                 "android" : {
-                    "mdpi" : "C:/Users/Administrator/Desktop/新建文件夹/logo.png", /*普通屏程序图标，分辨率：48x48*/
-                    "ldpi" : "C:/Users/Administrator/Desktop/新建文件夹/logo.png", /*大屏程序图标，分辨率：48x48*/
-                    "hdpi" : "C:/Users/Administrator/Desktop/新建文件夹/logo.png", /*高分屏程序图标，分辨率：72x72*/
-                    "xhdpi" : "C:/Users/Administrator/Desktop/新建文件夹/logo.png", /*720P高分屏程序图标，分辨率：96x96*/
-                    "xxhdpi" : "C:/Users/Administrator/Desktop/新建文件夹/logo.png",
-                    "xxxhdpi" : "C:/Users/Administrator/Desktop/新建文件夹/logo.png"
+                    "mdpi" : "C:/Users/Administrator/Desktop/新建文件夹/Android/48-48.png", /*普通屏程序图标，分辨率：48x48*/
+                    "ldpi" : "C:/Users/Administrator/Desktop/新建文件夹/Android/48-48.png", /*大屏程序图标，分辨率：48x48*/
+                    "hdpi" : "C:/Users/Administrator/Desktop/新建文件夹/Android/72-72.png", /*高分屏程序图标，分辨率：72x72*/
+                    "xhdpi" : "C:/Users/Administrator/Desktop/新建文件夹/Android/96-96.png", /*720P高分屏程序图标，分辨率：96x96*/
+                    "xxhdpi" : "C:/Users/Administrator/Desktop/新建文件夹/Android/144-144.png",
+                    "xxxhdpi" : "C:/Users/Administrator/Desktop/新建文件夹/Android/192-192.png"
                 }
             },
             "splashscreen" : {
                 "ios" : {
                     "iphone" : {
                         "default" : "", /*iPhone3启动图片选，分辨率：320x480*/
-                        "retina35" : "C:/Users/Administrator/Desktop/新建文件夹/640x960.png", /*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-                        "retina40" : "C:/Users/Administrator/Desktop/新建文件夹/640x1136.png", /*4.0 英寸设备(iPhone5/iPhone5s)启动图片，分辨率：640x1136*/
-                        "retina47" : "C:/Users/Administrator/Desktop/新建文件夹/750x1334.png", /*4.7 英寸设备(iPhone6)启动图片，分辨率：750x1334*/
-                        "retina55" : "C:/Users/Administrator/Desktop/新建文件夹/1242x2208.png", /*5.5 英寸设备(iPhone6 Plus)启动图片，分辨率：1242x2208*/
-                        "retina55l" : "C:/Users/Administrator/Desktop/新建文件夹/2208x1242.png",
-                        "iphonex" : "C:/Users/Administrator/Desktop/新建文件夹/1125x2436.png",
-                        "portrait-896h@2x" : "C:/Users/Administrator/Desktop/新建文件夹/828x1792.png",
-                        "portrait-896h@3x" : "C:/Users/Administrator/Desktop/新建文件夹/1242x2688.png",
-                        "retina40l" : "C:/Users/Administrator/Desktop/新建文件夹/1136x640.png",
-                        "retina47l" : "C:/Users/Administrator/Desktop/新建文件夹/1334x750.png",
-                        "iphonexl" : "C:/Users/Administrator/Desktop/新建文件夹/2436x1125.png",
-                        "landscape-896h@2x" : "C:/Users/Administrator/Desktop/新建文件夹/1792x828.png",
-                        "landscape-896h@3x" : "C:/Users/Administrator/Desktop/新建文件夹/2688x1242.png"
+                        "retina35" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone启动图/640-960.png", /*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+                        "retina40" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone启动图/640-1136.png", /*4.0 英寸设备(iPhone5/iPhone5s)启动图片，分辨率：640x1136*/
+                        "retina47" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone启动图/750-1334.png", /*4.7 英寸设备(iPhone6)启动图片，分辨率：750x1334*/
+                        "retina55" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone启动图/1242-2208.png", /*5.5 英寸设备(iPhone6 Plus)启动图片，分辨率：1242x2208*/
+                        "retina55l" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone启动图/2208-1242.png",
+                        "iphonex" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone启动图/1125-2436.png",
+                        "portrait-896h@2x" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone启动图/828-1792.png",
+                        "portrait-896h@3x" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone启动图/1242-2688.png",
+                        "retina40l" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone启动图/1136-640.png",
+                        "retina47l" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone启动图/1334-750.png",
+                        "iphonexl" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone启动图/2436-1125.png",
+                        "landscape-896h@2x" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone启动图/1792-828.png",
+                        "landscape-896h@3x" : "C:/Users/Administrator/Desktop/新建文件夹/iPhone启动图/2688-1242.png"
                     },
                     "ipad" : {
                         "portrait" : "", /*iPad竖屏启动图片，分辨率：768x1004*/
@@ -385,9 +384,9 @@
                 "android" : {
                     "mdpi" : "", /*普通屏启动图片，分辨率：240x282*/
                     "ldpi" : "", /*大屏启动图片，分辨率：320x442*/
-                    "hdpi" : "C:/Users/Administrator/Desktop/新建文件夹/A-480x762.png", /*高分屏启动图片，分辨率：480x762*/
-                    "xhdpi" : "C:/Users/Administrator/Desktop/新建文件夹/A-720x1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
-                    "xxhdpi" : "C:/Users/Administrator/Desktop/新建文件夹/A-1080x1882.png"
+                    "hdpi" : "C:/Users/Administrator/Desktop/新建文件夹/Android启动图/480-762.png", /*高分屏启动图片，分辨率：480x762*/
+                    "xhdpi" : "C:/Users/Administrator/Desktop/新建文件夹/Android启动图/720-1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
+                    "xxhdpi" : "C:/Users/Administrator/Desktop/新建文件夹/Android启动图/1080-1882.png"
                 }
             },
             "plugins" : {
