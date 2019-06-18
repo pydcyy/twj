@@ -94,16 +94,18 @@
 	            },
 	            _init: function(){
 					var that = this;
-					addressRequired(function(result){
-						var address=result['data']['address'];
-						for (i = 0; i < address.length; i++) { 
-							address[i]['address'] = getNameByCode(address[i]['cityid'])+" "+address[i]['address'];
-							address[i]['aid'] = address[i]['id'];
-						}
-						that.address=result['data']['address'];
-					}) 
 					
-	                $.ready(function() {
+					
+	                $.plusReady(function() {
+						addressRequired(function(result){
+							var address=result['data']['address'];
+							for (i = 0; i < address.length; i++) { 
+								address[i]['address'] = getNameByCode(address[i]['cityid'])+" "+address[i]['address'];
+								address[i]['aid'] = address[i]['id'];
+							}
+							that.address=result['data']['address'];
+						}) 
+						
 						var addaddressButton = doc.getElementById("addaddress");
 						
 						

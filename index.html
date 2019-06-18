@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<title>用户中心</title>
+	<title>首页</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 	<link rel="stylesheet" href="css/mui.min.css"/>
 	<link rel="stylesheet" href="css/app.css" />
@@ -93,6 +93,9 @@
 	//2、创建子页面，首个选项卡页面显示，其它均隐藏
 	var view_show = {};
 	mui.plusReady(function() {
+		
+		storage.init();
+		
 		plus.navigator.setStatusBarStyle('light');   
 		plus.navigator.setStatusBarBackground('#2695EF');
 		
@@ -163,8 +166,18 @@
 			})
 
 		});
+		
+		initPage();
 	});
-
+	function initPage() {
+		lon = storageLocation.Lon;
+		lat = storageLocation.Lat;
+		city = storageLocation.City;
+		log(lon);
+// 		document.getElementById("city").innerText = city;
+// 		
+// 		loadData();
+	}
 </script>
 </body>
 </html>

@@ -24,7 +24,7 @@
 						<div class="bankcard-list-content">
 							<p class="cardname" v-text="item.bankname"></p>
 							<p class="cardnum" v-text="item.bankid"> </p>
-							<button type="button" class="mui-btn mui-btn-outlined delbankcard" :data-bid = "item.id">删除</button>
+							<button type="button" class="mui-btn mui-btn-outlined delbankcard" :data-bid = "item.id" :data-index = "index">删除</button>
 						</div>
 					</div> 
 					<div class="bankcard-add" >
@@ -40,15 +40,7 @@
 			    $.init({
 			        swipeBack: true //启用右滑关闭功能
 			    });
-				
-				$.plusReady(function() {
-					var addcardButton = doc.getElementById("addcard");
-					addcardButton.addEventListener('tap',function(even){
-						loginRequired(function(){
-							openView('addcard.html', 'addcard');
-						})
-					})
-				})
+
 			    var app = new Vue({
 			        el: '#app',
 			        data: function() {
@@ -62,20 +54,28 @@
 			        methods: {
 			            
 			            _init: function(){
-							var that = this;
-							bankcardRequired(function(result){
-								console.log(JSON.stringify(result));
-								var banks=result['data']['banks'];
+							var that = this;		
+			                $.plusReady(function() {
+								bankcardRequired(function(result){
+									var banks=result['data']['banks'];
+									
+									that.bankcard=banks;
+								}) 
 								
-								that.bankcard=banks;
-							}) 
-							
-			                $.ready(function() {
+								var addcardButton = doc.getElementById("addcard");
+								addcardButton.addEventListener('tap',function(even){
+									loginRequired(function(){
+										openView('addcard.html', 'addcard');
+									})
+								})
+								
 								$("body").on("tap", ".delbankcard", function() {
 									var that = this;
 									var bid= that.dataset.bid;
+									var index= that.dataset.index;
+
 									sureMessage("确定删除",function(){
-										_delbankcard(bid);
+										_delbankcard(bid,index);
 									})		
 								})
 								

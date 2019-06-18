@@ -25,7 +25,7 @@
 			<div class="mui-bar mui-bar-nav">
 				<div class="fa fa-gear" id="setting"></div>
 				<h1 class="mui-title"  style="right: 80px;left: 80px;">我的</h1>
-				<div class="fa fa-more" style="float: right;" id="invite"></div>
+				<div class="fa fa-more" style="float: right;font-size: 32px;" id="invite"></div>
 			</div>
 		</header>
 
@@ -80,15 +80,15 @@
 				<div class="record-f">
 					<ul class="overContrl">
 						<li>
-							<span>367.0</span>
+							<span>0.0</span>
 							<p>余额</p>
 						</li>
 						<li>
-							<span>188</span>
+							<span>0</span>
 							<p>积分</p>
 						</li>
 						<li>
-							<span>8</span>
+							<span>0</span>
 							<p>金珠</p>
 						</li>
 						<li style="border-left:1px solid #E6E6E6 ;margin-top: -1px;">
@@ -112,10 +112,10 @@
 						</a>
 					</li>
 					<li class="mui-table-view-cell" style="display: flex;justify-content:space-between;"  id="phoneline">
-						<a class="mui-navigate-right" style="display: flex;align-items:center;">
+						<div class="mui-navigate-right" style="display: flex;align-items:center;">
 							<span class="mui-icon-extra mui-icon-extra-custom"></span>
 							<span class="title" >联系客服</span>
-						</a>	
+						</div>	
 						<p class="mui-pull-right" >88888888</p>
 					</li>
 				</ul>
@@ -170,6 +170,8 @@
 					}
 				},20);
 			};
+			
+			
 			
 			inviteButton.addEventListener('tap',function(even){
 				toInvite();

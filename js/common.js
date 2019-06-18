@@ -1,8 +1,8 @@
 // 获得当前网站目录
 var postUrl="http://api.tongwujie.cn/",
-	photoweb="http://yangzifu.cn:8080/uploads/driver/",
-	weburl="http://www.baidu.com",
-	appkey=1;
+	weburl="http://api.tongwujie.cn/reg.php",
+	appdown="http://api.tongwujie.cn/app.apk";
+	// appkey=1;
 //登录验证
 loginRequired = function(callback){
 	if(!getLoginStorage('$UserInfo')){
@@ -17,7 +17,7 @@ addressRequired = function(callback){
 	var url=postUrl+"Home/member/getAddress.html";
 	var postData = {};
 	diyAjax(url,postData,function(result){
-		console.log(JSON.stringify(result));
+		console.log("查询地址");
 		if(result.code == 1){
 			//进入司机编辑资料页面
 			callback(result);
@@ -31,7 +31,7 @@ bankcardRequired = function(callback){
 	var url=postUrl+"Home/member/getBanks.html";
 	var postData = {};
 	diyAjax(url,postData,function(result){
-		console.log(JSON.stringify(result));
+		console.log("查询银行卡");
 		if(result.code == 1){
 			//进入司机编辑资料页面
 			callback(result);
@@ -82,19 +82,25 @@ function gobackRefreshTrue(){
 	//返回true，继续页面关闭逻辑     
 	return true;  
 }
+function log(data){
+	console.log(JSON.stringify(data));
+}
 // 封装ajax
 function diyAjax(url,data,callback,errcallback){
 	if(onNetChange()){
+
 		var token = getToken();
 		
 		if(token){	
 			data['token']=token;
 		}
 
-		if(appkey){
-			data['key']=appkey;
+		
+		if(getAppKey()){
+			data['key']=getAppKey();
 		}	
 		
+		console.log(JSON.stringify(data));
 		return jQuery.ajax({
 			url:url,
 			dataType: 'json', 
@@ -103,6 +109,23 @@ function diyAjax(url,data,callback,errcallback){
 			timeout: 20000, 
 			data:data,
 			success: function(result) { 
+				if(result.code=="-667"){
+					showMessage('登录失效，请重新登录!');
+					localStorage.removeItem("$UserInfo");		
+					openView('login.html','login');
+					return false;
+				}else if(result.code=="-666"){
+					showMessage(result.msg);
+					plus.ui.confirm(result.msg, function(i) {
+						if (0 == i.index) {
+							plus.runtime.openURL(appdown);
+						}
+						if (1 == i.index) {
+							goback();
+						}
+					},"提 示", ["立即更新", "取消"]);
+					return false;
+				}
 				callback(result);
 			}, 
 			error: function(xhr, type, errorThrown) { 
@@ -142,6 +165,15 @@ function sureMessage(message,callback){
 		}
 	},"", "", ["确认","取消"]);
 }*/
+
+// 判断设备类型
+function isAndroid(){
+	if(mui.os.ios){
+		return false;
+	}else{
+		return true;
+	}
+}
 // 区域代码转为区域名称
 function getNameByCode(code){
 	var dataPro = code.toString().substring(0, 2);
@@ -266,8 +298,13 @@ function getPostData(){
 }
 // 获取uid
 function getUid(){
-	var telephone = getLoginStorage('$UserInfo');
-	return telephone['id'];
+	var user = getLoginStorage('$UserInfo');
+	return user['id'];
+}
+
+// 获取key
+function getAppKey(){
+	return plus.runtime.version;
 }
 //所有提交方法
 function _login(thisButton){
@@ -285,9 +322,11 @@ function _login(thisButton){
     save_url = postUrl+"Home/member/login.html";
 	diyAjax(save_url,postData,function(result){
 		console.log("登录");
+		console.log(JSON.stringify(result));
 		if (result.code == 1) {
 			//成功
 			localStorage.setItem('$UserInfo', JSON.stringify(result['data']));
+
 			showMessage(result.msg);
 			
 			var indexPage =plus.webview.getLaunchWebview();
@@ -296,6 +335,9 @@ function _login(thisButton){
 				plus.webview.getWebviewById('wealth.html').hide();
 				plus.webview.getWebviewById('user.html').hide();
 			}
+			
+
+			
 			indexPage.show("pop-in");
 			
 			thisButton.button("reset");
@@ -323,10 +365,14 @@ function _reg(thisButton){
 		showMessage("请输入密码");
 		thisButton.button("reset");
 		return false;
+	}else if(postData["tcode"]==""){
+		showMessage("请输入邀请码");
+		thisButton.button("reset");
+		return false;
 	}
-	if(postData["tcode"]==""){
-		postData["tcode"]=0;
-	}
+// 	if(postData["tcode"]==""){
+// 		postData["tcode"]=0;
+// 	}
 
     save_url = postUrl+"Home/member/reg.html";
 	diyAjax(save_url,postData,function(result){
@@ -334,6 +380,7 @@ function _reg(thisButton){
 		if (result.code == 1) {
 			//成功
 			localStorage.setItem('$UserInfo', JSON.stringify(result['data']));
+			
 			showMessage(result.msg);
 
 			var indexPage =plus.webview.getLaunchWebview();
@@ -342,6 +389,8 @@ function _reg(thisButton){
 				plus.webview.getWebviewById('wealth.html').hide();
 				plus.webview.getWebviewById('user.html').hide();
 			}
+
+			
 			indexPage.show("pop-in");
 			thisButton.button("reset");
 			return false;
@@ -381,6 +430,7 @@ function _forgetpwd(thisButton){
 				plus.webview.getWebviewById('wealth.html').hide();
 				plus.webview.getWebviewById('user.html').hide();
 			}
+			
 			indexPage.show("pop-in");
 			thisButton.button("reset");
 			return false;
@@ -392,6 +442,27 @@ function _forgetpwd(thisButton){
 		}
 	},function(xhr){
 		thisButton.button("reset");
+		console.log(JSON.stringify(xhr));
+	});
+				
+}
+
+function _update(){
+	var postData = {};
+    save_url = postUrl+"home/app/checkKEY";
+	diyAjax(save_url,postData,function(result){
+		console.log("检查更新");
+		if (result.code == 1) {
+			showMessage('通无界 已是最新版本~')
+		} else {
+			plus.ui.confirm(result.msg, function(i) {
+				if (0 == i.index) {
+					plus.runtime.openURL(appdown);
+				}
+			},"提 示", ["立即更新", "取消"]);
+		}
+		
+	},function(xhr){
 		console.log(JSON.stringify(xhr));
 	});
 				
@@ -466,9 +537,8 @@ function _savecrad(thisButton){
 }
 
 //删除银行卡
-function _delbankcard(id){
+function _delbankcard(id,index){
     var postData =  {};
-	
 	postData["type"]=1;
 	postData["id"]=id;
     save_url = postUrl+"Home/member/editBanks.html";
@@ -477,7 +547,7 @@ function _delbankcard(id){
 		if (result.code == 1) {
 			//成
 			showMessage(result.msg);
-			location.reload();  
+			$(".bankcard-list").eq(index).remove();
 			return false;
 		} else{
 			// 失败

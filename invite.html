@@ -19,7 +19,7 @@
 		<div class="mui-content" id="contact_us">
 		    <div class="c_main" id="code">
 		    </div>
-		    <div style="color: #fff; text-align: center;padding: 30px; font-size: 14px;">您的推广码是：<span id="uid"></span></div>
+		    <div style="color: #fff; text-align: center;padding: 30px; font-size: 14px;">您的邀请码是：<span id="uid"></span></div>
 		    <!--<button class="mui-btn mui-btn-blue public_bg_color" @click="save_img">保存二维码</button>-->
 		</div>
 		<script src="js/mui.min.js"></script>
@@ -35,15 +35,16 @@
 				//
 				window.addEventListener('show', function() {
 					var state = getUid();
+					var appkey = getAppKey();
+
 					uid.innerText = state;	
-						
+					jQuery("#code").html("");	
 					jQuery("#code").qrcode({
 						width: 175, //宽度
 						height:175, //高度
-						text: weburl+"?uid="+state //任意内容
+						text: weburl+"?uid="+state+"&key="+appkey //任意内容
 					});
-					console.log(weburl+"?uid="+state);
-					
+					console.log(weburl+"?uid="+state+"&key="+appkey);
 				}, false);
 				
 

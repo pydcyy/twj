@@ -31,8 +31,9 @@
 					</ul>
 					<ul class="mui-table-view mui-table-view-chevron">
 						<li class="mui-table-view-cell">
-							<a href="#" class="mui-navigate-right">
+							<a href="#" class="mui-navigate-right" id="update">
 								检查更新
+								<i class="mui-pull-right update" id="appkey"></i>
 							</a>
 						</li>
 					</ul>
@@ -64,31 +65,21 @@
 <script>
 	(function($, doc) {
 		$.init();
+		var appkey = doc.getElementById('appkey');
+		
+		
 		$.plusReady(function() {
-			var layoutButton = doc.getElementById("layout");
-// 			var safeButton = doc.getElementById("safe");
-// 			var payTypeButton = doc.getElementById("payType");
-// 			var aboutUsButton = doc.getElementById("aboutUs");
-
-			layoutButton.addEventListener('tap',function(even){
+			doc.getElementById("layout").addEventListener('tap',function(even){
 				_layout();
 			})
 			
-// 			safeButton.addEventListener('tap',function(even){
-// 				loginRequired(function(){
-// 					plus.webview.open('safe.html', 'safe', {}, 'slide-in-right', 200);
-// 				})
-// 			})
-// 			aboutUsButton.addEventListener('tap',function(even){
-// 				loginRequired(function(){
-// 					plus.webview.open('aboutus.html', 'aboutus', {}, 'slide-in-right', 200);
-// 				})
-// 			})
-// 			payTypeButton.addEventListener('tap',function(even){
-// 				loginRequired(function(){
-// 					plus.webview.open('payType.html', 'payType', {}, 'slide-in-right', 200);
-// 				})
-// 			})
+			doc.getElementById("update").addEventListener('tap', function() {
+				_update();
+			});
+		
+			
+			var appkeya = getAppKey();
+			appkey.innerText = appkeya;
 		})
 	}(mui, document))
 

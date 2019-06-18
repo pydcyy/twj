@@ -9,14 +9,12 @@
 	background-size: cover;
 }
 .login_top .logo{
-	width: 210px;
+	width: 125px;
 	margin: 0px auto;
-	/*padding: 50px 0;*/
 }
 .login_top .reg{
-	width: 210px;
+	width: 125px;
 	margin: 0px auto;
-	/*padding: 50px 0;*/
 }
 .golog{
 	width: 325px;
@@ -45,13 +43,16 @@
 	margin-top: -60px;
 	border-radius: 10px;
 }
+.copyright{
+	color: #aaa;text-align: center;width: 100%;margin-top: 30px;
+}
 .login_main .title{
-	    font-size: 24px;
+	font-size: 24px;
     padding: 24px;
     box-sizing: border-box;
 }
 .login_main .mui-input-group{
-	    width: 90%;
+	width: 90%;
     margin:0 5%;
 }
 .login_main .mui-input-group .mui-input-row:first-child{
@@ -81,8 +82,7 @@
 .login_main .title{
 	font-family: '微软雅黑';
 	color:#2791DD;
-	text-align: center;
-	
+	text-align: center;	
 }
 .login_main .reg-submit{
 	width: 80%;
@@ -90,7 +90,6 @@
 	margin: 20px auto;
 	display: block;
 	box-shadow: 0 0 20px rgba(76,137,248,0.4);
-	
 }
 .mui-input-row label{
 	padding: 4px 15px;
@@ -132,7 +131,6 @@
 .login_foot .yqm img{
 	width: 40%;
 }
-
 .top-menu{
 	color: #fff;
 	font-size: 30px;
