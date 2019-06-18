@@ -6,7 +6,8 @@ var app_config = {
 		'../css/app.css', 
 	],
 	jsAr:[
-		'../js/mui.min.js', 
+		'../js/mui.min.js',
+		'../js/jquery.min.js',
 		'../js/lib/md5.min.js', 
 		'../js/lib/artTemplate.js',
 		'../js/lib/common.js'

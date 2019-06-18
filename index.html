@@ -10,8 +10,9 @@
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script src="js/util.js"></script>
 	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/lib/artTemplate.js"></script>
+	<script type="text/javascript" src="js/lib/common.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
-
 </head>
 <body>
 	<!-- 主界面不动、菜单移动 -->
@@ -67,13 +68,11 @@
 					<span class="mylabel">
 						消费商城
 					</span>
-					<ul class="shop-img">
-						<li><img src="picture/shopa.png" alt=""></li>
+					<ul class="shop-img" id="banner_warp">
+						<!-- <li><img src="picture/shopa.png" alt=""></li>
 						<li><img src="picture/shopb.png" alt=""></li>
-						<li><img src="picture/shopc.png" alt=""></li>
-						<span id="" style="position: fixed;top: 50px;left: 20%;height: 100%;color: #fff;font-size: 40px;">
-							正在开发...
-						</span>
+						<li><img src="picture/shopc.png" alt=""></li> -->
+						
 					</ul>
 				</div>
 			</div>
@@ -81,6 +80,21 @@
 		<div class="mui-off-canvas-backdrop"></div>
 	</div>
 </div>
+
+<script type="text/html" id="banner_view">
+	{{if data==null || data.length==0}}
+	
+	<li><img src="picture/shopa.png" alt=""></li>
+	<li><img src="picture/shopb.png" alt=""></li>
+	<li><img src="picture/shopc.png" alt=""></li>
+	
+	{{else}} {{each data as item}}
+	
+	<li><a href="1.html"><img src="{{item}}" alt=""></a></li>
+	
+	{{/each}} {{/if}}
+</script>
+
 <script type="text/javascript">
 	mui.init({
 		swipeBack: true //启用右滑关闭功能
@@ -170,13 +184,94 @@
 		initPage();
 	});
 	function initPage() {
-		lon = storageLocation.Lon;
-		lat = storageLocation.Lat;
-		city = storageLocation.City;
-		log(lon);
-// 		document.getElementById("city").innerText = city;
-// 		
-// 		loadData();
+		loadData();
+	}
+	//一次性拉取数据
+	function loadData() {
+		var url=postUrl+"Home/app/index.html";
+		var postData = {};
+		diyAjax(url,postData,function(result){
+			console.log("获取首页信息");
+			if(result.code == 1){
+				var bannerjson = {};
+				bannerjson.data = result.data.navlink;
+				log(bannerjson);
+				render("#banner_warp", "banner_view", bannerjson);
+			}
+		},function(xhr){
+			console.log("失败"+JSON.stringify(xhr));
+		})
+		
+// 		request("/Index/getIndexLis", {
+// 			lon: lon,
+// 			lat: lat,
+// 			cityid: storageLocation.CityId
+// 		}, function(json) {
+// 			if(json.code == "0") {
+// 				newmatchpage=2, nearstorepage=2;
+// 				bannerjson = {};
+// 				bannerjson.data = json.data.bannerdata;
+// 				
+// 				if(!swiper) {
+// 					render("#banner_warp", "banner_view", bannerjson);
+// 					swiper = new Swiper('.swiper-container', {
+// 						autoplay: 3000, //可选选项，自动滑动
+// 						pagination: '.swiper-pagination',
+// 						loop: true,
+// 						autoplayDisableOnInteraction: false,
+// 					});
+// 				} else {
+// 					swiper.stopAutoplay();
+// 					swiper.removeAllSlides();		
+// 					var item,str;
+// 					for (var i=0;i<bannerjson.data.length;i++) {
+// 						item=bannerjson.data[i];
+// 						str='<div class="swiper-slide addetail" data-href="'+item.HrefUrl+'" data-param=\''+item.HrefParam+'\'><img class="loadthumb" data-url="'+item.ImgUrl+'" data-wh=",320" />';
+// 						//log(str);
+// 						swiper.appendSlide(str);
+// 					}
+// 					
+// 					//render("#banner_warp", "banner_view", bannerjson,true);
+// 	//				swiper.appendSlide("<div class='swiper-slide'><img src='../../images/banner.png' /></div>"+"<div class='swiper-slide'><img src='../../images/banner.png' /></div>"+"<div class='swiper-slide'><img src='../../images/banner.png' /></div>"+"<div class='swiper-slide'><img src='../../images/banner.png' /></div>");
+// 					swiper.startAutoplay();
+// 				}
+// 	
+// 				singlematchjson = {};
+// 				singlematchjson.data = json.data.recentmatchdata;
+// 				showSigleMatch();
+// 	
+// 				newmatchjson = {};
+// 				newmatchjson.data = json.data.newestmatchdata;
+// 				showNewMatch();
+// 	
+// 				nearstorejson = {};
+// 				nearstorejson.data = json.data.nearbystoredata;
+// 				showNearStore();
+// 	
+// 				cardgroupjson = {};
+// 				cardgroupjson.data = json.data.taopaidata;
+// 				render("#cardgroup_warp", "cardgroup_view", cardgroupjson);
+// 	
+// 				newsjson = {};
+// 				newsjson.data = json.data.newestnewsdata;
+// 				render("#news_warp", "news_view", newsjson);
+// 				
+// 				hottopicjson={};
+// 				hottopicjson.data = json.data.hottopicdata;
+// 				document.getElementById("topic_warp").setAttribute('data-id',hottopicjson.data.NewsId)
+// 				
+// 				appPage.imgInit();
+// 			} else {
+// 				appUI.showTopTip(json.msg)
+// 			}
+// 			appPage.endPullRefresh();
+// 		}, false, function() {
+// 			appPage.endPullRefresh();
+// 			var arr = document.getElementsByClassName("nodata");
+// 			for(var i = 0; i < arr.length; i++) {
+// 				arr[i].innerText = "暂无数据";
+// 			}
+// 		});
 	}
 </script>
 </body>

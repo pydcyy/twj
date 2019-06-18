@@ -66,6 +66,17 @@ function getToken(){
 		return getLoginStorage('$UserInfo')['token'];
 	}
 }
+// 获取uid
+function getUid(){
+	var user = getLoginStorage('$UserInfo');
+	return user['id'];
+}
+
+// 获取key
+function getAppKey(){
+	return "V1.0";
+	//return plus.runtime.version;
+}
 //返回父页面
 function goback(){
 	var ws = plus.webview.currentWebview();
@@ -100,7 +111,6 @@ function diyAjax(url,data,callback,errcallback){
 			data['key']=getAppKey();
 		}	
 		
-		console.log(JSON.stringify(data));
 		return jQuery.ajax({
 			url:url,
 			dataType: 'json', 
@@ -120,9 +130,9 @@ function diyAjax(url,data,callback,errcallback){
 						if (0 == i.index) {
 							plus.runtime.openURL(appdown);
 						}
-						if (1 == i.index) {
-							goback();
-						}
+// 						if (1 == i.index) {
+// 							goback();
+// 						}
 					},"提 示", ["立即更新", "取消"]);
 					return false;
 				}
@@ -296,16 +306,7 @@ function getPostData(){
 	});
 	return postData;
 }
-// 获取uid
-function getUid(){
-	var user = getLoginStorage('$UserInfo');
-	return user['id'];
-}
 
-// 获取key
-function getAppKey(){
-	return plus.runtime.version;
-}
 //所有提交方法
 function _login(thisButton){
     var postData =  getPostData();
