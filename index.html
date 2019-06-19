@@ -13,6 +13,7 @@
 	<script type="text/javascript" src="js/lib/artTemplate.js"></script>
 	<script type="text/javascript" src="js/lib/common.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
+	
 </head>
 <body>
 	<!-- 主界面不动、菜单移动 -->
@@ -45,7 +46,7 @@
 			<h4>兑换交易</h4>
 			<ul class="headerul">
 				<li>
-					<span class="fa fa-payment"></span>
+					<span id="opens" class="fa fa-payment"></span>
 					<p>付款</p>
 				</li>
 				<li>
@@ -57,13 +58,16 @@
 					<p>转账</p>
 				</li>
 				<li>
-					<span class="fa fa-withdrawal"></span>
+					<span id="cash" class="fa fa-withdrawal"></span>
 					<p>提现</p>
 				</li>
 			</ul>
+			
 		</div>
+		  
 		<div class="mui-content mui-scroll-wrapper" style="background: #f0f0f0;top:130px;margin-bottom:50px;">
 			<div class="mui-scroll">
+				
 				<div class="index-main">
 					<span class="mylabel">
 						消费商城
@@ -96,9 +100,11 @@
 </script>
 
 <script type="text/javascript">
+	
 	mui.init({
-		swipeBack: true //启用右滑关闭功能
+		swipeBack: true ,//启用右滑关闭功能
 	});
+	
 	mui('.mui-scroll-wrapper').scroll({
 		deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
 	});
@@ -106,12 +112,27 @@
 	
 	//2、创建子页面，首个选项卡页面显示，其它均隐藏
 	var view_show = {};
+	 scan = null;
 	mui.plusReady(function() {
+		//bqc-s0618
+			document.getElementById("opens").addEventListener('tap',function(){
+				loginRequired(function(){
+					openView('richscan.html', 'richscan');
+				})
+			})
+			document.getElementById("cash").addEventListener('tap',function(){
+				loginRequired(function(){
+					openView('cash.html', 'cash');
+				})
+			})
+		//bqc-e0618
+		
 		
 		storage.init();
 		
 		plus.navigator.setStatusBarStyle('light');   
 		plus.navigator.setStatusBarBackground('#2695EF');
+		
 		
 		
 		var self = plus.webview.currentWebview();
@@ -182,6 +203,8 @@
 		});
 		
 		initPage();
+	
+    
 	});
 	function initPage() {
 		loadData();
@@ -273,6 +296,50 @@
 // 			}
 // 		});
 	}
+	function startRecognize(){  //开启扫描 
+           try{   
+             var filter;   
+             //自定义的扫描控件样式   
+             var styles = {frameColor: "#29E52C",scanbarColor: "#29E52C",background: ""}   
+            //扫描控件构造   
+            scan = new plus.barcode.Barcode('bcid',filter,styles);   
+            scan.onmarked = onmarked;    
+            scan.onerror = onerror;  //扫描错误 
+            scan.start();   
+            //打开关闭闪光灯处理   
+            var flag = false;   
+            document.getElementById("turnTheLight").addEventListener('tap',function(){   
+               if(flag == false){   
+                  scan.setFlash(true);   
+                  flag = true;   
+               }else{   
+                 scan.setFlash(false);   
+                 flag = false;   
+               }   
+            });   
+          }catch(e){   
+            alert("出现错误啦:\n"+e);   
+             }   
+          };   
+            function onerror(e){  //错误弹框 
+                    alert(e);   
+            };   
+            function onmarked( type, result ) {  //这个是扫描二维码的回调函数，type是扫描二维码回调的类型 
+                    var text = '';   
+                    switch(type){ //QR,EAN13,EAN8都是二维码的一种编码格式,result是返回的结果 
+                        case plus.barcode.QR:   
+                        text = 'QR: ';   
+                        break;   
+                        case plus.barcode.EAN13:   
+                        text = 'EAN13: ';   
+                        break;   
+                        case plus.barcode.EAN8:   
+                        text = 'EAN8: ';   
+                        break;   
+                    }   
+                    alert( text + " : "+ result );   
+                       
+            };        
 </script>
 </body>
 </html>

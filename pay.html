@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>确认付款</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="css/mui.min.css"/>
+	
+	<link rel="stylesheet" href="css/richscan.css" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<<!-- script src="js/util.js"></script> -->
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<!-- <script type="text/javascript" src="js/lib/artTemplate.js"></script>
+	<script type="text/javascript" src="js/lib/common.js"></script>-->
+	<script type="text/javascript" src="js/common.js"></script> 
+	<style type="text/css">	
+		
+		.shouuser-name{
+			font-size: 14px;
+			text-align: center;
+			color:#333;
+			
+		}
+		.shouuser .mui-input{
+			margin: 0 10px;
+		}
+		.shouuser .mui-input span{
+			font-size: 12px;
+		}
+		.shouuser .useravter{
+			text-align: center;
+			margin-top: 10px;
+			margin-bottom: 0;
+		}
+		.shouuser .useravter img{
+			width: 80px;
+		}
+		.shouuser label{
+			font-weight: bold;
+			width: 15%;
+		}
+		.shouuser label ~ input{
+			width: 85%;
+			}
+		.mui-input 	.mui-input-row{
+			border-bottom: 1px solid #c1c1c1;
+		}
+		.mui-input .gopay button{
+			margin-top: 10px;
+			font-size: 14px;
+			padding:10px 0;
+		}	
+	</style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav" style="background-color: #2695ef;">   
+		  <a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()" style="color: #fff;"></a>   
+		  <h1 class="mui-title" style="color: #fff;">付款</h1>   
+		     
+    </header>   
+    <div class="mui-content mui-scroll-wrapper" style="background: #fff;height: 100%;">
+    	<div class="shouuser">
+			<p class="useravter"><img src="picture/logo.png" ></p>
+    		<p class="shouuser-name">转账给xxx</p>
+			<form class="mui-input" action="" method="POST" id="normal-form" >
+				<span>转账金额</span>
+				<div class="mui-input-row" style="border-bottom: 1px solid #f1f1f1;">
+					<label>￥</label>
+					<input type="number" class="mui-input-clear" placeholder="" name="name" id="name" >
+				</div>
+				<div class="gopay">
+					<button type="button" class="mui-btn mui-btn-blue mui-btn-block" > 确认转账</button>
+				</div>
+			</form>
+    	</div>
+    </div>       
+     
+           
+    
+
+
+
+<script type="text/javascript">
+    mui.plusReady(function () {  //通过mui初始化扫描 
+        mui.init();   
+    });   
+               
+</script>
+</body>
+</html>

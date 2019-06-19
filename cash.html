@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>提现</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="css/mui.min.css"/>
+	<link rel="stylesheet" href="css/mui.picker.css "/>
+	<link rel="stylesheet" href="css/mui.poppicker.css "/>
+	<link rel="stylesheet" href="css/richscan.css" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<<!-- script src="js/util.js"></script> -->
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/mui.picker.js"></script>
+	<script type="text/javascript" src="js/mui.poppicker.js"></script>
+	<!-- <script type="text/javascript" src="js/lib/artTemplate.js"></script>
+	<script type="text/javascript" src="js/lib/common.js"></script>-->
+	<script type="text/javascript" src="js/common.js"></script> 
+	<style type="text/css">	
+		.shouuser .mui-input span{
+			font-size: 12px;
+		}
+		.shouuser .tx-bank{
+			background: #fff;
+			margin-top: 10px;
+			overflow: hidden;
+			display:flex;
+			align-items:center;
+			justify-content:space-between;
+			
+		}
+		
+		.shouuser .tx-bank .left{
+			float: left;
+			padding: 5px 0;
+			padding-left: 10px;
+		}
+		.shouuser .tx-bank p{
+			margin: 0;
+			font-size: 14px;
+			
+		}
+		.shouuser .tx-bank .bankname{
+			color: #000000;
+		}
+		.shouuser .tx-num{
+			background: #fff;
+			margin-top: 10px;
+			padding-left: 10px;
+			padding-top: 5px;	
+			
+		}
+		.shouuser .tx-num p {
+			font-size: 12px;
+			padding: 5px 0;
+			
+		}
+		
+		.shouuser label{
+			font-weight: bold;
+			width: 10%;
+			padding: 10px 0;
+			font-size: 18px;
+		}
+		.shouuser label ~ input{
+			width: 90%;
+			}
+		.mui-input 	.mui-input-row{
+			border-bottom: 1px solid #c1c1c1;
+		}
+		.mui-input .gopay{
+			padding: 0 10px;
+		}
+		.mui-input .gopay button{
+			padding: 0 10px;
+			margin-top: 20px;
+			
+			font-size: 14px;
+			padding: 10px 0;
+		}	
+	</style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav" style="background-color: #2695ef;">   
+		  <a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()" style="color: #fff;"></a>   
+		  <h1 class="mui-title" style="color: #fff;">提现</h1>   
+		     
+    </header>   
+    <div class="mui-content mui-scroll-wrapper" >
+    	<div class="shouuser">
+			<form class="mui-input" action="" method="POST" id="normal-form" >
+				<div class="tx-bank">
+					<div class="left" >
+						<p class="bankname" id="bankname">XXX银行</p>
+						<p class="bankid" >尾号1234</p>
+						<input type="hidden" name="bankid" id="bankid" value="">
+					</div>
+					<div class=" mui-icon mui-icon-forward mui-pull-right" style="color: #000000;" id="selectbank" ></div> 
+				</div>
+				<div class="tx-num">
+					<span>提现金额</span>
+					<div class="mui-input-row" style="border-bottom: 1px solid #f1f1f1;">
+						<label>￥</label>
+						<input type="number" class="mui-input-clear" placeholder="" name="name" id="name" >
+					</div>
+					<p>可用余额下X.XX元</p>
+				</div>
+				<div class="gopay">
+					<button type="button" class="mui-btn mui-btn-blue mui-btn-block" > 确认转账</button>
+				</div>
+			</form>
+    	</div>
+    </div>       
+     
+
+	<script type="text/javascript">
+		mui.plusReady(function () {  //通过mui初始化扫描 
+			mui.init(); 
+			document.getElementById("selectbank").addEventListener('tap',function(){
+				var picker = new mui.PopPicker();
+				picker.setData([
+					{value:'1',text:'X6X银行1',},
+					{value:'2',text:'XX银行2',},
+					{value:'3',text:'XX银行3',},
+					]);
+				picker.show(function (selectItems) {
+					document.getElementById("bankname").innerHTML=selectItems[0].text;
+					document.getElementById("bankid").value = selectItems[0].value;
+					console.log(selectItems[0].text);
+					console.log(selectItems[0].value);
+				})
+			})
+			
+		});   
+				   
+	</script>
+</body>
+</html>
