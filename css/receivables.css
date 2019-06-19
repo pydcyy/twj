@@ -1,0 +1,50 @@
+
+.mui-bar-nav {
+	box-shadow:none;
+}
+.mui-page-content{
+	margin-top: 44px;
+}
+.mui-page-content .code{
+	width: 55%;
+	margin: 0 auto;
+}
+.mui-page-content .money{
+	font-size: 30px;
+	margin-top: 20px;
+}
+.mui-page-content .code img{
+	width: 100%;
+}
+.receivablesrowa{
+	font-size: 16px;
+	margin-bottom: 15px;
+}
+.receivablesrowb{
+	color: #2695EF;
+	margin-top: 15px;
+	display: block;
+}
+.mui-page-content .mui-input-row{
+	background:#fff ;
+	height: 50px;
+}
+.mui-page-content label{
+	height: 50px;
+	line-height: 28px;
+	width: 25%;
+}
+.mui-page-content input{
+	height: 50px;
+	width: 75%!important;
+}
+.mui-page-content button{
+	width: 95%;
+	background: #2695EF;
+	height: 40px;
+	line-height: 28px;
+	margin-top: 45px;
+}
+.mui-input-row .mui-input-clear~.mui-icon-clear{
+	top: 15px;
+}

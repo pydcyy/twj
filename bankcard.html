@@ -17,8 +17,8 @@
 				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()"></a>
 				<h1 class="mui-title">银行卡</h1>
 			</header>
-			<div class="mui-content ">
-				<div >
+			<div class="mui-content mui-scroll-wrapper">
+				<div class="mui-scroll">
 					<!--这里放置真实显示的DOM内容-->
 					 <div class="bankcard-list" v-for="item,index in bankcard">
 						<div class="bankcard-list-content">
@@ -57,10 +57,15 @@
 							var that = this;		
 			                $.plusReady(function() {
 								bankcardRequired(function(result){
-									var banks=result['data']['banks'];
-									
+									var banks=result['data']['banks'];							
 									that.bankcard=banks;
+									afterOpenView();
 								}) 
+								
+								$('.mui-scroll-wrapper').scroll({
+									deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+								});
+								$('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
 								
 								var addcardButton = doc.getElementById("addcard");
 								addcardButton.addEventListener('tap',function(even){
@@ -79,8 +84,14 @@
 									})		
 								})
 								
-								window.addEventListener('refresh', function(e) {  
-									location.reload();   
+								window.addEventListener('refresha', function(e) {  
+									bankcardRequired(function(result){
+										var banks=result['data']['banks'];							
+										that.bankcard=banks;
+										if(plus.webview.getWebviewById("addcard")){
+											plus.webview.getWebviewById("addcard").hide();
+										}
+									}) 
 								})
 								
 			                    //循环初始化所有下拉刷新，上拉加载。
