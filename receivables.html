@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>收款</title>
+	<link href="css/mui.min.css" rel="stylesheet" />
+	<link href="css/app.css" rel="stylesheet"/>
+	<link href="css/receivables.css" rel="stylesheet" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+		<script src="js/jquery.qrcode.min.js"></script>
+<style>
+	html{
+		background: #2695EF;
+		padding: 0 15px;
+	}
+	.mui-page-content{
+		background: #fff;
+		margin-top: 44px;
+		text-align: center;
+		padding: 30px 20px;
+	}
+</style>
+</head>
+<body>
+	<div id="app">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()"></a>
+			<h1 class="mui-title">收款</h1><!-- 
+			<a class="mui-pull-right" style="height: 44px;line-height: 44px;" id="addaddress">保存</a> -->
+		</header>
+		<div class="mui-page-content">
+			<div class="receivablesrowa">扫一扫，向我付钱</div>
+			<div class="code" id="code">
+				
+			</div>
+			<!-- <div class="money">
+				￥123.00
+			</div> -->
+			<!-- <div><a class="receivablesrowb" id="receivableset">设置金额</a></div> -->
+		</div>
+	</div>
+
+</body>
+<script>
+	(function($, doc) {
+		$.init();
+		$.plusReady(function() {
+			var uid= getUid();
+			jQuery("#code").html("");	
+			jQuery("#code").qrcode({
+				width: 160, //宽度
+				height:160, //高度
+				text: weburl+"?uid="+uid //任意内容
+			});
+			
+			afterOpenView();
+		})
+	}(mui, document))
+
+</script>
+</html>

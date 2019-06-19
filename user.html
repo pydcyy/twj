@@ -16,6 +16,7 @@
 <body>
 	<!-- 主界面不动、菜单移动 -->
 	<!-- 侧滑导航根容器 -->
+	
 	<div class="mui-off-canvas-wrap mui-draggable mui-slide-in">
 	  
 	  <!-- 主页面容器 -->
@@ -133,17 +134,13 @@
 			deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
 		});
 		$('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
-		$.plusReady(function() {
-			
-			
+		$.plusReady(function() {		
 			var settingButton = doc.getElementById("setting");
 			var addressButton = doc.getElementById("address");		
 			var phonelineButton = doc.getElementById("phoneline");
 			var bankcardButton = doc.getElementById("bankcard");
 			var inviteButton = doc.getElementById("invite");
 
-
-			
 			// 去推广注册页面
 			var invite = plus.webview.getWebviewById("invite");
 			var invite_loaded_flag = false;
@@ -189,18 +186,12 @@
 			
 			addressButton.addEventListener('tap',function(even){
 				loginRequired(function(){
-					openView('address.html', 'address');
-// 						plus.nativeUI.showWaiting();
-// 						$.fire(address, 'getUserAddress', result);
-// 						address.show("slide-in-right", 300);
-// 						plus.nativeUI.closeWaiting();
-					
+					beforeOpenView("address.html");
 				})
 			})
 			bankcardButton.addEventListener('tap',function(even){
 				loginRequired(function(){
-					openView('bankcard.html', 'bankcard');
-					
+					beforeOpenView("bankcard.html");
 				})
 			})
 			

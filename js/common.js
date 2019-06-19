@@ -89,12 +89,21 @@ function gobackRefresh(){
 function gobackRefreshTrue(){
 	var list = plus.webview.currentWebview().opener();
 	//触发列表界面的自定义事件（refresh）,从而进行数据刷新   
-	mui.fire(list, 'refresh');  
+	mui.fire(list, 'refresha'); 
 	//返回true，继续页面关闭逻辑     
-	return true;  
 }
 function log(data){
 	console.log(JSON.stringify(data));
+}
+function beforeOpenView(page){
+	plus.nativeUI.showWaiting(); 
+	webviewShow = plus.webview.create(page); 
+}
+
+function afterOpenView(){
+	var currentView = plus.webview.currentWebview();
+	currentView.show('slide-in-right', 300);
+	plus.nativeUI.closeWaiting();
 }
 // 封装ajax
 function diyAjax(url,data,callback,errcallback){
@@ -111,6 +120,8 @@ function diyAjax(url,data,callback,errcallback){
 			data['key']=getAppKey();
 		}	
 		
+		//var mask=mui.createMask();//遮罩层
+		
 		return jQuery.ajax({
 			url:url,
 			dataType: 'json', 
@@ -118,6 +129,14 @@ function diyAjax(url,data,callback,errcallback){
 			type: 'POST',
 			timeout: 20000, 
 			data:data,
+			beforeSend: function() {
+				plus.nativeUI.showWaiting();
+				//mask.show();//显示遮罩层
+			},
+			complete: function() {
+				plus.nativeUI.closeWaiting();
+				//mask.close();//关闭遮罩层
+			},
 			success: function(result) { 
 				if(result.code=="-667"){
 					showMessage('登录失效，请重新登录!');
@@ -520,9 +539,7 @@ function _savecrad(thisButton){
 		if (result.code == 1) {
 			//成
 			showMessage(result.msg);
-			if(gobackRefreshTrue()){
-				goback();
-			}
+			gobackRefreshTrue();
 			thisButton.button("reset");
 			return false;
 		} else{
@@ -571,9 +588,13 @@ function _addaddress(flag){
 	diyAjax(save_url,postData,function(result){
 		console.log("添加收货地址");
 		showMessage(result.msg);
-		if(gobackRefreshTrue()){
-			goback();
+		
+		if(result.code==1){
+			gobackRefreshTrue();
+			
+			// beforeOpenView("address.html");
 		}
+		
 		
 	},function(xhr){
 		console.log(JSON.stringify(xhr));

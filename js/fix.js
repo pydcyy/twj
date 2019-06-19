@@ -2,18 +2,17 @@
 var app_config = {
 	version: '1.0.0',
 	cssAr: [
-		'../css/mui.min.css', 
-		'../css/app.css', 
+		'css/mui.min.css', 
+		'css/app.css', 
 	],
 	jsAr:[
-		'../js/mui.min.js',
-		'../js/jquery.min.js',
-		'../js/lib/md5.min.js', 
-		'../js/lib/artTemplate.js',
-		'../js/lib/common.js'
+		'js/jquery.min.js',
+		'js/mui.min.js',
+		'js/lib/md5.min.js', 
+		'js/lib/artTemplate.js',
+		'js/lib/common.js',
 	]
 }
-
 Array.prototype.distinct = function() {
 	var arr = this,
 		result = [],
@@ -36,14 +35,15 @@ Array.prototype.distinct = function() {
 function link(cssAr,type) {
 	var cssAr = type ? cssAr.distinct() : app_config.cssAr.concat(cssAr || []).distinct();
 	for(var i = 0; i < cssAr.length; i++) {
-		document.write('<link rel="stylesheet" href="' + cssAr[i] + '?version=' + app_config.version + '"/>');
+		document.write('<link rel="stylesheet" href="' + cssAr[i] +'"/>');
 	}
 }
 
 function script(jsAr,type) {
 	var jsAr =type ? jsAr.distinct() : app_config.jsAr.concat(jsAr || []).distinct();
+	
 	for(var i = 0; i < jsAr.length; i++) {
-		document.write('<script src="' + jsAr[i] + '?version=' + app_config.version + ' type="text/javascript" charset="utf-8"><\/script>');
+		document.write('<script src="' + jsAr[i] + '" type="text/javascript" charset="utf-8"><\/script>');
 	}
 }
 

@@ -48,11 +48,11 @@
 					<span class="fa fa-payment"></span>
 					<p>付款</p>
 				</li>
-				<li>
+				<li id="receivables">
 					<span class="fa fa-receivables"></span>
 					<p>收款</p>
 				</li>
-				<li>
+				<li id="transfer">
 					<span class="fa fa-transfer"></span>
 					<p>转账</p>
 				</li>
@@ -83,15 +83,11 @@
 
 <script type="text/html" id="banner_view">
 	{{if data==null || data.length==0}}
-	
-	<li><img src="picture/shopa.png" alt=""></li>
-	<li><img src="picture/shopb.png" alt=""></li>
-	<li><img src="picture/shopc.png" alt=""></li>
-	
+		<li><img src="picture/shopa.png" alt=""></li>
+		<li><img src="picture/shopb.png" alt=""></li>
+		<li><img src="picture/shopc.png" alt=""></li>
 	{{else}} {{each data as item}}
-	
-	<li><a href="1.html"><img src="{{item}}" alt=""></a></li>
-	
+		<li><a data-href="{{item[1]}}"><img src="{{item[0]}}" alt=""></a></li>
 	{{/each}} {{/if}}
 </script>
 
@@ -113,23 +109,30 @@
 		plus.navigator.setStatusBarStyle('light');   
 		plus.navigator.setStatusBarBackground('#2695EF');
 		
-		
-		var self = plus.webview.currentWebview();
-		
+		document.getElementById("receivables").addEventListener('tap',function(even){
+			loginRequired(function(){
+				beforeOpenView("receivables.html");
+			})
+		})
+		document.getElementById("transfer").addEventListener('tap',function(even){
+			loginRequired(function(){
+				openView("transfer.html","transfer");
+			})
+		})
+		var self = plus.webview.currentWebview();	
 		// 创建子webview窗口 并初始化
 		var aniShow = {};
-		util.initSubpage(aniShow);
-		
+		util.initSubpage(aniShow);		
 		var nview = plus.nativeObj.View.getViewById('tabBar'),
 			activePage = plus.webview.currentWebview(),
 			targetPage,
 			subpages = util.options.subpages,
 			pageW = window.innerWidth,
 			currIndex = 0;
-		
 		/**
 		 * 根据判断view控件点击位置判断切换的tab
 		 */
+
 		nview.addEventListener('click', function(e) {
 			loginRequired(function(){
 				var clientX = e.clientX;
@@ -182,6 +185,12 @@
 		});
 		
 		initPage();
+		
+		$("body").on("tap", ".shop-img a", function() {
+			var that = this;
+			var href= that.dataset.href;
+			openView(href,href);	
+		})
 	});
 	function initPage() {
 		loadData();
@@ -195,83 +204,14 @@
 			if(result.code == 1){
 				var bannerjson = {};
 				bannerjson.data = result.data.navlink;
-				log(bannerjson);
+				log(result);
 				render("#banner_warp", "banner_view", bannerjson);
 			}
 		},function(xhr){
 			console.log("失败"+JSON.stringify(xhr));
 		})
 		
-// 		request("/Index/getIndexLis", {
-// 			lon: lon,
-// 			lat: lat,
-// 			cityid: storageLocation.CityId
-// 		}, function(json) {
-// 			if(json.code == "0") {
-// 				newmatchpage=2, nearstorepage=2;
-// 				bannerjson = {};
-// 				bannerjson.data = json.data.bannerdata;
-// 				
-// 				if(!swiper) {
-// 					render("#banner_warp", "banner_view", bannerjson);
-// 					swiper = new Swiper('.swiper-container', {
-// 						autoplay: 3000, //可选选项，自动滑动
-// 						pagination: '.swiper-pagination',
-// 						loop: true,
-// 						autoplayDisableOnInteraction: false,
-// 					});
-// 				} else {
-// 					swiper.stopAutoplay();
-// 					swiper.removeAllSlides();		
-// 					var item,str;
-// 					for (var i=0;i<bannerjson.data.length;i++) {
-// 						item=bannerjson.data[i];
-// 						str='<div class="swiper-slide addetail" data-href="'+item.HrefUrl+'" data-param=\''+item.HrefParam+'\'><img class="loadthumb" data-url="'+item.ImgUrl+'" data-wh=",320" />';
-// 						//log(str);
-// 						swiper.appendSlide(str);
-// 					}
-// 					
-// 					//render("#banner_warp", "banner_view", bannerjson,true);
-// 	//				swiper.appendSlide("<div class='swiper-slide'><img src='../../images/banner.png' /></div>"+"<div class='swiper-slide'><img src='../../images/banner.png' /></div>"+"<div class='swiper-slide'><img src='../../images/banner.png' /></div>"+"<div class='swiper-slide'><img src='../../images/banner.png' /></div>");
-// 					swiper.startAutoplay();
-// 				}
-// 	
-// 				singlematchjson = {};
-// 				singlematchjson.data = json.data.recentmatchdata;
-// 				showSigleMatch();
-// 	
-// 				newmatchjson = {};
-// 				newmatchjson.data = json.data.newestmatchdata;
-// 				showNewMatch();
-// 	
-// 				nearstorejson = {};
-// 				nearstorejson.data = json.data.nearbystoredata;
-// 				showNearStore();
-// 	
-// 				cardgroupjson = {};
-// 				cardgroupjson.data = json.data.taopaidata;
-// 				render("#cardgroup_warp", "cardgroup_view", cardgroupjson);
-// 	
-// 				newsjson = {};
-// 				newsjson.data = json.data.newestnewsdata;
-// 				render("#news_warp", "news_view", newsjson);
-// 				
-// 				hottopicjson={};
-// 				hottopicjson.data = json.data.hottopicdata;
-// 				document.getElementById("topic_warp").setAttribute('data-id',hottopicjson.data.NewsId)
-// 				
-// 				appPage.imgInit();
-// 			} else {
-// 				appUI.showTopTip(json.msg)
-// 			}
-// 			appPage.endPullRefresh();
-// 		}, false, function() {
-// 			appPage.endPullRefresh();
-// 			var arr = document.getElementsByClassName("nodata");
-// 			for(var i = 0; i < arr.length; i++) {
-// 				arr[i].innerText = "暂无数据";
-// 			}
-// 		});
+
 	}
 </script>
 </body>

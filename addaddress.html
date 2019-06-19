@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-	<title>编辑收货地址</title>
-	<link href="css/mui.min.css" rel="stylesheet" />
-	<link href="css/app.css" rel="stylesheet"/>
-	<link href="css/setting.css" rel="stylesheet" />
-	<link href="css/mui.picker.css" rel="stylesheet" />
-	<link href="css/mui.poppicker.css" rel="stylesheet" />
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/mui.min.js"></script>
-	<script src="js/mui.picker.js"></script>
-	<script src="js/mui.poppicker.js"></script>
-	<script type="text/javascript" src="js/common.js"></script>
-	<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
-<style>
-	.mui-table-view-cell{
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>编辑收货地址</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/app.css" rel="stylesheet" />
+		<link href="css/setting.css" rel="stylesheet" />
+		<link href="css/mui.picker.css" rel="stylesheet" />
+		<link href="css/mui.poppicker.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script src="js/mui.picker.js"></script>
+		<script src="js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			.mui-table-view-cell{
 		padding:10px 3px;
 	}
 
@@ -33,105 +33,105 @@
 		color:#767676;
 	}
 </style>
-</head>
-<body>
-	<div id="app">
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()"></a>
-			<h1 class="mui-title">添加收获地址</h1>
-			<a class="mui-pull-right" style="height: 44px;line-height: 44px;" id="addaddress">保存</a>
-		</header>
-		<div class="mui-page-content">
-			<div class="mui-scroll-wrapper">
-				<div class="mui-scroll">
-					<form id="normal-form">
-						<div class="mui-input-group">
-							<div class="mui-input-row">
-								<input type="text" placeholder="收货人" name="name">
-							</div>
-							<div class="mui-input-row">
-								<input type="text" class="mui-input-clear" placeholder="手机号码" name="mobile">
-							</div>
-							<div class="mui-input-row" id="area_code">
-								<a href="#" class="mui-navigate-right" id="area_coderes">
-									所在地区
-								</a>
-								<input type="hidden" name="cityid" value="">
-							</div>
-							<div class="mui-input-row" style="height: 90px;border-bottom: 10px solid #efeff4;">
-								<textarea rows="" cols="" placeholder="详细地址:如道路,门牌号,小区,楼栋号,单元室等" style="padding: 15px;height: 100%;" name="address"></textarea>
-							</div>
-							<div class="mui-input-row">
-								<label for="" style="line-height: 24px;">设为默认地址</label>
-								<div class="mui-switch" id="default">
-									<div class="mui-switch-handle" ></div>
-									<input type="hidden" name="default" value="0">
-									<input type="hidden" name="type" value="2">
+	</head>
+	<body>
+		<div id="app">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()"></a>
+				<h1 class="mui-title">添加收获地址</h1>
+				<a class="mui-pull-right" style="height: 44px;line-height: 44px;" id="addaddress">保存</a>
+			</header>
+			<div class="mui-page-content mui-content">
+				<div class="mui-scroll-wrapper ">
+					<div class="mui-scroll">
+						<form id="normal-form">
+							<div class="mui-input-group">
+								<div class="mui-input-row">
+									<input type="text" placeholder="收货人" name="name">
 								</div>
-							</div>
-							<!-- <div class="mui-input-row" style="height: 55px;border-top: 10px solid #efeff4;">
+								<div class="mui-input-row">
+									<input type="text" class="mui-input-clear" placeholder="手机号码" name="mobile">
+								</div>
+								<div class="mui-input-row" id="area_code">
+									<a href="#" class="mui-navigate-right" id="area_coderes">
+										所在地区
+									</a>
+									<input type="hidden" name="cityid" value="">
+								</div>
+								<div class="mui-input-row" style="height: 90px;border-bottom: 10px solid #efeff4;">
+									<textarea rows="" cols="" placeholder="详细地址:如道路,门牌号,小区,楼栋号,单元室等" style="padding: 15px;height: 100%;" name="address"></textarea>
+								</div>
+								<div class="mui-input-row">
+									<label for="" style="line-height: 24px;">设为默认地址</label>
+									<div class="mui-switch" id="default">
+										<div class="mui-switch-handle"></div>
+										<input type="hidden" name="default" value="0">
+										<input type="hidden" name="type" value="2">
+									</div>
+								</div>
+								<!-- <div class="mui-input-row" style="height: 55px;border-top: 10px solid #efeff4;">
 								<label for="" style="line-height: 24px;color: red;width: 100%;" id="deladdress">删除地址</label>
 							</div> -->
-						</div>
-					</from>
+							</div>
+							</from>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-</body>
-<script>
-	(function($, doc) {
-		$.init();
-		$.plusReady(function() {
-// 			var deladdressButton = doc.getElementById("deladdress");
-// 
-// 
-// 			deladdressButton.addEventListener('tap',function(even){
-// 				loginRequired(function(){
-// 					alert(1);
-// 				})
-// 			})
-			
-			// var cityName = getNameByCode(event['detail']["data"]["area_code"]);
-			
-			//-----------------------------------------
-			//					//级联示例
-			var cityPicker3 = new $.PopPicker({
-				layer: 3
-			});
-			cityPicker3.setData(cityData3);
-			var showCityPickerButton = doc.getElementById('area_code');
-			var cityResult3 = doc.getElementById('area_coderes');
-			var input = doc.getElementsByName("cityid")[0];
-			var defaultinput = doc.getElementsByName("default")[0];
-			var addaddressButton = doc.getElementById('addaddress');
-			var defaultButton = doc.getElementById('default');
-			
-			showCityPickerButton.addEventListener('tap', function(event) {
-				cityPicker3.show(function(items) {
-					input.value = items[2]["value"];
-					cityResult3.innerText = items[0]["text"] + " " + items[1]["text"] + " " + items[2]["text"];
-					cityResult3.style.color = "#000";
-					//返回 false 可以阻止选择框的关闭
-					//return false;
+	</body>
+	<script>
+		(function($, doc) {
+			$.init();
+
+			$.plusReady(function() {
+				// 			var deladdressButton = doc.getElementById("deladdress");
+				// 
+				// 
+				// 			deladdressButton.addEventListener('tap',function(even){
+				// 				loginRequired(function(){
+				// 					alert(1);
+				// 				})
+				// 			})
+
+				// var cityName = getNameByCode(event['detail']["data"]["area_code"]);
+
+				//-----------------------------------------
+				//					//级联示例
+				var cityPicker3 = new $.PopPicker({
+					layer: 3
 				});
-			}, false);
-			
-			addaddressButton.addEventListener('tap', function(event) {
-				_addaddress();
-			})
-			
-			defaultButton.addEventListener('tap',function(event){
-				if(jQuery("#default").hasClass("mui-active")){
-					defaultinput.value ="1";
-				}else{
-					defaultinput.value ="0";
-				}
-			})
-			
-		})
-	}(mui, document))
+				cityPicker3.setData(cityData3);
+				var showCityPickerButton = doc.getElementById('area_code');
+				var cityResult3 = doc.getElementById('area_coderes');
+				var input = doc.getElementsByName("cityid")[0];
+				var defaultinput = doc.getElementsByName("default")[0];
+				var addaddressButton = doc.getElementById('addaddress');
+				var defaultButton = doc.getElementById('default');
 
-</script>
+				showCityPickerButton.addEventListener('tap', function(event) {
+					cityPicker3.show(function(items) {
+						input.value = items[2]["value"];
+						cityResult3.innerText = items[0]["text"] + " " + items[1]["text"] + " " + items[2]["text"];
+						cityResult3.style.color = "#000";
+						//返回 false 可以阻止选择框的关闭
+						//return false;
+					});
+				}, false);
+
+				addaddressButton.addEventListener('tap', function(event) {
+					_addaddress();
+				})
+
+				defaultButton.addEventListener('tap', function(event) {
+					if (jQuery("#default").hasClass("mui-active")) {
+						defaultinput.value = "1";
+					} else {
+						defaultinput.value = "0";
+					}
+				})
+
+			})
+		}(mui, document))
+	</script>
 </html>
