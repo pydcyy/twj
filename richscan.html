@@ -63,9 +63,10 @@
      
         var scan = null;//扫描对象   
         mui.plusReady(function () {  //通过mui初始化扫描 
-              mui.init();   
-          startRecognize();   
-           });   
+            mui.init();   
+			startRecognize();
+			afterOpenView();
+        });   
                
         function startRecognize(){  //开启扫描 
            try{   
@@ -91,7 +92,8 @@
           }catch(e){   
             alert("出现错误啦:\n"+e);   
              }   
-          };   
+          };
+			 
             function onerror(e){  //错误弹框 
                     alert(e);   
             };   
@@ -108,11 +110,18 @@
                         text = 'EAN8: ';   
                         break;   
                     }   
-                    alert( text + " : "+ result ); 
-					openView('pay.html');
-					scan.start();
-					 
-                       
+					result =result.split("?");
+					var url ='';
+					var value ='';
+					url=result[0].split(".");
+					value = result[1].split("=");
+
+					// console.log(value);
+					
+					openView(result[0],url[0],{mobile:value[1]});
+					
+					
+					// scan.start();  
             };     
                    
         // // 从相册中选择二维码图片    
