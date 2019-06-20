@@ -88,6 +88,7 @@ function goback(){
 	var ws = plus.webview.currentWebview();
 	plus.webview.close(ws);
 }
+
 //返回父页面并且刷新
 function gobackRefresh(){
 	mui.back();
@@ -114,7 +115,7 @@ function afterOpenView(){
 // 封装ajax
 function diyAjax(url,data,callback,errcallback){
 	if(onNetChange()){
-
+		
 		var token = getToken();
 		
 		if(token){	
@@ -127,7 +128,6 @@ function diyAjax(url,data,callback,errcallback){
 		}	
 		
 		//var mask=mui.createMask();//遮罩层
-		
 		return jQuery.ajax({
 			url:url,
 			dataType: 'json', 

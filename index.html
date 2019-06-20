@@ -113,8 +113,9 @@
 		//bqc-s0618
 			document.getElementById("opens").addEventListener('tap',function(){
 				loginRequired(function(){
-					openView('richscan.html', 'richscan');
+					beforeOpenView("richscan.html");
 				})
+				
 			})
 			document.getElementById("cash").addEventListener('tap',function(){
 				loginRequired(function(){
@@ -226,6 +227,7 @@
 			var href= that.dataset.href;
 			openView(href,href);	
 		})
+		
 
 	});
 	function initPage() {
@@ -248,50 +250,7 @@
 		
 
 	}
-	function startRecognize(){  //开启扫描 
-           try{   
-             var filter;   
-             //自定义的扫描控件样式   
-             var styles = {frameColor: "#29E52C",scanbarColor: "#29E52C",background: ""}   
-            //扫描控件构造   
-            scan = new plus.barcode.Barcode('bcid',filter,styles);   
-            scan.onmarked = onmarked;    
-            scan.onerror = onerror;  //扫描错误 
-            scan.start();   
-            //打开关闭闪光灯处理   
-            var flag = false;   
-            document.getElementById("turnTheLight").addEventListener('tap',function(){   
-               if(flag == false){   
-                  scan.setFlash(true);   
-                  flag = true;   
-               }else{   
-                 scan.setFlash(false);   
-                 flag = false;   
-               }   
-            });   
-          }catch(e){   
-            alert("出现错误啦:\n"+e);   
-             }   
-          };   
-            function onerror(e){  //错误弹框 
-                    alert(e);   
-            };   
-            function onmarked( type, result ) {  //这个是扫描二维码的回调函数，type是扫描二维码回调的类型 
-                    var text = '';   
-                    switch(type){ //QR,EAN13,EAN8都是二维码的一种编码格式,result是返回的结果 
-                        case plus.barcode.QR:   
-                        text = 'QR: ';   
-                        break;   
-                        case plus.barcode.EAN13:   
-                        text = 'EAN13: ';   
-                        break;   
-                        case plus.barcode.EAN8:   
-                        text = 'EAN8: ';   
-                        break;   
-                    }   
-                    alert( text + " : "+ result );   
-                       
-            };        
+	
 </script>
 </body>
 </html>
