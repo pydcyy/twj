@@ -1,15 +1,17 @@
 .mui-bar-nav{
-	height:145px;
+	height:44px;
 	background-color: #007aff;
 	color:#fff;
-	
+	box-shadow:none;
 }
 .mui-bar-nav .mui-title{
 	color:#fff;
 }
 .zichan   {
-	
 	margin-top: 40px;
+	background: #2695EF;
+	color: #fff;
+	padding: 15px;
 }
 .zichan span  {
 	font-size:12px;

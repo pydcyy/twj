@@ -10,6 +10,8 @@
 	<link rel="stylesheet" href="css/user.css" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/lib/artTemplate.js"></script>
+	<script type="text/javascript" src="js/lib/common.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
 
 </head>
@@ -17,26 +19,21 @@
 	<!-- 主界面不动、菜单移动 -->
 	<!-- 侧滑导航根容器 -->
 	
-	<div class="mui-off-canvas-wrap mui-draggable mui-slide-in">
-	  
 	  <!-- 主页面容器 -->
-	  <div class="mui-inner-wrap">
+	  <div class="mui-content mui-scroll-wrapper" id="pullrefresh">
 		<!-- 主页面标题 --> 
 		<header class="header">
-			<div class="mui-bar mui-bar-nav">
+			<div class="mui-bar mui-bar-nav" style="box-shadow: none;background: #2695EF;">
 				<div class="fa fa-gear" id="setting"></div>
 				<h1 class="mui-title"  style="right: 80px;left: 80px;">我的</h1>
 				<div class="fa fa-more" style="float: right;font-size: 32px;" id="invite"></div>
 			</div>
 		</header>
-
-		
-
-		<div class="mui-content mui-scroll-wrapper" style="background: #f0f0f0;margin-bottom: 50px;">
-		  <div class="mui-scroll">
+		<div class="mui-scroll" style="margin-bottom: 50px;">
+		  <div>
 			<!-- 主界面具体展示内容 -->
-			<div class="mui-content-main first-main">
-				<div class="useravter" style="background: url(picture/yqm.png) ;background-size:100% 100%;">
+			<div class="mui-content-main first-main" style="margin-top: -120px;">
+				<div class="useravter" style="background: url(picture/yqm.png);background-size:100% 100%;">
 				</div>
 				<div class="username">
 					<span>通无界</span>
@@ -113,11 +110,11 @@
 						</a>
 					</li>
 					<li class="mui-table-view-cell" style="display: flex;justify-content:space-between;"  id="phoneline">
-						<div class="mui-navigate-right" style="display: flex;align-items:center;">
+						<div class="" style="display: flex;align-items:center;">
 							<span class="mui-icon-extra mui-icon-extra-custom"></span>
 							<span class="title" >联系客服</span>
 						</div>	
-						<p class="mui-pull-right" >88888888</p>
+						<p class="mui-pull-right">88888888</p>
 					</li>
 				</ul>
 			</div>
@@ -125,15 +122,24 @@
 		</div>  
 		<div class="mui-off-canvas-backdrop"></div>
 	  </div>
-	</div>
 	<script type="text/javascript">
 	
 	(function($, doc) {
-		$.init();
-		$('.mui-scroll-wrapper').scroll({
-			deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+		$.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: { //下拉刷新
+					callback: pulldownRefresh,
+					style: $.os.android ? "circle" : "default"
+				}
+			}
 		});
-		$('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
+		
+		function pulldownRefresh() {	
+			loadData();
+			appPage.endPullRefresh();
+		}
+		
 		$.plusReady(function() {		
 			var settingButton = doc.getElementById("setting");
 			var addressButton = doc.getElementById("address");		
@@ -194,8 +200,27 @@
 					beforeOpenView("bankcard.html");
 				})
 			})
+			loadData();
+			afterOpenView();
 			
 		})
+		
+		function loadData() {	
+			console.log("1");
+// 			var url = postUrl+"Home/member/assets.html";
+// 			var postData = {};
+// 			diyAjax(url,postData,function(result){
+// 				console.log("获取财富信息");
+// 				if(result.code == 1){
+// 					
+// 					var assetsjson = {};
+// 					assetsjson.data = result.data.assets;
+// 					render("#assets_warp", "assets_view", assetsjson);
+// 				}
+// 			},function(xhr){
+// 				console.log("失败"+JSON.stringify(xhr));
+// 			})		
+		}
 	}(mui, document))
 	</script>
 </body>

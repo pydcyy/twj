@@ -10,7 +10,9 @@
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/mui.min.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
-		<script src="js/jquery.qrcode.min.js"></script>
+	<script src="js/jquery.qrcode.min.js"></script>
+	<script src="js/md10.js"></script>
+
 <style>
 	html{
 		background: #2695EF;
@@ -48,15 +50,15 @@
 	(function($, doc) {
 		$.init();
 		$.plusReady(function() {
-			var uid= getUid();
+			var mobile= phoneCode(getMobile().toString());
 			jQuery("#code").html("");	
 			jQuery("#code").qrcode({
 				width: 160, //宽度
 				height:160, //高度
-				text: weburl+"?uid="+uid //任意内容
+				text: "pay.html?mobile="+mobile //任意内容
 			});
-			
 			afterOpenView();
+			
 		})
 	}(mui, document))
 
