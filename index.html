@@ -127,13 +127,7 @@
 		storage.init();
 		
 		plus.navigator.setStatusBarStyle('light');   
-		plus.navigator.setStatusBarBackground('#2695EF');
-		
-
-		
-		
-		var self = plus.webview.currentWebview();
-		
+		plus.navigator.setStatusBarBackground('#2695EF');	
 
 		document.getElementById("receivables").addEventListener('tap',function(even){
 			loginRequired(function(){
@@ -172,8 +166,10 @@
 				} else {
 					currIndex = 3;
 				}
+
 				// 匹配对应tab窗口	
 				if(currIndex > 0) {
+
 					var sub = mui.openWindow({
 						url: subpages[currIndex - 1],
 						id: subpages[currIndex - 1],
@@ -191,6 +187,7 @@
 						  options:{}
 						}
 					});
+								
 					self.append(sub);
 					targetPage = plus.webview.getWebviewById(subpages[currIndex - 1]);
 				} else {
@@ -200,6 +197,18 @@
 				if(targetPage == activePage) {
 					return;
 				}
+				
+				if(currIndex!=2){
+					if(plus.webview.getWebviewById("wealth.html")){
+						plus.webview.getWebviewById("wealth.html").close();
+					}
+				}
+				if(currIndex!=3){
+					if(plus.webview.getWebviewById("user.html")){
+						plus.webview.getWebviewById("user.html").close();
+					}
+				}
+
 			
 				//底部选项卡切换
 				util.toggleNview(currIndex);
@@ -212,11 +221,6 @@
 		});
 		
 		initPage();
-
-	
-    
-
-		
 		$("body").on("tap", ".shop-img a", function() {
 			var that = this;
 			var href= that.dataset.href;
@@ -236,7 +240,6 @@
 			if(result.code == 1){
 				var bannerjson = {};
 				bannerjson.data = result.data.navlink;
-				log(result);
 				render("#banner_warp", "banner_view", bannerjson);
 			}
 		},function(xhr){

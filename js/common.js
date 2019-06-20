@@ -77,6 +77,12 @@ function getAppKey(){
 	return "V1.0";
 	//return plus.runtime.version;
 }
+
+// 获取mobile
+function getMobile(){
+	var user = getLoginStorage('$UserInfo');
+	return user['mobile'];
+}
 //返回父页面
 function goback(){
 	var ws = plus.webview.currentWebview();
@@ -354,10 +360,7 @@ function _login(thisButton){
 				plus.webview.getWebviewById('nearby.html').hide();
 				plus.webview.getWebviewById('wealth.html').hide();
 				plus.webview.getWebviewById('user.html').hide();
-			}
-			
-
-			
+			}			
 			indexPage.show("pop-in");
 			
 			thisButton.button("reset");
@@ -600,10 +603,78 @@ function _addaddress(flag){
 		console.log(JSON.stringify(xhr));
 	});
 	
-	return false;
-   
+	return false;  
+}
+function _transfer(thisButton){
+    var postData =  getPostData();
+	
+	if(postData["mobile"]==""){
+		showMessage("请输入转账手机号码");
+		thisButton.button("reset");
+		return false;
+	}else if(postData["money"]==""){
+		showMessage("请输入转账金额");
+		thisButton.button("reset");
+		return false;
+	}
+	
+    save_url = postUrl+"Home/member/transfer.html";
+	
+	// 1=余额转账 2=积分转账 3=金铢转账
+	postData["type"]=1;
+	
+	
+	var data={};
+	data["url"]=save_url;
+	data["postData"]=postData;
+
+	
+	sureMessage("确定转账",function(){	
+		// 支付密码验证
+		localStorage.setItem('$pwdPost', JSON.stringify(data));
+		beforeOpenView("payCode.html");
+		thisButton.button("reset");
+		
+// 		diyAjax(save_url,postData,function(result){
+// 			console.log("转账");
+// 			if (result.code == 1) {
+// 				//成功
+// 				showMessage(result.msg);
+// 				goback();
+// 				thisButton.button("reset");
+// 				return false;
+// 			}else{
+// 				// 失败
+// 				showMessage(result.msg);
+// 				//返回true,加载按钮
+// 				thisButton.button("reset");
+// 				return false;
+// 			}
+// 		},function(xhr){
+// 			thisButton.button("reset");
+// 			console.log(JSON.stringify(xhr));
+// 		});
+	});	
 }
 
+function _checkSecure(resultValue){
+	var statics = getLoginStorage('$pwdPost');
+	var url = statics['url'],
+		data = statics['postData'];
+	data['password'] = resultValue;
+	
+	diyAjax(url,data,function(result){
+		goback();
+// 		if(result.code == 1){
+// 			goback();
+// 		}else{
+// 			
+// 		}
+	},function(xhr){
+		console.log(JSON.stringify(xhr));
+	});
+
+}
 function getcaptchaAjax(account,type){	
 	var url = postUrl+"/api/sms/sendCaptcha",
 		data = {

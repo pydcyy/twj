@@ -7,7 +7,6 @@ span{
 	font-size: 12px;
 }
 .mui-content-main{
-	
 	background: #fff;
 	/* box-shadow: 0 0 10px rgba(4,192,211,0.2); */
 	margin: 0 10px;
@@ -105,8 +104,6 @@ span{
 	background: none;
 }
 .mui-scroll-wrapper{
-	top: 44px;
-	padding-top: 56px;
 	background: none!important;
 }
 .mui-content-main{

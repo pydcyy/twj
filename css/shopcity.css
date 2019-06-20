@@ -10,15 +10,16 @@
 	background: #fff;
 	padding: 0 4%;
 }
-
+.mui-search .mui-placeholder {
+	top: 5px!important;
+}
 .mui-content-nav li{
 	width: 33.333%;
 	float:left;
 	text-align: center;
 	margin: 10px 0;
 	font-size: 14px;
-	position: relative;
-	
+	position: relative;	
 }
 .mui-content-nav li.on {
 	font-weight: bold;
