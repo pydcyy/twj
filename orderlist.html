@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>订单详情</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="css/mui.min.css"/>
+	<link rel="stylesheet" href="css/app.css" />
+	<link rel="stylesheet" href="css/orderlist.css" />
+	<link rel="stylesheet" href="css/mui-icons-extra.css" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<div class="mui-input-row mui-search">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()" style="color: #fff;"></a>
+			<h1 class="mui-title" >
+				订单详情
+			</h1>
+		</div>
+	</header>
+	<div class="mui-content mui-scroll-wrapper">
+		<div class="mui-slider mui-scroll">
+			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a class="mui-control-item mui-active" href="#item1">全部</a>
+				<a class="mui-control-item" href="#item2">待付款</a>
+				<a class="mui-control-item" href="#item3">待发货</a>
+				<a class="mui-control-item" href="#item4">待收货</a>
+			</div>
+			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-3"></div>
+			<div class="mui-slider-group">
+				<div id="item1" class="mui-slider-item mui-control-content mui-active">
+					<ul class="mui-table-view " >
+						<li class="mui-table-view-cell" style="background: #fff;">
+							<div class="list-son">
+								<p class="status"><span style="color: #FB6F18;">交易成功</span></p>
+								<div class="list-son-show" >
+									<div class="img">
+										<img src="picture/carimg.png" >
+									</div>
+									<div class="atc">
+										<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
+									</div>
+									<div class="price " >
+										<span>￥1.80</span><br>
+										<p style="text-align:right ">&times;1</p>
+									</div>
+									<div class="foot" >
+										<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
+									</div>
+								</div>
+								<div class="list-son-del">
+									<button type="button" class="mui-btn">删除订单</button>
+								</div>
+							</div>
+						</li>
+						<li class="mui-table-view-cell" style="background: #fff;">
+							<div class="list-son">
+								<p class="status"><span style="color: #FB6F18;">交易成功</span></p>
+								<div class="list-son-show" >
+									<div class="img">
+										<img src="picture/carimg.png" >
+									</div>
+									<div class="atc">
+										<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
+									</div>
+									<div class="price " >
+										<span>￥1.80</span><br>
+										<p style="text-align:right ">&times;1</p>
+									</div>
+									<div class="foot" >
+										<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
+									</div>
+								</div>
+								<div class="list-son-del">
+									<button type="button" class="mui-btn">删除订单</button>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div id="item2" class="mui-slider-item mui-control-content">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell" style="background: #fff;">
+							<div class="list-son">
+								<p class="status"><span style="color: #FB6F18;">交易成功</span></p>
+								<div class="list-son-show" >
+									<div class="img">
+										<img src="picture/carimg.png" >
+									</div>
+									<div class="atc">
+										<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
+									</div>
+									<div class="price " >
+										<span>￥1.80</span><br>
+										<p style="text-align:right ">&times;1</p>
+									</div>
+									<div class="foot" >
+										<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
+									</div>
+								</div>
+								<div class="list-son-del">
+									<button type="button" class="mui-btn">删除订单</button>
+								</div>
+							</div>
+						</li>
+						
+					</ul>
+				</div>
+				<div id="item3" class="mui-slider-item mui-control-content">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell" style="background: #fff;">
+							<div class="list-son">
+								<p class="status"><span style="color: #FB6F18;">交易成功</span></p>
+								<div class="list-son-show" >
+									<div class="img">
+										<img src="picture/carimg.png" >
+									</div>
+									<div class="atc">
+										<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
+									</div>
+									<div class="price " >
+										<span>￥1.80</span><br>
+										<p style="text-align:right ">&times;1</p>
+									</div>
+									<div class="foot" >
+										<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
+									</div>
+								</div>
+								<div class="list-son-del">
+									<button type="button" class="mui-btn">删除订单</button>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div id="item4" class="mui-slider-item mui-control-content">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell" style="background: #fff;">
+							<div class="list-son">
+								<p class="status"><span style="color: #FB6F18;">交易成功</span></p>
+								<div class="list-son-show" >
+									<div class="img">
+										<img  src="picture/03.png" >
+									</div>
+									<div class="atc">
+										<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
+									</div>
+									<div class="price " >
+										<span>￥1.80</span><br>
+										<p style="text-align:right ">&times;1</p>
+									</div>
+									<div class="foot" >
+										<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
+									</div>
+								</div>
+								<div class="list-son-del">
+									<button type="button" class="mui-btn">删除订单</button>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="mui-content mui-scroll-wrapper">
+		<div class="mui-scroll">
+		
+			<div class="mui-content-nav">
+				<ul>
+					<li class="on">
+						全部
+						<div >
+						</div>
+					</li>
+					<li>待付款</li>
+					<li>待发货</li>
+					<li>待收货</li>
+				</ul>
+			</div>
+			<div class="mui-content-list">
+				<div class="list-son">
+					<p class="status"><span style="color: #FB6F18;">交易成功</span></p>
+					<div class="list-son-show" >
+						<div class="img">
+							<img src="picture/carimg.png" >
+						</div>
+						<div class="atc">
+							<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
+						</div>
+						<div class="price " >
+							<span>￥1.80</span><br>
+							<p style="text-align:right ">&times;1</p>
+						</div>
+						<div class="foot" >
+							<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
+						</div>
+					</div>
+					<div class="list-son-del">
+						<button type="button" class="mui-btn">删除订单</button>
+					</div>
+				</div>
+				<div class="list-son">
+					<p class="status"><span style="color: #FB6F18;">交易成功</span></p>
+					<div class="list-son-show" >
+						<div class="img">
+							<img src="picture/carimg.png" >
+						</div>
+						<div class="atc">
+							<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
+						</div>
+						<div class="price " >
+							<span>￥1.80</span><br>
+							<p style="text-align:right ">&times;1</p>
+						</div>
+						<div class="foot" >
+							<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
+						</div>
+					</div>
+					<div class="list-son-del">
+						<button type="button" class="mui-btn">删除订单</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>  -->
+	<script type="text/javascript">
+		mui.init();
+	</script>
+</body>
+</html>

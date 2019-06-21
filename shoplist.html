@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>商场</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="css/mui.min.css"/>
+	<link rel="stylesheet" href="css/app.css" />
+	<link rel="stylesheet" href="css/shoplist.css" />
+	<link rel="stylesheet" href="css/mui-icons-extra.css" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	
+</head>
+<body>
+	<!-- 主界面不动、菜单移动 -->
+	<!-- 侧滑导航根容器 -->
+	<div class="mui-off-canvas-wrap mui-draggable mui-slide-in">
+	  <!-- 菜单容器 -->
+	  <!-- 主页面容器 -->
+	  <div class="mui-inner-wrap">
+		<!-- 主页面标题 -->
+		<header class="mui-bar mui-bar-nav">
+			<div class="mui-input-row mui-search">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="addaddress" onclick="goback()"></a>
+				<h1 class="mui-title" style="right: 40px;left: 40px;">
+					<input type="search" class="mui-input-clear" placeholder="搜索商品">
+				</h1>
+				<a class="mui-icon mui-icon-extra mui-icon-extra-cart mui-pull-right" onclick="goback()"></a>
+			</div>
+		</header>
+		<div class="mui-content mui-scroll-wrapper">
+		  <div class="mui-scroll">
+			<!-- 主界面具体展示内容 -->
+			<!-- <div class="mui-content-nav">
+				<ul>
+					<li class="on">
+						全部商品
+						<div >
+						</div>
+					</li>
+					<li>食品</li>
+					<li>服饰</li>
+					<li>数码</li>
+				</ul>
+			</div> -->
+			<!-- <div class="fastnav">
+			  <ul>
+			  	<li>
+					<p><span class="on">精选</span></p>
+				</li>
+				<li>
+					<p><span>精选</span></p>
+				</li>
+				<li>
+					<p><span>精选</span></p>
+				</li>
+				<li>
+					<p><span class="more">更多</span></p>
+				</li>
+			  </ul>
+			</div> -->
+			<div class="p-list" style="margin-top: 10px;">
+				<ul>
+					<li >
+						<div class="p-content">
+							<div><img src="picture/03.png" ></div>
+							<div class="p-content-title">
+								<span>汤达人汤达人汤达人汤达人汤达</span>
+							</div>
+							<div class="p-content-price">
+								<span class="pull-l">￥80</span>
+								<span class="pull-r"><span class="mui-icon mui-icon-extra mui-icon-extra-cart"></span></span>
+							</div>
+						</div>
+					</li>
+					<li >
+						<div class="p-content">
+							<div><img src="picture/03.png" ></div>
+							<div class="p-content-title">
+								<span>汤达人汤达人汤达人汤达人汤达</span>
+							</div>
+							<div class="p-content-price">
+								<span class="pull-l">￥80</span>
+								<span class="pull-r"><span class="mui-icon mui-icon-extra mui-icon-extra-cart"></span></span>
+							</div>
+						</div>
+					</li>
+					<li >
+						<div class="p-content">
+							<div><img src="picture/03.png" ></div>
+							<div class="p-content-title">
+								<span>汤达人汤达人汤达人汤达人汤达</span>
+							</div>
+							<div class="p-content-price">
+								<span class="pull-l">￥80</span>
+								<span class="pull-r"><span class="mui-icon mui-icon-extra mui-icon-extra-cart"></span></span>
+							</div>
+						</div>
+					</li>
+					<li >
+						<div class="p-content">
+							<div><img src="picture/03.png" ></div>
+							<div class="p-content-title">
+								<span>汤达人汤达人汤达人汤达人汤达</span>
+							</div>
+							<div class="p-content-price">
+								<span class="pull-l">￥80</span>
+								<span class="pull-r"><span class="mui-icon mui-icon-extra mui-icon-extra-cart"></span></span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		  </div>
+		</div>  
+		<div class="mui-off-canvas-backdrop"></div>
+	  </div>
+	</div>
+	<script type="text/javascript">
+		var gallery = mui('.mui-slider');
+			gallery.slider({
+			  interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
+			});
+		mui.init();
+		mui('.mui-scroll-wrapper').scroll({
+			deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+		});
+		mui('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
+	</script>
+</body>
+</html>

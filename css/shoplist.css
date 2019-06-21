@@ -11,15 +11,16 @@
 	padding: 0 4%;
 }
 .mui-search .mui-placeholder {
-	top: 5px!important;
+    top: 5px !important;
 }
 .mui-content-nav li{
-	width: 33.333%;
+	width: 25%;
 	float:left;
 	text-align: center;
 	margin: 10px 0;
 	font-size: 14px;
-	position: relative;	
+	position: relative;
+	
 }
 .mui-content-nav li.on {
 	font-weight: bold;
@@ -37,10 +38,11 @@
 .mui-content-nav li:nth-child(3){
 	border-left: 1px solid #ccc;	
 } */
-.mui-content .fastnav{
+.mui-content .fastnav ul{
 	overflow: hidden;
-	background-color: #fff;
+	padding: 0 10px;
 }
+
 .mui-content .fastnav li{
 	width: 20%;
 	float:left;
@@ -52,24 +54,30 @@
 	padding: 0;
 	margin: 0;
 	color: #000;
-	line-height: 15px;
 }
 .mui-content .fastnav li p span{
 	font-size: 12px;
 }
+.mui-content .fastnav li p .on{
+	background:#2695ef;
+	padding: 4px 15px;
+	border-radius: 15px;
+	color:#fff;
+}
+.mui-content .fastnav li p .more{
+	color:#2695ef;
+}
 .mui-content .fastnav li img{
-	width: 40px !important;
+	width: 40px;
 }
-.mui-content .ad{
-	line-height: 12px;
-}
+
 .mui-content .ad img{
 	width: 100%;
 }
 .p-list ul{
 	overflow: hidden;
 	margin:0 5px;
-	margin-top: 10px;
+	
 	
 }
 .p-list li{
@@ -103,6 +111,22 @@
 }
 .p-content-price .pull-l{
 	color: red;
+	margin-top: 3px;
+}
+.p-content-price .pull-r{
+	text-align: center;
+}
+.p-content-price .pull-r span{
+	background: red;
+	border: 1px solid red;
+	border-radius: 12.5px;
+	height: 23px;
+	width: 23px;
+	font-size: 18px;
+	font-weight: 550;
+	color:#fff;
+	padding-top:2px ;
+
 }
 .p-content-price .pull-r button{
 	color: red;
@@ -113,9 +137,3 @@
 }
 
 
-.mui-slider-item{
-	border: 0px !important;
-}
-.mui-table-view{
-	background-color: #efeff4;
-}

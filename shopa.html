@@ -12,168 +12,170 @@
 	
 </head>
 <body>
-	<!-- 主界面不动、菜单移动 -->
-	<!-- 侧滑导航根容器 -->
-	<div class="mui-off-canvas-wrap mui-draggable mui-slide-in">
-	  <!-- 菜单容器 -->
-	  <!-- 主页面容器 -->
-	  <div class="mui-inner-wrap">
-		<!-- 主页面标题 -->
-		<header class="mui-bar mui-bar-nav">
-			<div class="mui-input-row mui-search">
-				<a class="mui-pull-left" style="height: 44px;line-height: 44px;" id="addaddress">返回</a>
-				<h1 class="mui-title" style="right: 40px;left: 40px;">
-					<input type="search" class="mui-input-clear" placeholder="搜索商品">
-				</h1>
-				<a class="mui-icon mui-icon-search mui-pull-right" onclick="goback()"></a>
+	<header class="mui-bar mui-bar-nav">
+		<div class="mui-input-row mui-search">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="addaddress" onclick="goback()"></a>
+			
+			<h1 class="mui-title" style="right: 40px;left: 40px;">
+				<input type="search" class="mui-input-clear" placeholder="搜索商品">
+			</h1>
+			<a class="mui-icon mui-icon-search mui-pull-right" onclick="goback()"></a>
+		</div>
+	</header>
+	<div class="mui-content mui-scroll-wrapper">
+		<div class="mui-slider mui-scroll">
+			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a class="mui-control-item mui-active" href="#item1">现金商城</a>
+				<a class="mui-control-item" href="#item2">积分商城</a>
+				<a class="mui-control-item" href="#item3">金珠商城</a>
+
 			</div>
-		</header>
-		<div class="mui-content mui-scroll-wrapper">
-		  <div class="mui-scroll">
-			<!-- 主界面具体展示内容 -->
-			<div class="mui-content-nav">
-				<ul>
-					<li class="on">
-						现金商城
-						<div >
+			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+			<div class="mui-slider-group">
+				<div id="item1" class="mui-slider-item mui-control-content mui-active">
+					<div class="mui-table-view">
+						<div id="slider" class="mui-slider banner" >
+						  <div class="mui-slider-group mui-slider-loop">
+							<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+							<div class="mui-slider-item mui-slider-item-duplicate">
+							  <a href="#">
+								<img src="http:\/\/placehold.it\/340x110">
+							  </a>
+							</div>
+							<!-- 第一张 -->
+							<div class="mui-slider-item">
+							  <a href="#">
+								<img src="http:\/\/placehold.it\/340x110">
+							  </a>
+							</div>
+							<!-- 第二张 -->
+							<div class="mui-slider-item">
+							  <a href="#">
+								<img src="http:\/\/placehold.it\/340x110">
+							  </a>
+							</div>
+							<!-- 第三张 -->
+							<div class="mui-slider-item">
+							  <a href="#">
+								<img src="http:\/\/placehold.it\/340x110">
+							  </a>
+							</div>
+							<!-- 第四张 -->
+							<div class="mui-slider-item">
+							  <a href="#">
+								<img src="http:\/\/placehold.it\/340x110">
+							  </a>
+							</div>
+							<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+							<div class="mui-slider-item mui-slider-item-duplicate">
+							  <a href="#">
+								<img src="http:\/\/placehold.it\/340x110">
+							  </a>
+							</div>
+						  </div>
+						  <div class="mui-slider-indicator">
+							<div class="mui-indicator mui-active"></div>
+							<div class="mui-indicator"></div>
+							<div class="mui-indicator"></div>
+							<div class="mui-indicator"></div>
+						  </div>
 						</div>
-					</li>
-					<li>积分商城</li>
-					<li>金珠商城</li>
-				</ul>
-			</div>
-			<div id="slider" class="mui-slider" >
-			  <div class="mui-slider-group mui-slider-loop">
-				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-				<div class="mui-slider-item mui-slider-item-duplicate">
-				  <a href="#">
-					<img src="http:\/\/placehold.it\/340x110">
-				  </a>
-				</div>
-				<!-- 第一张 -->
-				<div class="mui-slider-item">
-				  <a href="#">
-					<img src="http:\/\/placehold.it\/340x110">
-				  </a>
-				</div>
-				<!-- 第二张 -->
-				<div class="mui-slider-item">
-				  <a href="#">
-					<img src="http:\/\/placehold.it\/340x110">
-				  </a>
-				</div>
-				<!-- 第三张 -->
-				<div class="mui-slider-item">
-				  <a href="#">
-					<img src="http:\/\/placehold.it\/340x110">
-				  </a>
-				</div>
-				<!-- 第四张 -->
-				<div class="mui-slider-item">
-				  <a href="#">
-					<img src="http:\/\/placehold.it\/340x110">
-				  </a>
-				</div>
-				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-				<div class="mui-slider-item mui-slider-item-duplicate">
-				  <a href="#">
-					<img src="http:\/\/placehold.it\/340x110">
-				  </a>
-				</div>
-			  </div>
-			  <div class="mui-slider-indicator">
-				<div class="mui-indicator mui-active"></div>
-				<div class="mui-indicator"></div>
-				<div class="mui-indicator"></div>
-				<div class="mui-indicator"></div>
-			  </div>
-			</div>
-			<div class="fastnav">
-			  <ul>
-			  	<li>
-					<img src="picture/01.png" >
-					<p><span>方便素食</span></p>
-				</li>
-				<li>
-					<img src="picture/01.png" >
-					<p><span>方便素食</span></p>
-				</li>
-				<li>
-					<img src="picture/01.png" >
-					<p><span>方便素食</span></p>
-				</li>
-				<li>
-					<img src="picture/01.png" >
-					<p><span>方便素食</span></p>
-				</li>
-				<li>
-					<img src="picture/01.png" >
-					<p><span>方便素食</span></p>
-				</li>
-			  </ul>
-			</div>
-			<div class="ad">
-				<img src="picture/02.png" >
-			</div>
-			<div class="p-list">
-				<ul>
-					<li >
-						<div class="p-content">
-							<div><img src="picture/03.png" ></div>
-							<div class="p-content-title">
-								<span>汤达人汤达人汤达人汤达人汤达</span>
-							</div>
-							<div class="p-content-price">
-								<span class="pull-l">￥80</span>
-								<span class="pull-r"><button type="button" class="mui-btn">购买</button></span>
-							</div>
+						<div class="fastnav">
+						  <ul>
+						  	<li>
+								<img src="picture/01.png" >
+								<p><span>方便素食</span></p>
+							</li>
+							<li>
+								<img src="picture/01.png" >
+								<p><span>方便素食</span></p>
+							</li>
+							<li>
+								<img src="picture/01.png" >
+								<p><span>方便素食</span></p>
+							</li>
+							<li>
+								<img src="picture/01.png" >
+								<p><span>方便素食</span></p>
+							</li>
+							<li>
+								<img src="picture/01.png" >
+								<p><span>方便素食</span></p>
+							</li>
+						  </ul>
 						</div>
-					</li>
-					<li >
-						<div class="p-content">
-							<div><img src="picture/03.png" ></div>
-							<div class="p-content-title">
-								<span>汤达人汤达人汤达人汤达人汤达</span>
-							</div>
-							<div class="p-content-price">
-								<span class="pull-l">￥80</span>
-								<span class="pull-r"><button type="button" class="mui-btn">购买</button></span>
-							</div>
+						<div class="ad">
+							<img src="picture/02.png" >
 						</div>
-					</li>
-					<li >
-						<div class="p-content">
-							<div><img src="picture/03.png" ></div>
-							<div class="p-content-title">
-								<span>汤达人汤达人汤达人汤达人汤达</span>
-							</div>
-							<div class="p-content-price">
-								<span class="pull-l">￥80</span>
-								<span class="pull-r"><button type="button" class="mui-btn">购买</button></span>
-							</div>
+						<div class="p-list">
+							<ul>
+								<li >
+									<div class="p-content">
+										<div><img src="picture/03.png" ></div>
+										<div class="p-content-title">
+											<span>汤达人汤达人汤达人汤达人汤达</span>
+										</div>
+										<div class="p-content-price">
+											<span class="pull-l">￥80</span>
+											<span class="pull-r"><button type="button" class="mui-btn">购买</button></span>
+										</div>
+									</div>
+								</li>
+								<li >
+									<div class="p-content">
+										<div><img src="picture/03.png" ></div>
+										<div class="p-content-title">
+											<span>汤达人汤达人汤达人汤达人汤达</span>
+										</div>
+										<div class="p-content-price">
+											<span class="pull-l">￥80</span>
+											<span class="pull-r"><button type="button" class="mui-btn">购买</button></span>
+										</div>
+									</div>
+								</li>
+								<li >
+									<div class="p-content">
+										<div><img src="picture/03.png" ></div>
+										<div class="p-content-title">
+											<span>汤达人汤达人汤达人汤达人汤达</span>
+										</div>
+										<div class="p-content-price">
+											<span class="pull-l">￥80</span>
+											<span class="pull-r"><button type="button" class="mui-btn">购买</button></span>
+										</div>
+									</div>
+								</li>
+								<li >
+									<div class="p-content">
+										<div><img src="picture/03.png" ></div>
+										<div class="p-content-title">
+											<span>汤达人汤达人汤达人汤达人汤达</span>
+										</div>
+										<div class="p-content-price">
+											<span class="pull-l">￥80</span>
+											<span class="pull-r"><button type="button" class="mui-btn">购买</button></span>
+										</div>
+									</div>
+								</li>
+							</ul>
 						</div>
-					</li>
-					<li >
-						<div class="p-content">
-							<div><img src="picture/03.png" ></div>
-							<div class="p-content-title">
-								<span>汤达人汤达人汤达人汤达人汤达</span>
-							</div>
-							<div class="p-content-price">
-								<span class="pull-l">￥80</span>
-								<span class="pull-r"><button type="button" class="mui-btn">购买</button></span>
-							</div>
-						</div>
-					</li>
-				</ul>
+					</div>
+				</div>
+				<div id="item2" class="mui-slider-item mui-control-content">
+					<div class="mui-table-view">
+						暂无数据
+					</div>
+				</div>
+				<div id="item3" class="mui-slider-item mui-control-content">
+					<div class="mui-table-view">
+						暂无数据
+					</div>
+				</div>
 			</div>
-		  </div>
-		</div>  
-		<div class="mui-off-canvas-backdrop"></div>
-	  </div>
+		</div>
 	</div>
 	<script type="text/javascript">
-		var gallery = mui('.mui-slider');
+		var gallery = mui('.banner');
 			gallery.slider({
 			  interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
 			});
