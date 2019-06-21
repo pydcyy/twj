@@ -126,7 +126,6 @@ function diyAjax(url,data,callback,errcallback){
 		if(getAppKey()){
 			data['key']=getAppKey();
 		}	
-		
 		//var mask=mui.createMask();//遮罩层
 		return jQuery.ajax({
 			url:url,
@@ -627,33 +626,12 @@ function _transfer(thisButton){
 	var data={};
 	data["url"]=save_url;
 	data["postData"]=postData;
-
-	
 	sureMessage("确定转账",function(){	
 		// 支付密码验证
 		localStorage.setItem('$pwdPost', JSON.stringify(data));
 		beforeOpenView("payCode.html");
+		console.log("转账");
 		thisButton.button("reset");
-		
-// 		diyAjax(save_url,postData,function(result){
-// 			console.log("转账");
-// 			if (result.code == 1) {
-// 				//成功
-// 				showMessage(result.msg);
-// 				goback();
-// 				thisButton.button("reset");
-// 				return false;
-// 			}else{
-// 				// 失败
-// 				showMessage(result.msg);
-// 				//返回true,加载按钮
-// 				thisButton.button("reset");
-// 				return false;
-// 			}
-// 		},function(xhr){
-// 			thisButton.button("reset");
-// 			console.log(JSON.stringify(xhr));
-// 		});
 	});	
 }
 
@@ -661,20 +639,76 @@ function _checkSecure(resultValue){
 	var statics = getLoginStorage('$pwdPost');
 	var url = statics['url'],
 		data = statics['postData'];
-	data['password'] = resultValue;
+	data['epassword'] = resultValue;
 	
 	diyAjax(url,data,function(result){
-		goback();
-// 		if(result.code == 1){
-// 			goback();
-// 		}else{
-// 			
-// 		}
+		if (result.code == 1) {
+			//成功
+			showMessage(result.msg);
+			toIndex();
+			return false;
+		}else{
+			// 失败
+			showMessage(result.msg);
+			//返回true,加载按钮
+			return false;
+		}
 	},function(xhr){
 		console.log(JSON.stringify(xhr));
 	});
 
 }
+
+/**
+* 从当前页面pop到目标页面
+* @param {String} targetId 目标页面ID
+*/
+function popToTarget(targetId){
+    //获取目标页面
+    var target = plus.webview.getWebviewById(targetId);
+    if (!target) {
+        console.log("目标页面不存在！");
+        return;
+    }
+    //获取当前页面
+    var current = plus.webview.currentWebview();
+    if (current === target) {
+        console.log("目标页面是当前页面！");
+        return;
+    }
+    //将要关闭的页面
+    var pages = new Array(current);
+    //父级页面
+    var opener = current.opener();
+    while (opener){
+        if (opener === target) {//找到了目标页面
+            //关闭目标页面的所有子级页面pages
+            pages.map(function(page){
+                page.close();
+            });
+            return;
+        }
+        pages.push(opener);
+        opener = opener.opener();
+    }
+    //没有找到目标页面
+    console.log("目标页面不是当前页面的祖先页面！");
+}
+function toIndex() {
+        var all = plus.webview.all();
+        var launch = plus.webview.getLaunchWebview() //基座，不可以关掉
+        for(var i = 0; i < all.length; i++) {
+            if(all[i] === launch)
+                continue;
+            all[i].close();
+            all[i].clear();
+        }
+        //立刻退出
+        setTimeout(function() {
+            launch.show();　　//不要重新打开login，app的基座就是login页面，直接show出来就行了
+        }, 0);
+    }
+
 function getcaptchaAjax(account,type){	
 	var url = postUrl+"/api/sms/sendCaptcha",
 		data = {

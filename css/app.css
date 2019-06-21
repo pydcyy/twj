@@ -459,3 +459,9 @@ header.mui-bar-nav a,header.mui-bar-nav h1{
 .fa-zichan:before{
   content:"\e534";
 } 
+.fa-refresh:before{
+  content:"\e461";
+}
+.fa-location:before{
+  content:"\e441";
+}
