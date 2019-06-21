@@ -1,0 +1,49 @@
+.mui-bar-nav{
+	background-color:#2695ef;
+}
+.gooodstitle{
+	background-color: #fff;
+	padding: 10px;
+}
+.gooodstitle p{
+	margin: 0;
+	line-height: 15px;
+	color:#000;
+	font-size: 12px;
+}
+.gooodstitle p.pirce{
+	margin-bottom: 8px;
+	font-size: 16px;
+	color:red;
+}
+.gooodsinfo{
+	background-color: #fff;
+	padding: 10px;
+	margin: 10px 0;
+}
+.gooodsinfo p{
+	margin: 0;
+	line-height: 15px;
+}
+.gooodsinfo div{
+	line-height: 15px;
+}
+.gooodsinfo p.title{
+	margin-bottom: 8px;
+}
+.mui-bar-tab button {
+	border-radius: 0px;
+	font-size: 12px !important;
+	height: 45px;
+	
+}
+.mui-bar-tab button.mui-btn {
+	
+	margin-top: -10px;
+}
+.mui-bar-tab button .mui-icon{
+	font-size: 20px;
+}
+.mui-bar-tab button .fa{
+	font-size: 24px;
+}

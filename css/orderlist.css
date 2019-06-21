@@ -1,0 +1,77 @@
+.mui-bar-nav{
+	background-color:#2695ef;
+}
+.mui-content-nav {
+	overflow: hidden;
+	background: #fff;
+	padding: 0 4%;
+}
+.mui-table-view{
+	background: #efeff4;
+	padding: 10px;
+}
+.mui-table-view-cell{
+	padding: 0;
+	border-radius: 3px;
+	margin-bottom: 10px;
+}
+.mui-table-view-cell:after{
+	background: #fff;
+}
+.mui-slider-item{
+	border: 0 solid #777 !important;
+}
+.mui-content .list-son{
+	
+	background: #fff;
+	border-radius: 3px;
+	padding: 10px;
+}
+.list-son .status{
+	text-align: right;
+	line-height: 10px;
+	padding-bottom: 6px;
+}
+.list-son-show{
+	overflow: hidden;
+	position: relative;
+	height: 85px;
+}
+.list-son-show span{
+	font-size: 12px;
+	
+}
+.list-son-show .img{
+	height: 85px;
+	width: 85px;
+}
+.list-son-show .img img{
+	width: 100%;
+}
+.list-son-show .img,.list-son-show .atc{
+	float:left;
+}
+.list-son-show .atc{
+	padding-left: 10px;
+	width: 55%;
+	line-height: 16px;
+	
+}
+ .list-son-show .price{
+	 float:right;
+	 line-height: 15px;
+ }
+ .list-son-show .foot{
+	 position: absolute;
+	 bottom: 0;
+	right: 0;
+ }
+ .list-son-del{
+	 padding-top: 10px;
+	 overflow: hidden;
+ }
+ .list-son-del button{
+	 float: right;
+	 font-size: 12px;
+ }
+
