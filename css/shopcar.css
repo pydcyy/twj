@@ -1,0 +1,76 @@
+.compute-car i{
+	font-size: 16px;
+	width: 24px;
+}
+.compute-car input{
+	margin: 0;
+	border-radius: 0;
+}
+.compute-car .fa-minus{
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+.compute-car .fa-plus{
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+.mui-content .box{
+	background-color: #fff;
+	margin-top: 10px;
+	padding: 10px;
+}
+.table-car td{
+	padding: 0;
+	border-bottom: 0px solid #0e0606;
+}
+.table-car .tb-three .goods_name{
+	font-size: 12px;
+	line-height: 15px;
+}
+.table-car .tb-three .goods_info{
+	margin-top: 23px;
+}
+.table-car .tb-two {
+    line-height: 11px;
+	}
+.salesprice{
+	display: inline-block;
+	padding-top: 7px;
+}	
+.table-car .tb-one{
+	width: 34px;
+}
+.table-car .tb-three{
+	padding-left: 0px;
+}
+.car_foot{
+	height: 50px;
+	line-height: 50px;
+}
+.total_money{
+	font-size: 14px;
+}
+.car_foot .jsbtn{
+	font-size: 14px;
+	width: ;
+	padding:0 10px;
+}
+.car_foot .foot_txt{
+	line-height: 18px;
+    margin-top: 6px;
+	margin-right: 10px;
+}
+.car_foot{
+	padding-left: 10px;
+}
+.mui-checkbox label{
+	padding-left: 33px;
+	padding-right: 10px;
+}
+.mui-checkbox input[type="checkbox"]{
+	top: 9px;
+	left: -2px;
+}
+.tb-one input[type="checkbox"]{
+	top:30px;
+}
