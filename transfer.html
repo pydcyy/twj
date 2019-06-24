@@ -52,14 +52,13 @@
 	(function($, doc) {
 		$.init();
 		$.plusReady(function() {
-			
 			doc.getElementById("transfer").addEventListener('tap',function(even){
 				var that = $(this);
 				loginRequired(function(){
 					jQuery("input").blur();
 					that.button("loading");
 					_transfer(that);
-				})			
+				})
 			})
 		})
 	}(mui, document))

@@ -21,8 +21,7 @@
 	<div class="mui-off-canvas-wrap mui-draggable mui-slide-in">
 	  
 	  <!-- 主页面容器 -->
-	  <div class="mui-inner-wrap">
-		  
+	  <div class="mui-inner-wrap"> 
 		 <!-- <nav class="mui-bar mui-bar-tab" style="background: #fff;">
 		  	<a class="mui-tab-item mui-active" href="index.html">
 		  		<span class="fa fa-index"></span>
@@ -75,8 +74,7 @@
 					<ul class="shop-img" id="banner_warp">
 						<!-- <li><img src="picture/shopa.png" alt=""></li>
 						<li><img src="picture/shopb.png" alt=""></li>
-						<li><img src="picture/shopc.png" alt=""></li> -->
-						
+						<li><img src="picture/shopc.png" alt=""></li> -->	
 					</ul>
 				</div>
 			</div>
@@ -119,7 +117,7 @@
 			})
 			document.getElementById("cash").addEventListener('tap',function(){
 				loginRequired(function(){
-					openView('cash.html', 'cash');
+					beforeOpenView('cash.html');
 				})
 			})
 		//bqc-e0618
@@ -223,9 +221,10 @@
 		
 		initPage();
 		$("body").on("tap", ".shop-img a", function() {
-			var that = this;
-			var href= that.dataset.href;
-			openView(href,href);	
+			showMessage("功能开发中");
+// 			var that = this;
+// 			var href= that.dataset.href;
+// 			openView(href,href);	
 		})
 		
 
@@ -247,8 +246,6 @@
 		},function(xhr){
 			console.log("失败"+JSON.stringify(xhr));
 		})
-		
-
 	}
 	
 </script>

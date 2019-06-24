@@ -81,7 +81,13 @@ function getAppKey(){
 // 获取mobile
 function getMobile(){
 	var user = getLoginStorage('$UserInfo');
-	return user['mobile'];
+	if(user['mobile']){
+		return user['mobile'];
+	}else{
+		showMessage("登录失效，请重新登录");
+		openView('login.html', 'login');
+	}
+	
 }
 //返回父页面
 function goback(){
@@ -537,7 +543,6 @@ function _savecrad(thisButton){
 	postData["type"]=2;
     save_url = postUrl+"Home/member/editBanks.html";
 	diyAjax(save_url,postData,function(result){
-		console.log(result);
 		if (result.code == 1) {
 			//成
 			showMessage(result.msg);

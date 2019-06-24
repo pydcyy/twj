@@ -7,14 +7,15 @@
 	<link rel="stylesheet" href="css/mui.min.css"/>
 	<link rel="stylesheet" href="css/mui.picker.css "/>
 	<link rel="stylesheet" href="css/mui.poppicker.css "/>
+	<link rel="stylesheet" href="css/app.css"/>
 	<link rel="stylesheet" href="css/richscan.css" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<<!-- script src="js/util.js"></script> -->
 	<script type="text/javascript" src="js/mui.min.js"></script>
 	<script type="text/javascript" src="js/mui.picker.js"></script>
 	<script type="text/javascript" src="js/mui.poppicker.js"></script>
-	<!-- <script type="text/javascript" src="js/lib/artTemplate.js"></script>
-	<script type="text/javascript" src="js/lib/common.js"></script>-->
+	<script type="text/javascript" src="js/lib/artTemplate.js"></script>
+	<script type="text/javascript" src="js/lib/common.js"></script>
 	<script type="text/javascript" src="js/common.js"></script> 
 	<style type="text/css">	
 		.shouuser .mui-input span{
@@ -89,50 +90,131 @@
     <div class="mui-content mui-scroll-wrapper" >
     	<div class="shouuser">
 			<form class="mui-input" action="" method="POST" id="normal-form" >
-				<div class="tx-bank">
-					<div class="left" >
-						<p class="bankname" id="bankname">XXX银行</p>
-						<p class="bankid" >尾号1234</p>
-						<input type="hidden" name="bankid" id="bankid" value="">
-					</div>
-					<div class=" mui-icon mui-icon-forward mui-pull-right" style="color: #000000;" id="selectbank" ></div> 
+				<div class="tx-bank" id="bank_warp">
+					
 				</div>
+				<input type="hidden" name="bankjson" id="bankjson" value="">
 				<div class="tx-num">
 					<span>提现金额</span>
 					<div class="mui-input-row" style="border-bottom: 1px solid #f1f1f1;">
 						<label>￥</label>
 						<input type="number" class="mui-input-clear" placeholder="" name="name" id="name" >
 					</div>
-					<p>可用余额下X.XX元</p>
+					<p id="assets_warp"></p>
 				</div>
 				<div class="gopay">
-					<button type="button" class="mui-btn mui-btn-blue mui-btn-block" > 确认转账</button>
+					<button type="button" class="mui-btn mui-btn-block bg-common" style="color: #fff;" id="cash">确认转账</button>
 				</div>
 			</form>
     	</div>
     </div>       
-     
+ <script type="text/html" id="bank_view">
+ 	{{if data==null || data.length==0}}
+ 		<div id="nobank" class="center" style="width: 100%;">
+ 			<div class="left">
+ 				<p class="bankname" style="height: 40px;line-height: 40px;;">没有银行卡信息,请添加</p>
+ 			</div>
+ 			<div class="mui-icon mui-icon-forward mui-pull-right" style="color: #000000;" ></div> 
+ 		</div>
+ 	{{else}}
+ 		<div id="selectbank" class="center" style="width: 100%;">
+ 			<div class="left">
+ 				<p class="bankname" id="bankname">{{data[0]['bankname']}}</p>
+ 				<p class="bankid" id="bankid">尾号{{data[0]['bankid']}}</p>
+ 				<input type="hidden" name="bankid" id="bankidinput" value="">
 
-	<script type="text/javascript">
-		mui.plusReady(function () {  //通过mui初始化扫描 
-			mui.init(); 
-			document.getElementById("selectbank").addEventListener('tap',function(){
-				var picker = new mui.PopPicker();
-				picker.setData([
-					{value:'1',text:'X6X银行1(123)',},
-					{value:'2',text:'XX银行2',},
-					{value:'3',text:'XX银行3',},
-					]);
-				picker.show(function (selectItems) {
-					document.getElementById("bankname").innerHTML=selectItems[0].text;
-					document.getElementById("bankid").value = selectItems[0].value;
-					console.log(selectItems[0].text);
-					console.log(selectItems[0].value);
-				})
-			})
+ 			</div>
+ 			<div class="mui-icon mui-icon-forward mui-pull-right" style="color: #000000;" ></div> 
+ 		</div>
+ 	{{/if}}
+ </script>  
+ 
+<script type="text/html" id="assets_view">
+	可用余额{{data['credit1']}}元
+</script>  
+
+<script type="text/javascript">
+	mui.init(); 
+	mui.plusReady(function () {  //通过mui初始化扫描 
+		loadData();
+
+		mui("#bank_warp").on("tap", "#selectbank", function() {
+			var bankjson = JSON.parse(document.getElementById("bankjson").value).data;
+			var dataArr = [];
+			if(bankjson!=""){
+				for(var i = 0;i<bankjson.length;i++){
+					var datajson = {
+						"value":bankjson[i]['bankid'],
+						"text":bankjson[i]['bankname']+"("+bankjson[i]['bankid']+")"
+					};
+					dataArr.push(datajson);
+				}
+			}
 			
-		});   
-				   
-	</script>
+			var picker = new mui.PopPicker();
+			picker.setData(dataArr);
+			picker.show(function (selectItems) {
+				document.getElementById("bankname").innerHTML=selectItems[0].text.split("(")[0];
+				document.getElementById("bankid").innerHTML = selectItems[0].value;
+				document.getElementById("bankidinput").value = selectItems[0].value;
+			})
+		})
+		
+		mui("#bank_warp").on("tap", "#nobank", function() {
+			loginRequired(function(){
+				openView('addcard.html', 'addcard');
+			})
+		})
+		
+		document.getElementById('cash').addEventListener('tap',function(even){
+			showMessage("功能开发中");
+		})
+		window.addEventListener('refresha', function(e) {  
+			loadData();
+			
+		})
+		
+		
+	});   
+	
+	function loadData() {
+		var url=postUrl+"Home/member/getBanks.html";
+		var postData = {};
+		diyAjax(url,postData,function(result){
+			console.log("获取提现信息");
+			if(result.code == 1){
+				var bankjson = {};
+				for (var i = 0; i<result.data.banks.length;i++) {
+					result.data.banks[i]['bankid'] = result.data.banks[i]['bankid'].substr(-4,4);
+				}
+				//log(result.data.banks);
+				bankjson.data = result.data.banks;
+				document.getElementById("bankjson").value = JSON.stringify(bankjson);
+				render("#bank_warp", "bank_view", bankjson);
+			}
+			if(plus.webview.getWebviewById("addcard")){
+				plus.webview.getWebviewById("addcard").hide();
+			}
+		},function(xhr){
+			console.log("失败"+JSON.stringify(xhr));
+		})
+		
+		var urla = postUrl+"Home/member/assets.html";
+		diyAjax(urla,postData,function(result){
+			console.log("获取财富信息");
+			if(result.code == 1){
+				var assetsjson = {};
+				assetsjson.data = result.data.assets;
+				render("#assets_warp", "assets_view", assetsjson);
+			}
+			
+			
+			afterOpenView();
+		},function(xhr){
+			console.log("失败"+JSON.stringify(xhr));
+		})		
+	}
+			   
+</script>
 </body>
 </html>

@@ -32,8 +32,8 @@
 		<div class="mui-scroll" style="margin-bottom: 50px;">
 		  <div>
 			<!-- 主界面具体展示内容 -->
-			<div class="mui-content-main first-main" style="margin-top: -120px;">
-				<div class="useravter" style="background: url(picture/yqm.png);background-size:100% 100%;">
+			<div class="mui-content-main first-main" style="margin-top: -120px;" id="diva_wrap">
+				<div class="useravter" style="background: url('http://api.tongwujie.cn/public/images/default.png');background-size:100% 100%;">
 				</div>
 				<div class="username">
 					<span>通无界</span>
@@ -41,11 +41,11 @@
 				<div class="xingxi">
 					<ul class="overContrl">
 						<li>
-							<span>2</span>
+							<span>0</span>
 							<p>购物车</p>
 						</li>
 						<li>
-							<span>2</span>
+							<span>0</span>
 							<p>交易记录</p>
 						</li>
 					</ul>
@@ -76,7 +76,7 @@
 					</ul>
 				</div>
 				<div class="record-f">
-					<ul class="overContrl">
+					<ul class="overContrl" id="divb_wrap">
 						<li>
 							<span>0.0</span>
 							<p>余额</p>
@@ -114,7 +114,11 @@
 							<span class="mui-icon-extra mui-icon-extra-custom"></span>
 							<span class="title" >联系客服</span>
 						</div>	
-						<p class="mui-pull-right">88888888</p>
+						
+						<div class="mui-pull-right" id="divc_wrap" style="color: #7d7e82;font-size: 12px;text-align: right;">
+							
+						</div>
+						
 					</li>
 				</ul>
 			</div>
@@ -122,8 +126,47 @@
 		</div>  
 		<div class="mui-off-canvas-backdrop"></div>
 	  </div>
-	<script type="text/javascript">
-	
+<script type="text/html" id="diva_view">
+	<div class="useravter" style="background: url({{data.avatar}});background-size:100% 100%;">
+	</div>
+	<div class="username">
+		<span>{{data.nickname}}</span>
+	</div>
+	<div class="xingxi">
+		<ul class="overContrl">
+			<li>
+				<span>{{data.shopcartnum}}</span>
+				<p>购物车</p>
+			</li>
+			<li>
+				<span>{{data.tradenum}}</span>
+				<p>交易记录</p>
+			</li>
+		</ul>
+	</div>
+</script>
+<script type="text/html" id="divb_view">
+	<li>
+		<span>{{data.credit1}}</span>
+		<p>余额</p>
+	</li>
+	<li>
+		<span>{{data.credit2}}</span>
+		<p>积分</p>
+	</li>
+	<li>
+		<span>{{data.credit3}}</span>
+		<p>金珠</p>
+	</li>
+	<li style="border-left:1px solid #E6E6E6 ;margin-top: -1px;">
+		<span class="mui-icon-extra mui-icon-extra-gold"style="font-size:20px"></span>
+		<p style="margin-bottom:0;">我的钱包</p>
+	</li>
+</script>
+<script type="text/html" id="divc_view">
+	<p>{{data.hotline}}</p>
+</script>
+<script type="text/javascript">	
 	(function($, doc) {
 		$.init({
 			pullRefresh: {
@@ -180,9 +223,9 @@
 				toInvite();
 			})
 			
-			phonelineButton.addEventListener('tap',function(even){
-				plus.device.dial('88888888', true);
-			})
+			
+			
+			
 			
 			settingButton.addEventListener('tap',function(even){
 				loginRequired(function(){
@@ -206,22 +249,28 @@
 		})
 		
 		function loadData() {	
-			console.log("1");
-// 			var url = postUrl+"Home/member/assets.html";
-// 			var postData = {};
-// 			diyAjax(url,postData,function(result){
-// 				console.log("获取财富信息");
-// 				if(result.code == 1){
-// 					
-// 					var assetsjson = {};
-// 					assetsjson.data = result.data.assets;
-// 					render("#assets_warp", "assets_view", assetsjson);
-// 				}
-// 			},function(xhr){
-// 				console.log("失败"+JSON.stringify(xhr));
-// 			})		
+			var url = postUrl+"Home/member/user.html";
+			var postData = {};
+			diyAjax(url,postData,function(result){
+				console.log("获取用户中心信息");
+				if(result.code == 1){
+					log(result.data.userinfo);
+					var userinfojson = {};
+					userinfojson.data = result.data.userinfo;
+					render("#diva_wrap", "diva_view", userinfojson);
+					render("#divb_wrap", "divb_view", userinfojson);
+					render("#divc_wrap", "divc_view", userinfojson);
+					
+					$("body").on("tap", "#phoneline", function() {
+						var tel= userinfojson['data']['hotline'];
+						plus.device.dial(tel, true);
+					})
+				}
+			},function(xhr){
+				console.log("失败"+JSON.stringify(xhr));
+			})		
 		}
 	}(mui, document))
-	</script>
+</script>
 </body>
 </html>

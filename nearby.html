@@ -138,7 +138,8 @@
 					appUI.closeWaiting();
 					log(mklog() + "地图图块加载完毕！当前地图中心点为：" + mapObj.getCenter())
 					//获取当前城市数据
-					gdMap.getCurrentCity(function(city) {
+					// gdMap.getCurrentCity(function(city) {
+						var city = p['address']['city'];
 						if(city) {
 							//	添加点聚合
 							gdMap.setMoreMarkersWithCluster({
@@ -152,7 +153,7 @@
 						}
 						//城市存入localstorage
 						localStorage.setItem("city", city);
-					})
+					// })
 				})
 				
 				//打当前位置点
@@ -170,7 +171,10 @@
 				})
 				
 			}, function(e) {
-				mui.toast(e.message)
+				appUI.closeWaiting();
+				if(e.code==1){
+					showMessage("当前设备未开启定位信息");
+				}
 				noNetworkDom.innerHTML = "地图初始化失败！点击重试"
 				noNetworkDom.style.display = 'block'
 				noNetworkDom.addEventListener('tap', function() {
@@ -192,12 +196,12 @@
 		})
 		
 		//自定义放大缩小
-		document.getElementById("add").addEventListener("tap",function(){
-			gdMap.moveCamera(mapObj.zoomIn());
-		})
-		document.getElementById("subtract").addEventListener("tap",function(){
-			gdMap.moveCamera(mapObj.zoomOut());
-		})
+// 		document.getElementById("add").addEventListener("tap",function(){
+// 			gdMap.moveCamera(mapObj.zoomIn());
+// 		})
+// 		document.getElementById("subtract").addEventListener("tap",function(){
+// 			gdMap.moveCamera(mapObj.zoomOut());
+// 		})
 	
 	}) //plusReady end	
 	//高德地图相关
@@ -209,7 +213,6 @@
 	
 	gdMap = {
 		mapInit: function(CenterCoordinate) {
-			// log("bbb"+mapObj.getBounds());
 			mapObj = new AMap.Map('map', {
 				resizeEnable: true,
 				zoom: 16,

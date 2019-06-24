@@ -354,7 +354,6 @@
 					diyAjax(url,postData,function(result){
 						console.log("获取财富信息");
 						if(result.code == 1){
-							
 							var assetsjson = {};
 							assetsjson.data = result.data.assets;
 							render("#assets_warp", "assets_view", assetsjson);
