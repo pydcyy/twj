@@ -465,3 +465,11 @@ header.mui-bar-nav a,header.mui-bar-nav h1{
 .fa-location:before{
   content:"\e441";
 }
+.fa-plus:before{
+  content:"\e409";
+}
+.fa-minus:before{
+  content:"\e410";
+}
+
+
