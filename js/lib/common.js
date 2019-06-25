@@ -6,12 +6,6 @@ var debug = true;
 
 
 
-
-
-
-
-
-
 //页面回弹
 var sw = document.getElementsByClassName(".mui-scroll-wrapper.scroll");
 if(sw) {
