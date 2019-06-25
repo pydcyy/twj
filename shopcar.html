@@ -11,110 +11,245 @@
 	<link rel="stylesheet" href="css/mui-icons-extra.css" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/lib/common.js"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
 </head>
 <body>
-	<header class="mui-bar mui-bar-nav">
-		<div class="mui-input-row mui-search">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="addaddress" onclick="goback()"></a>
-			<h1 class="mui-title" >
-				我的购物车
-			</h1>
-			<a class=" mui-pull-right" style="padding: 11px;" id="edit" > 管理</a>
-		</div>
-	</header>
-	<div class="mui-scroll-wrapper mui-content ">
-		<div class="mui-scroll">
-			<div class="box mgb-1">
-			    <table class="table-car" id="car-list">
+	<div class="mui-content mui-scroll-wrapper" id="pullrefresh">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()"></a>
+			<h1 class="mui-title" style="right: 80px;left: 80px;">我的购物车</h1>
+			<a class="mui-pull-right" style="height: 44px;line-height: 44px;float: right;" id="edit">管理</a>
+			<a class="mui-pull-right disshow" style="height: 44px;line-height: 44px;float: right;" id="complate">完成</a>
+		</header>
+		<div class="mui-scroll" style="margin-top: 44px;margin-bottom: 60px;">
+			<div class="box mgb-1" v-for="shopCarList,index in shopCarLists">
+				<table class="table-car" id="car-list">
 					<tr>
 						<td class="tb-one mui-checkbox ">
 							<input type="hidden" class="lone-goodsid" value="">
-							<input type="hidden" class="lone-price" value="">
-							<input name="checkbox1" value="" type="checkbox" name="selectedId" >
-							
+							<input type="hidden" class="lone-price" :value="shopCarList.price">
+							<input type="checkbox" @click="checkboxLone(index,this)" :checked="shopCarList.checked">
+							<!-- <input type="checkbox" v-model="checkedNames"  @click="checkboxLone(this)" :value="shopCarList.checked" /> -->
 						</td>
 						<td class="tb-two">
 							<a href="#">
 								<div class="car-img">
-									<img src="picture/03.png">
+									<img :src="shopCarList.imgurl">
 								</div>
 							</a>
 						</td>
 						<td class="tb-three">
-							<a href=""><h1 class="goods_name">汤达人</h1></a>
+							<a href=""><h1 class="goods_name">{{shopCarList.name}}</h1></a>
 							<div class="goods_info">
-								<span class="salesprice">￥8.88</span>
+								<span class="salesprice">￥{{shopCarList.price}}</span>
 								<div class="compute-car">
-									<i class="num-small fa fa-minus" data=""></i><input type="text" class="lone-num" value="2" readonly data="0"><i class="num-big fa fa-plus" data="" data-housenum=""></i>
+									<i class="num-small fa fa-minus" data="" @click="reduce(index)" :disabled="shopCarList.num === 1"></i>
+									<input type="text" class="lone-num" :value="shopCarList.num" readonly data="0">
+									<i class="num-big fa fa-plus" data="" data-housenum="" @click="add(index)"></i>
 								</div>
 							</div>
 						</td>
 					</tr>
-			    </table>
-			</div>
-			<div class="box mgb-1">
-			    <table class="table-car" id="car-list">
-					<tr>
-						<td class="tb-one mui-checkbox ">
-							<input type="hidden" class="lone-goodsid" value="">
-							<input type="hidden" class="lone-price" value="">
-							<input name="checkbox1" value="" type="checkbox" name="selectedId" >
-						</td>
-						<td class="tb-two">
-							<a href="#">
-								<div class="car-img">
-									<img src="picture/03.png">
-								</div>
-							</a>
-						</td>
-						<td class="tb-three">
-							<a href=""><h1 class="goods_name">汤达人</h1></a>
-							<div class="goods_info">
-								<span class="salesprice">￥8.88</span>
-								<div class="compute-car">
-									<i class="num-small fa fa-minus" data=""></i><input type="text" class="lone-num" value="2" readonly data="0"><i class="num-big fa fa-plus" data="" data-housenum=""></i>
-								</div>
-							</div>
-						</td>
-					</tr>
-			    </table>
+				</table>
 			</div>
 			<!--这里放置真实显示的DOM内容-->
 		</div>
-	</div>
-	<nav class="mui-bar mui-bar-tab">
-		<div class="car_foot row">
-		    <div class="col-6">
-		        <div class="mui-checkbox">
-				 
-					<input name="checkbox1" value="Item 1" type="checkbox" >
-					<label>全部</label>
+		<nav class="mui-bar mui-bar-tab" style="box-shadow: none;">
+			<div class="car_foot row">
+				<div class="col-6">
+					<div class="mui-checkbox">
+						<input name="checkbox1" value="Item 1" type="checkbox" @click="checkAll()">
+						<label>全部</label>
+					</div>
 				</div>
-		    </div>
-		    <div class="col-18">
-		        <div class="pull-r beforeedit">
-		            <div class="pull-l foot_txt">
-		                <div class="total_money">合计：<span class="all-price">0</span>&nbsp;元</div>
-		                <p>不含运费</p>
-		            </div>
-		            <div class="pull-l jsbtn" id="jsbtn-compute">结算（<span class="all-num">0</span>）</div>
-		        </div>
-		        <div class="pull-r afteredit disshow">
-		            <div class="jsbtn" id="jsbtn-del">删除</div>
-		        </div>
-		    </div>
-		</div>
-	</nav>
-	<script type="text/javascript">
-		var gallery = mui('.mui-slider');
-			gallery.slider({
-			  interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
-			});
-		mui.init();
-		mui('.mui-scroll-wrapper').scroll({
-			deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+				<div class="col-18">
+					<div class="pull-r beforeedit">
+						<div class="pull-l foot_txt">
+							<div class="total_money">合计：<span class="all-price">{{checkedPrice}}</span>&nbsp;元</div>
+							<p>不含运费</p>
+						</div>
+						<div class="pull-l jsbtn" v-if="!checkednum">结算（<span class="all-num">{{totalnum}}</span>）</div>
+						<div class="pull-l jsbtn active" v-if="checkednum">结算（<span class="all-num">{{totalnum}}</span>）</div>
+					</div>
+					<div class="pull-r afteredit disshow">
+						<div class="jsbtn" style="min-width: 100px;" v-if="!checkednum">删除</div>
+						<div class="jsbtn active" style="min-width: 100px;" v-if="checkednum">删除</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</div>
+<script type="text/javascript">
+	(function($, doc) {
+		var app = new Vue({
+		    el: '#pullrefresh',
+		    data: function() {
+		        return {
+					shopCarLists: [{
+						checked:false,
+						imgurl:"picture/03.png",
+						name:"面达人",
+						price:"9.99",
+						num:3
+					}]
+		        }
+		    },
+		    mounted: function(){
+		        this._init();
+		    },
+			computed: {
+				//选中的产品价格
+				checkedPrice: function() {
+					var total = 0;
+					this.shopCarLists.forEach(function(item, index) {
+						if (item.checked) {
+							total = (total*100 + item.price * item.num*100)/100;
+						}
+					})
+					return total;
+				},
+				totalnum:function(){
+					var totalnum = 0;
+					this.shopCarLists.forEach(function(item, index) {
+						if (item.checked) {
+							totalnum += item.num;
+						}
+					})
+					return totalnum;
+				},
+				checkednum: function() {
+					var totalnum = 0;
+					this.shopCarLists.forEach(function(item, index) {
+						if (item.checked) {
+							totalnum += 1;
+						}
+					})
+					if(totalnum!=0){
+						return 1;
+					}else{
+						return 0;
+					}
+					
+				},
+			},
+		    methods: {
+		        _init: function(){
+					$.plusReady(function() {	
+						doc.getElementById("edit").addEventListener('tap',function(even){
+							var that = jQuery(this);		
+							if(that.html()=="管理"){
+								that.html("完成");
+								jQuery(".beforeedit").hide();
+								jQuery(".afteredit").show();
+							}else{
+								that.html("管理");
+								jQuery(".afteredit").hide();
+								jQuery(".beforeedit").show();
+							}
+						})
+						afterOpenView();	
+					})
+		        },
+				pulldownRefresh: function(){
+					appPage.endPullRefresh();
+				},
+				loadData:function(){
+					var url = postUrl+"Home/member/user.html";
+					var postData = {};
+					diyAjax(url,postData,function(result){
+						console.log("获取用户中心信息");
+						if(result.code == 1){
+							log(result.data.userinfo);
+							var userinfojson = {};
+							userinfojson.data = result.data.userinfo;
+							render("#diva_wrap", "diva_view", userinfojson);
+							render("#divb_wrap", "divb_view", userinfojson);
+							render("#divc_wrap", "divc_view", userinfojson);
+							
+							$("body").on("tap", "#phoneline", function() {
+								var tel= userinfojson['data']['hotline'];
+								plus.device.dial(tel, true);
+							})
+						}
+					},function(xhr){
+						console.log("失败"+JSON.stringify(xhr));
+					})	
+				},
+				checkAll: function() {
+					this.shopCarLists.forEach(function(item, index) {
+						item.checked = !item.checked;
+					})
+				},
+				reduce: function(index) {
+					//再次判断 reduce 减法的可靠性
+					if (this.shopCarLists[index].num === 1) return;
+					this.shopCarLists[index].num--;
+				},
+				add: function(index) {
+					this.shopCarLists[index].num++;
+				},
+				checkboxLone:function(index,obj){
+					this.shopCarLists[index].checked = !this.shopCarLists[index].checked;
+// 					if(jQuery("#edit").html()=='管理'){
+// 						var checked = jQuery('#car-list').find("input[type='checkbox']:checked").length;
+// // 						if(checked){
+// // 							jQuery(obj).parent().parent().find('.lone-num').attr('data','1');
+// // 						}else{
+// // 							jQuery(obj).parent().parent().find('.lone-num').attr('data','0');
+// // 						}
+// 						// this.commitBuy();
+// 					}else{
+// 						var checked = jQuery('#car-list').find("input[type='checkbox']:checked").length;
+// 						if(checked != 0){
+// 							jQuery('#jsbtn-del').addClass('active');
+// // 							jQuery('#jsbtn-del').unbind('click');
+// // 							jQuery('#jsbtn-del').bind('click',del_real);
+// 						}else{
+// 							jQuery('#jsbtn-del').removeClass('active');
+// // 							jQuery('#jsbtn-del').unbind('click');
+// 						}
+// 					}
+				},
+				compute_real:function(){
+					showMessage("结算提交");
+// 					var form = jQuery("<form method='post'></form>");
+// 					var url = "/index.php?c=order&a=express";
+// 					form.attr({"action":url});
+// 					//提交数据
+// 					var data_id = "";
+// 					var data_num = "";
+// 					jQuery('#car-list').find("input[type='checkbox']:checked").each(function(){
+// 						data_id += jQuery(this).siblings('.lone-goodsid').val()+",";
+// 						data_num += jQuery(this).parent().parent().find('.lone-num').val()+",";
+// 					});
+// 					data_id = data_id.substring(0,data_id.length-1);
+// 					data_num = data_num.substring(0,data_num.length-1);
+// 					var input_id = jQuery("<input type='hidden' name='goodsid'>");
+// 					var input_num = jQuery("<input type='hidden' name='num'>");
+// 					input_id.val(data_id);
+// 					input_num.val(data_num);
+// 					form.append(input_id);
+// 					form.append(input_num);
+// 					jQuery("html").append(form);
+// 					form.submit();
+				}
+		    }
 		});
-		mui('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
-	</script>
+		
+		$.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: { //下拉刷新
+					callback: app.pulldownRefresh,
+					style: $.os.android ? "circle" : "default"
+				}
+			}
+		});
+		
+		
+	}(mui, document))
+</script>
 </body>
 </html>
