@@ -84,8 +84,7 @@
 <body>
 	<header class="mui-bar mui-bar-nav" style="background-color: #2695ef;">   
 		  <a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()" style="color: #fff;"></a>   
-		  <h1 class="mui-title" style="color: #fff;">提现</h1>   
-		     
+		  <h1 class="mui-title" style="color: #fff;">提现</h1>       
     </header>   
     <div class="mui-content mui-scroll-wrapper" >
     	<div class="shouuser">
@@ -155,7 +154,7 @@
 			picker.setData(dataArr);
 			picker.show(function (selectItems) {
 				document.getElementById("bankname").innerHTML=selectItems[0].text.split("(")[0];
-				document.getElementById("bankid").innerHTML = selectItems[0].value;
+				document.getElementById("bankid").innerHTML = "尾号"+selectItems[0].value;
 				document.getElementById("bankidinput").value = selectItems[0].value;
 			})
 		})
@@ -171,10 +170,7 @@
 		})
 		window.addEventListener('refresha', function(e) {  
 			loadData();
-			
-		})
-		
-		
+		})	
 	});   
 	
 	function loadData() {
@@ -207,14 +203,11 @@
 				assetsjson.data = result.data.assets;
 				render("#assets_warp", "assets_view", assetsjson);
 			}
-			
-			
 			afterOpenView();
 		},function(xhr){
 			console.log("失败"+JSON.stringify(xhr));
 		})		
-	}
-			   
+	}	   
 </script>
 </body>
 </html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>修改支付密码</title>
+	<link href="css/mui.min.css" rel="stylesheet" />
+	<link href="css/setting.css" rel="stylesheet" />
+	<link href="css/app.css" rel="stylesheet"/>
+	<style>
+		html{
+			background: #efeff4;
+		}
+		/* .mui-bar{
+			background-color: #efeff4;
+		} */
+		.mui-icon-clear{
+			top: 30px!important;
+		}
+		.setpwdbox .setpwdinput{
+			margin-top: 20px;
+		}
+		.setpwdbox{
+			margin-top: 44px;
+			padding: 20px 15px;
+		}
+		.setpwdbox .pwdreq{
+			margin:15px 0;
+			background-color: #fcf8e3;
+			padding: 10px;
+			color: #000;
+			line-height: 26px;
+		}
+		.setpwdbox .setpwdinput{
+			border: none;
+			background: #efeff4;
+			border-bottom: 1px solid #B8A9B0;
+			padding: 0;
+			font-size: 22px;
+			margin-top: 30px;
+			border-radius: 0;
+		}
+		.setpwdbox .setpwdinput:focus{
+			border-bottom: 1px solid #333333;
+		}
+		.setpwdbox .payinfoinput{
+			border: 0;
+			background: none;
+			margin-bottom:0;
+			font-size: 16px;
+		}
+		.setpwdbox table{
+			width: 100%;
+		}
+		.setpwdbox table tr{
+			height: 60px;
+			border-bottom:1px solid #ddd;
+		}
+		.setpwdbox .input-title{
+			font-size: 16px;
+		}
+		
+		.setpwdbox-btn{
+			padding: 0;
+		}
+		.setpwdbox-btn button{
+			width: 100%;
+			background: #2695EF;
+			height: 40px;
+			line-height: 28px;
+			margin-top: 15px;
+			border: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="gobackRefresh()"></a>
+			<h1 class="mui-title">修改支付密码</h1>
+		</header>
+		<div class="setpwdbox">
+			<p class="pwdreq">验证码已发送到您的手机：<span id="account"></span><br>注意支付密码是6位数字</p>
+			<form action="" id="normal-form">
+				<div class="mui-input-row">
+					<input type="text" class="setpwdinput mui-input-clear" placeholder="请输入验证码" id="captcha" name="captcha">
+				</div>
+				<div class="mui-input-row">
+					<input type="password" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="setpwdinput mui-input-clear" placeholder="请输入支付密码" id="securepassword" name="securepassword" maxlength="6">
+				</div>
+				<div class="mui-input-row">
+					<input type="password" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="setpwdinput mui-input-clear" placeholder="请再次输入支付密码" id="resecurepassword" name="resecurepassword" maxlength="6">
+				</div>
+				<div class="nocat" style="color:#2695EF"><span>没收到验证码，重新发送></span></div>
+				<div class="mgt-2 login-form setpwdbox-btn">
+					<button type="button" class="mui-btn mui-btn-warning" id='setpaypwd' data-loading-text="提交中">保 存</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script src="js/common.js"></script>
+</body>
+<script>
+	(function($, doc) {
+		$.init();
+		$.plusReady(function() {
+			
+			var account = getMobile();
+			document.querySelector("#account").innerHTML=account;
+			
+			// 页面加载前发送验证码
+			document.addEventListener('getcaptcha', function(event) {
+				var account = event['detail'];				
+				if(document.querySelector(".nocat").innerHTML=="<span>没收到验证码，重新发送&gt;</span>"){
+					getcaptchaAjax(account,"driver_changesecure");
+				}
+			})
+			
+			// 点击发送验证码
+			$(".nocat").on("tap","span",function(){
+				getcaptchaAjax(account,"driver_changesecure");
+			})
+
+			var setpaypwdButton = doc.getElementById("setpaypwd");
+			
+			setpaypwdButton.addEventListener('tap',function(even){
+				jQuery("input").blur();
+				var thisButton = $(this);
+				$(this).button("loading");
+				_setpaypwd(thisButton);
+			})
+		})
+	}(mui, document))
+</script>
+</html>
