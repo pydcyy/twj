@@ -45,9 +45,7 @@
 							<div class="goods_info">
 								<span class="salesprice">￥{{shopCarList.price}}</span>
 								<div class="compute-car">
-									<i class="num-small fa fa-minus" data="" @click="reduce(index)" :disabled="shopCarList.num === 1"></i>
-									<input type="text" class="lone-num" :value="shopCarList.num" readonly data="0">
-									<i class="num-big fa fa-plus" data="" data-housenum="" @click="add(index)"></i>
+									<i class="num-small fa fa-minus" data="" @click="reduce(index)" :disabled="shopCarList.num === 1"></i><input type="number" class="lone-num" :value="shopCarList.num" readonly="readonly"  data="0"><i class="num-big fa fa-plus" data="" data-housenum="" @click="add(index)"></i>
 								</div>
 							</div>
 						</td>

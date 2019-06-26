@@ -134,7 +134,7 @@
 		})
 		document.getElementById("transfer").addEventListener('tap',function(even){
 			loginRequired(function(){
-				openView("transfer.html","transfer");
+				beforeOpenView('transfer.html');
 			})
 		})
 		var self = plus.webview.currentWebview();	

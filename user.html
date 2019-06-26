@@ -53,7 +53,7 @@
 			<div class="mui-content-main">
 				<div class="record">
 					<span class="mui-pull-left">我的订单</span>
-					<span class="mui-pull-right">
+					<span class="mui-pull-right" id="orderlist">
 						<p class="mui-icon mui-icon-forward mui-pull-right " style="font-size: 18px;"></p>
 						<p class="mui-pull-right">全部订单</p>
 					</span>
@@ -97,6 +97,21 @@
 			</div>
 			<div class="mui-content-main" style="padding-top: 0;margin-bottom: 10px;">
 				<ul class="list">
+					<li class="mui-table-view-cell" >
+						<a class="mui-navigate-right" id="referrals">
+							<span class="mui-icon-extra mui-icon-extra-like"></span><span class="title">我的推荐</span>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" style="display: flex;align-items:center;" id="myteam">
+							<span class="mui-icon-extra mui-icon-extra-peoples"></span> 
+							<span class="title" >我的团队</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="mui-content-main" style="padding-top: 0;margin-bottom: 59px;">
+				<ul class="list">
 					<li class="mui-table-view-cell" id="bankcard">
 						<a class="mui-navigate-right">
 							<span class="mui-icon-extra mui-icon-extra-card"></span><span class="title">银行卡</span>
@@ -121,6 +136,7 @@
 					</li>
 				</ul>
 			</div>
+			
 		  </div>
 		</div>  
 		<div class="mui-off-canvas-backdrop"></div>
@@ -188,6 +204,9 @@
 			var phonelineButton = doc.getElementById("phoneline");
 			var bankcardButton = doc.getElementById("bankcard");
 			var inviteButton = doc.getElementById("invite");
+			var referralsButton = doc.getElementById("referrals");
+			var myteamButton = doc.getElementById("myteam");
+			var orderlistButton = doc.getElementById("orderlist");
 
 			// 去推广注册页面
 			var invite = plus.webview.getWebviewById("invite");
@@ -235,6 +254,21 @@
 			bankcardButton.addEventListener('tap',function(even){
 				loginRequired(function(){
 					beforeOpenView("bankcard.html");
+				})
+			})
+			referralsButton.addEventListener('tap',function(even){
+				loginRequired(function(){
+					beforeOpenView("referrals.html");
+				})
+			})
+			myteamButton.addEventListener('tap',function(even){
+				loginRequired(function(){
+					beforeOpenView("myteam.html");
+				})
+			})
+			orderlistButton.addEventListener('tap',function(even){
+				loginRequired(function(){
+					beforeOpenView("orderlist.html");
 				})
 			})
 			

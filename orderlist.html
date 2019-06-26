@@ -10,6 +10,10 @@
 	<link rel="stylesheet" href="css/mui-icons-extra.css" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/lib/artTemplate.js"></script>
+	<script type="text/javascript" src="js/lib/common.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	
 	
 </head>
 <body>
@@ -21,6 +25,7 @@
 			</h1>
 		</div>
 	</header>
+	
 	<div class="mui-content mui-scroll-wrapper">
 		<div class="mui-slider mui-scroll">
 			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
@@ -166,69 +171,11 @@
 			</div>
 		</div>
 	</div>
-	<!-- <div class="mui-content mui-scroll-wrapper">
-		<div class="mui-scroll">
-		
-			<div class="mui-content-nav">
-				<ul>
-					<li class="on">
-						全部
-						<div >
-						</div>
-					</li>
-					<li>待付款</li>
-					<li>待发货</li>
-					<li>待收货</li>
-				</ul>
-			</div>
-			<div class="mui-content-list">
-				<div class="list-son">
-					<p class="status"><span style="color: #FB6F18;">交易成功</span></p>
-					<div class="list-son-show" >
-						<div class="img">
-							<img src="picture/carimg.png" >
-						</div>
-						<div class="atc">
-							<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
-						</div>
-						<div class="price " >
-							<span>￥1.80</span><br>
-							<p style="text-align:right ">&times;1</p>
-						</div>
-						<div class="foot" >
-							<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
-						</div>
-					</div>
-					<div class="list-son-del">
-						<button type="button" class="mui-btn">删除订单</button>
-					</div>
-				</div>
-				<div class="list-son">
-					<p class="status"><span style="color: #FB6F18;">交易成功</span></p>
-					<div class="list-son-show" >
-						<div class="img">
-							<img src="picture/carimg.png" >
-						</div>
-						<div class="atc">
-							<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
-						</div>
-						<div class="price " >
-							<span>￥1.80</span><br>
-							<p style="text-align:right ">&times;1</p>
-						</div>
-						<div class="foot" >
-							<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
-						</div>
-					</div>
-					<div class="list-son-del">
-						<button type="button" class="mui-btn">删除订单</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>  -->
 	<script type="text/javascript">
 		mui.init();
+		mui.plusReady(function() {
+			afterOpenView();
+		})
 	</script>
 </body>
 </html>
