@@ -9,6 +9,8 @@
 	<link href="css/receivables.css" rel="stylesheet" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/lib/artTemplate.js"></script>
+	<script type="text/javascript" src="js/lib/common.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
 	<style>
 		html{
@@ -40,6 +42,9 @@
 					<label>金额</label>
 					<input type="number" placeholder="" class="mui-input-clear" name="money">
 				</div>
+				<p id="assets_warp">
+					
+				</p>
 				<div class="mui-button-row">
 					<button style="border: none;" type="button" class="mui-btn mui-btn-primary"  id="transfer" >确认</button>
 				</div>
@@ -48,10 +53,14 @@
 	</div>
 
 </body>
+<script type="text/html" id="assets_view">
+	可用余额{{data['credit1']}}元
+</script> 
 <script>
 	(function($, doc) {
 		$.init();
 		$.plusReady(function() {
+			loadData();
 			doc.getElementById("transfer").addEventListener('tap',function(even){
 				var that = $(this);
 				loginRequired(function(){
@@ -60,7 +69,28 @@
 					_transfer(that);
 				})
 			})
+			document.getElementById('transfer').addEventListener('tap',function(even){
+				showMessage("功能开发中");
+			})
+			window.addEventListener('refresha', function(e) {  
+				loadData();
+			})
 		})
+		function loadData() {
+			var urla = postUrl+"Home/member/assets.html";
+			var postData = {};
+			diyAjax(urla,postData,function(result){
+				console.log("获取财富信息");
+				if(result.code == 1){
+					var assetsjson = {};
+					assetsjson.data = result.data.assets;
+					render("#assets_warp", "assets_view", assetsjson);
+				}
+				afterOpenView();
+			},function(xhr){
+				console.log("失败"+JSON.stringify(xhr));
+			})		
+		}
 	}(mui, document))
 </script>
 </html>

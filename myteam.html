@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>我的推荐</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="css/mui.min.css"/>
+	<link rel="stylesheet" href="css/mui-icons-extra.css"/>
+	<link rel="stylesheet" href="css/app.css" />
+	<link rel="stylesheet" href="css/referrals.css" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/lib/artTemplate.js"></script>
+	<script type="text/javascript" src="js/lib/common.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+
+</head>
+<body>	
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()"></a>
+		<h1 class="mui-title">我的团队</h1>
+	</header>
+	<div class="mui-content">
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell mui-media">
+				<a href="javascript:;">
+					<img class="mui-media-object mui-pull-left" src="picture/mubantx.jpg">
+					<div class="mui-media-body">
+						<span>188****888</span>
+						<p class="mui-ellipsis">注册时间：<span>2222-2-22</span></p>
+					</div>
+				</a>
+			</li>
+			<li class="mui-table-view-cell mui-media">
+				<a href="javascript:;">
+					<img class="mui-media-object mui-pull-left" src="picture/mubantx.jpg">
+					<div class="mui-media-body">
+						<span>188****888</span>
+						<p class="mui-ellipsis">注册时间：<span>2222-2-22</span></p>
+					</div>
+				</a>
+			</li>
+			<li class="mui-table-view-cell mui-media">
+				<a href="javascript:;">
+					<img class="mui-media-object mui-pull-left" src="picture/mubantx.jpg">
+					<div class="mui-media-body">
+					   <span>188****888</span>
+					   <p class="mui-ellipsis">注册时间：<span>2222-2-22</span></p>
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<script type="text/javascript">	
+		(function($, doc) {
+			$.init();
+			$.plusReady(function() {	
+				afterOpenView();
+			})	
+		}(mui, document))
+	</script>
+</body>
+</html>
