@@ -715,7 +715,7 @@ function toIndex() {
     }
 
 function getcaptchaAjax(account,type){	
-	var url = postUrl+"/api/sms/sendCaptcha",
+	var url = postUrl+"Home/sms/index.html",
 		data = {
 			"account": account,
 			"type":type,
