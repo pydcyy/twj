@@ -88,7 +88,7 @@
 		<li><img src="picture/shopb.png" alt=""></li>
 		<li><img src="picture/shopc.png" alt=""></li>
 	{{else}} {{each data as item}}
-		<li><a data-href="{{item[1]}}"><img src="{{item[0]}}" alt=""></a></li>
+		<li><a data-href="{{item[1]}}" data-id="#item2"><img src="{{item[0]}}" alt=""></a></li>
 	{{/each}} {{/if}}
 </script>
 
@@ -221,9 +221,9 @@
 		initPage();
 		$("body").on("tap", ".shop-img a", function() {
 			// showMessage("功能开发中");
-// 			var that = this;
-// 			var href= that.dataset.href;
-			beforeOpenView('shopcar.html');
+ 			var that = this;
+ 			var pageid= that.dataset.id;
+			beforeOpenView('shopa.html','shopa',pageid);
 		})
 		
 
