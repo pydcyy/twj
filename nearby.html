@@ -293,6 +293,8 @@
 			var postData = {};
 			postData['lon'] = storageLocation.Lon;
 			postData['lat'] = storageLocation.Lat;
+
+			
 			diyAjax(posturl,postData,function(r){
 				log(r);
 				mapObj.remove(markers);
