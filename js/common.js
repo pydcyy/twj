@@ -111,9 +111,9 @@ function gobackRefreshTrue(){
 function log(data){
 	console.log(JSON.stringify(data));
 }
-function beforeOpenView(page){
+function beforeOpenView(page,id,pageid){
 	plus.nativeUI.showWaiting(); 
-	webviewShow = plus.webview.create(page); 
+	webviewShow = plus.webview.create(page,'id',{},{pageid:pageid}); 
 }
 
 function afterOpenView(){

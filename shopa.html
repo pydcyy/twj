@@ -9,6 +9,9 @@
 	<link rel="stylesheet" href="css/shopcity.css" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/lib/artTemplate.js"></script>
+	<script type="text/javascript" src="js/lib/common.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
 	
 </head>
 <body>
@@ -23,14 +26,14 @@
 	</header>
 	<div class="mui-content mui-scroll-wrapper">
 		<div class="mui-slider mui-scroll">
-			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-				<a class="mui-control-item mui-active" href="#item1">现金商城</a>
-				<a class="mui-control-item" href="#item2">积分商城</a>
+			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" id="navbar">
+				<a class="mui-control-item mui-active " href="#item1">现金商城</a>
+				<a class="mui-control-item " href="#item2">积分商城</a>
 				<a class="mui-control-item" href="#item3">金珠商城</a>
 			</div>
 			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
-			<div class="mui-slider-group">
-				<div id="item1" class="mui-slider-item mui-control-content mui-active">
+			<div class="mui-slider-group" id="contentbar">
+				<div id="item1"  class="contentbarson mui-slider-item mui-control-content " >
 					<div class="mui-table-view">
 						<div id="slider" class="mui-slider banner" >
 						  <div class="mui-slider-group mui-slider-loop">
@@ -159,12 +162,12 @@
 						</div>
 					</div>
 				</div>
-				<div id="item2" class="mui-slider-item mui-control-content">
+				<div id="item2"  class="contentbarson mui-slider-item mui-control-content  " >
 					<div class="mui-table-view">
 						暂无数据
 					</div>
 				</div>
-				<div id="item3" class="mui-slider-item mui-control-content">
+				<div id="item3"  class="contentbarson mui-slider-item mui-control-content">
 					<div class="mui-table-view">
 						暂无数据
 					</div>
@@ -178,6 +181,26 @@
 			  interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
 			});
 		mui.init();
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			console.log(self.pageid);
+			
+			var demo= document.getElementById("navbar").getElementsByTagName("a");
+			var demo2= document.getElementsByClassName("contentbarson");
+			for(var i=0;i<demo.length;i++){
+				demo[i].classList.remove("mui-active");
+				demo2[i].classList.remove("mui-active");
+				var hrefid=demo[i].getAttribute("href");
+				var hrefid2="#"+demo2[i].getAttribute("id");
+				if(hrefid==self.pageid){
+					demo[i].classList.add("mui-active");
+					demo2[i].classList.add("mui-active");
+				}
+				
+				
+			 }
+			afterOpenView();
+		})
 		mui('.mui-scroll-wrapper').scroll({
 			deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
 		});

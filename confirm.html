@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>确认订单</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="css/mui.min.css"/>
+	<link rel="stylesheet" href="css/mynb.cn.css" />
+	<link rel="stylesheet" href="css/app.css" />
+	<link rel="stylesheet" href="css/confirm.css" />
+	<link rel="stylesheet" href="css/mui-icons-extra.css" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/lib/artTemplate.js"></script>
+	<script type="text/javascript" src="js/lib/common.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	
+	
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<div class="mui-input-row mui-search">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()" style="color: #fff;"></a>
+			<h1 class="mui-title" >
+				订单详情
+			</h1>
+		</div>
+	</header>
+	
+	<div class="mui-content mui-scroll-wrapper">
+		<div class="mui-slider mui-scroll">
+			<div class="address">
+				<div class="list-son ">
+					
+					<div class="list-son-show" >
+						
+						<div class="img">
+							<span class="fa fa-map"></span>
+						</div>
+						<div class="atc">
+							<p >
+								<span class="cname">张三</span>
+								<span>18888888888</span>
+							</p>
+							<span >安徽省宣城市宣州区</span>
+						</div>
+					</div>
+					<div class="addresslist" >
+						<span class="mui-icon mui-icon-forward"></span>
+					</div>
+				</div>
+			</div>
+			
+			<ul class="mui-table-view " >
+				<li class="mui-table-view-cell" style="background: #fff;">
+					<div class="list-son">
+						
+						<div class="list-son-show" >
+							<div class="img">
+								<img src="picture/carimg.png" >
+							</div>
+							<div class="atc">
+								<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
+							</div>
+							<div class="price " >
+								<span>￥1.80</span><br>
+								<p style="text-align:right ">&times;1</p>
+							</div>
+							<div class="foot" >
+								<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell" style="background: #fff;">
+					<div class="list-son">
+						
+						<div class="list-son-show" >
+							<div class="img">
+								<img src="picture/carimg.png" >
+							</div>
+							<div class="atc">
+								<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
+							</div>
+							<div class="price " >
+								<span>￥1.80</span><br>
+								<p style="text-align:right ">&times;1</p>
+							</div>
+							<div class="foot" >
+								<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
+							</div>
+						</div>
+						
+					</div>
+				</li>
+			</ul>
+		</div>	
+	</div>
+	<nav class="mui-bar mui-bar-tab" style="box-shadow: none;">
+		<div class="car_foot row">
+			<div class="col-4">
+				<div class="mui-checkbox">
+					<label></label>
+				</div>
+			</div>
+			<div class="col-20">
+				<div class="pull-r beforeedit">
+					<div class="pull-l foot_txt">
+						<div class="total_money">
+							<span class="zongji">共
+								<span class="zongji">888</span>件
+							</span>合计：<span class="all-price">xxx</span>&nbsp;元</div>
+						<p>不含运费</p>
+					</div>
+					
+					<div class="pull-l jsbtn active" v-if="checkednum">提交订单</div>
+				</div>
+				<div class="pull-r afteredit disshow">
+					
+					<div class="jsbtn active" style="min-width: 100px;" >提交订单</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<script type="text/javascript">
+		mui.init();
+		mui.plusReady(function() {
+			afterOpenView();
+		})
+	</script>
+</body>
+</html>

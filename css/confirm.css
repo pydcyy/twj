@@ -1,0 +1,159 @@
+.mui-bar-nav{
+	background-color:#2695ef;
+}
+.mui-content-nav {
+	overflow: hidden;
+	background: #fff;
+	padding: 0 4%;
+}
+.mui-table-view{
+	background: #efeff4;
+	padding: 10px;
+}
+.mui-table-view-cell{
+	padding: 0;
+	border-radius: 3px;
+	margin-bottom: 10px;
+}
+.mui-table-view-cell:after{
+	background: #fff;
+}
+.mui-slider-item{
+	border: 0 solid #777 !important;
+}
+.mui-content .list-son{
+	
+	background: #fff;
+	border-radius: 3px;
+	padding: 10px;
+}
+.list-son .status{
+	text-align: right;
+	line-height: 10px;
+	padding-bottom: 6px;
+}
+.list-son-show{
+	overflow: hidden;
+	position: relative;
+	height: 85px;
+}
+.list-son-show span{
+	font-size: 12px;
+	
+}
+.list-son-show .img{
+	height: 85px;
+	width: 85px;
+}
+.list-son-show .img img{
+	width: 100%;
+}
+.list-son-show .img,.list-son-show .atc{
+	float:left;
+}
+.list-son-show .atc{
+	padding-left: 10px;
+	width: 55%;
+	line-height: 16px;
+	
+}
+ .list-son-show .price{
+	 float:right;
+	 line-height: 15px;
+ }
+ .list-son-show .foot{
+	 position: absolute;
+	 bottom: 0;
+	right: 0;
+ }
+ 
+ .mui-content .address{
+	 padding: 10px 10px 0 10px;
+ }
+.mui-content .address .img {
+	height: 30px;
+	width: 30px;
+	background:#2695ef ;
+	border-radius: 15px;
+	line-height: 30px;
+	text-align: center;
+}
+
+.mui-content .address .img .fa-map{
+	font-size: 22px;
+	color:#fff;
+	
+}
+.mui-table-view:before{
+	background: #efeff4;
+}
+.mui-content .address .list-son-show{
+	float: left;
+	width: 97%;
+	display: flex;
+	height: 100%;
+	
+}
+.mui-content .address .list-son-show .img{
+	align-self:center ;
+}
+.mui-content .address .list-son{
+	overflow: hidden;
+	 display: flex;
+}
+.mui-content .address .list-son-show .atc{
+	width: 75%;
+}
+.mui-content .address .list-son-show .atc p{
+	line-height: 13px;
+	margin-bottom: 6px;
+}
+.mui-content .address .list-son-show .atc p .cname{
+	font-size: 14px;
+	color: #000000;
+}
+.address .addresslist{
+	text-align: right;
+	align-self:center ;
+}
+.address .addresslist .mui-icon-forward{
+	font-size: 20px;
+	color:#c1c1c1;
+	width: 15px;
+	
+}
+.car_foot{
+	height: 50px;
+	line-height: 50px;
+}
+.total_money{
+	font-size: 14px;
+}
+.car_foot .jsbtn{
+	font-size: 14px;
+	width: ;
+	padding:0 10px;
+}
+.car_foot .foot_txt{
+	line-height: 18px;
+    margin-top: 6px;
+	margin-right: 10px;
+}
+.car_foot{
+	padding-left: 10px;
+}
+.mui-checkbox label{
+	padding-left: 33px;
+	padding-right: 10px;
+}
+.mui-checkbox input[type="checkbox"]{
+	top: 9px;
+	left: -2px;
+}
+.tb-one input[type="checkbox"]{
+	top:30px;
+}
+.total_money .zongji{
+	color:#8f8f94;
+	font-size: 12px;
+}
