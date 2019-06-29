@@ -19,12 +19,15 @@
 		<div class="mui-content" id="contact_us">
 		    <div class="c_main" id="code">
 		    </div>
-		    <div style="color: #fff; text-align: center;padding: 30px; font-size: 14px;">您的邀请码是：<span id="uid"></span></div>
-		    <!--<button class="mui-btn mui-btn-blue public_bg_color" @click="save_img">保存二维码</button>-->
+			<input id="foo"  value=" " readonly="readonly" style="position: absolute;top: -5000px;">
+			<div style="color: #fff; text-align: center;padding:30px 30px 10px 30px; font-size: 14px;" class="copyLink" data-clipboard-target="#foo">复制推广链接</div>
+		    <div style="color: #fff; text-align: center;padding:10px 30px 30px 30px; font-size: 14px;">您的邀请码是：<span id="uid"></span></div>
+		    <!-- <button class="mui-btn mui-btn-blue public_bg_color" @click="save_img">保存二维码</button> -->
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script src="js/common.js"></script>
+		<script src="js/clipboard.min.js"></script>
 		<script src="js/jquery.qrcode.min.js"></script>
 		
 		<script>
@@ -44,12 +47,21 @@
 						height:175, //高度
 						text: weburl+"?uid="+state+"&key="+appkey //任意内容
 					});
+					jQuery("#foo").val(weburl+"?uid="+state+"&key="+appkey);
 					console.log(weburl+"?uid="+state+"&key="+appkey);
 				}, false);
 				
 
 				$.plusReady(function() {
-					
+					var clipboard1 = new Clipboard('.copyLink');
+				    clipboard1.on('success', function(e) {
+				        console.log(e);
+				        alert("复制成功！");
+				    });
+				    clipboard1.on('error', function(e) {
+				        console.log(e);
+				        alert("复制失败，或者手动进行复制！");
+				     });
 				});
 			}(mui, document));
 		</script>

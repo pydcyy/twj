@@ -14,7 +14,7 @@
 		/* .mui-bar{
 			background-color: #efeff4;
 		} */
-		.mui-icon-clear{
+		.mui-icon-clear,.mui-icon-eye{
 			top: 30px!important;
 		}
 		.setpwdbox .setpwdinput{
@@ -83,13 +83,14 @@
 			<p class="pwdreq">验证码已发送到您的手机：<span id="account"></span><br>注意支付密码是6位数字</p>
 			<form action="" id="normal-form">
 				<div class="mui-input-row">
-					<input type="text" class="setpwdinput mui-input-clear" placeholder="请输入验证码" id="captcha" name="captcha">
+					<input type="hidden" name="mobile" id="mobile" value="">
+					<input type="number" class="setpwdinput mui-input-clear" placeholder="请输入验证码" id="code" name="code">
 				</div>
 				<div class="mui-input-row">
-					<input type="password" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="setpwdinput mui-input-clear" placeholder="请输入支付密码" id="securepassword" name="securepassword" maxlength="6">
+					<input type="password" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="setpwdinput mui-input-password" placeholder="请输入支付密码" id="epassword" name="epassword" maxlength="6">
 				</div>
 				<div class="mui-input-row">
-					<input type="password" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="setpwdinput mui-input-clear" placeholder="请再次输入支付密码" id="resecurepassword" name="resecurepassword" maxlength="6">
+					<input type="password" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="setpwdinput mui-input-password" placeholder="请再次输入支付密码" id="reepassword" name="reepassword" maxlength="6">
 				</div>
 				<div class="nocat" style="color:#2695EF"><span>没收到验证码，重新发送></span></div>
 				<div class="mgt-2 login-form setpwdbox-btn">
@@ -108,19 +109,21 @@
 		$.plusReady(function() {
 			
 			var account = getMobile();
-			document.querySelector("#account").innerHTML=account;
+
 			
 			// 页面加载前发送验证码
 			document.addEventListener('getcaptcha', function(event) {
-				var account = event['detail'];				
+				var account = event['detail'];	
+				document.querySelector("#account").innerHTML=account;
+				document.querySelector("#mobile").value=account;
 				if(document.querySelector(".nocat").innerHTML=="<span>没收到验证码，重新发送&gt;</span>"){
-					getcaptchaAjax(account,"driver_changesecure");
+					getcaptchaAjax(account,4);
 				}
 			})
 			
 			// 点击发送验证码
 			$(".nocat").on("tap","span",function(){
-				getcaptchaAjax(account,"driver_changesecure");
+				getcaptchaAjax(account,4);
 			})
 
 			var setpaypwdButton = doc.getElementById("setpaypwd");

@@ -46,8 +46,8 @@
 			<div class="mui-bar shop">
 				<div class="shop-title">{{name}}</div>
 				<div class="shop-content">
-					<div class="mui-pull-left">
-						<!-- <span>经营内容：零售，烟酒</span><br> -->
+					<div class="mui-pull-left" style="text-align: left;">
+						<span>经营内容：{{projects}}</span><br>
 						<span>联系方式：{{mobile}}</span><br>
 						<span>所在地址：{{address}}</span>
 					</div>
@@ -123,7 +123,22 @@
 	
 			//获取定位信息
 			plus.geolocation.getCurrentPosition(function(p) {
+				
+				if(p.coordsType=="wgs84"){
+					var newcoords=coordtransform.wgs84togcj02(p.coords.longitude,p.coords.latitude);
+					p.coords.longitude = newcoords[0];
+					p.coords.latitude = newcoords[1];
+				}
+				if(p.coordsType=="BD09"){
+					var newcoords=coordtransform.bd09togcj02(p.coords.longitude,p.coords.latitude);
+					p.coords.longitude = newcoords[0];
+					p.coords.latitude = newcoords[1];
+				}
+				
+
+				
 				log(mklog() + "【当前位置】:" + p.coords.longitude + "|" + p.coords.latitude)
+				
 				//将用户当前位置存入storage
 				localStorage.setItem("longitude", p.coords.longitude);
 				localStorage.setItem("latitude", p.coords.latitude);
@@ -137,9 +152,10 @@
 				mapObj.on('complete', function() {
 					appUI.closeWaiting();
 					log(mklog() + "地图图块加载完毕！当前地图中心点为：" + mapObj.getCenter())
+					log(p);
 					//获取当前城市数据
 					// gdMap.getCurrentCity(function(city) {
-						var city = p['address']['city'];
+						var city = " ";
 						if(city) {
 							//	添加点聚合
 							gdMap.setMoreMarkersWithCluster({
@@ -273,18 +289,17 @@
 // 				lat : storageLocation.Lat,
 // 				pageindex:1
 // 			},function(r) {
-				var r = {
-					data:[
-						{id:"109",img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",Lon:"118.77564",Lat:"30.92932",name:"商户名称1",mobile:"18111111111",place:"北京"},
-						{id:"110",img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",Lon:"118.77764",Lat:"30.93132",name:"商户名称1",mobile:"18111111111",place:"北京"},
-						{id:"111",img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",Lon:"118.77864",Lat:"30.93232",name:"商户",mobile:"18111111111",place:"北京"},
-					]
-				};
+			var posturl=postUrl+"Home/member/storelatlng.html";
+			var postData = {};
+			postData['lon'] = storageLocation.Lon;
+			postData['lat'] = storageLocation.Lat;
+			diyAjax(posturl,postData,function(r){
+				log(r);
 				mapObj.remove(markers);
 				markers=[];
 				mui.each(r.data, function(j, k) {
 					
-					var markerPosition = JSON.parse('[' + k.Lon + ',' + k.Lat + ']');
+					var markerPosition = JSON.parse('[' + k.lon + ',' + k.lat + ']');
 // 					var Shopstatus=0;
 // 					if(k.IsHaveMatch=='Y')Shopstatus=1;
 					var iconUrl = "images/amp-mk0.svg";
@@ -293,7 +308,7 @@
 						"content": "<div class='experience-image'>" +
 							// "<span class='map-icon-url' data_name='" + k.name+ "' style='position:absolute;border-radius:6px ;width:90px;height:20px;text-align: center;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;font-size:12px;color:#666;left:50%;bottom:50px;margin-left:-45px;border-radio:25%;background: #fff;'>"+k.name+"</span>" +
 							//"<img class='shopIcon' src='" + iconUrl + "'/>"+
-							"<i class='shopIcon1' style='background: url("+k.img+");'>"+
+							"<i class='shopIcon1' style='background: url("+k.img+");background-size:cover;'>"+
 							
 							"</i>"+
 							"</div>",
@@ -303,8 +318,10 @@
 							"ImgUrl":k.img,
 							"mobile":k.mobile,
 							"address":k.place,
-							"Lon":k.Lon,
-							"Lat":k.Lat,
+							"Lon":k.lon,
+							"Lat":k.lat,
+							"projects":k.projects,
+
 
 							//"designerId": k.designerId
 						},
@@ -319,7 +336,7 @@
 					log(mklog() + '【debug】点数量:' + markers.length)
 					gdMap.addClusterToMap(markers) //执行一次
 				}
-			// }) //request end
+			}) //request end
 		},
 		setMarkersBySearchResult: function(dataParm) {
 			//点聚合对象(cluster)AMap.MarkerClusterer

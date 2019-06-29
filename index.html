@@ -14,72 +14,44 @@
 	<script type="text/javascript" src="js/lib/common.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
 </head>
-<body>
-	<!-- 主界面不动、菜单移动 -->
-	<!-- 侧滑导航根容器 -->
-	<div class="mui-off-canvas-wrap mui-draggable mui-slide-in">
-	  
-	  <!-- 主页面容器 -->
-	  <div class="mui-inner-wrap"> 
-		 <!-- <nav class="mui-bar mui-bar-tab" style="background: #fff;">
-		  	<a class="mui-tab-item mui-active" href="index.html">
-		  		<span class="fa fa-index"></span>
-		  		<span class="mui-tab-label">首页</span>
-		  	</a>
-		  	<a class="mui-tab-item" href="nearby.html">
-		  		<span class="fa fa-nearby"></span>
-		  		<span class="mui-tab-label">附近</span>
-		  	</a>
-		  	<a class="mui-tab-item" href="wealth.html">
-		  		<span class="fa fa-wealth"></span>
-		  		<span class="mui-tab-label">财富</span>
-		  	</a>
-		  	<a class="mui-tab-item" href="user.html">
-		  		<span class="fa fa-user"></span>
-		  		<span class="mui-tab-label">我的</span>
-		  	</a>
-		</nav> -->
-		
-		<div class="header">
-			<h4>兑换交易</h4>
-			<ul class="headerul">
-				<li>
-					<span id="opens" class="fa fa-payment"></span>
-					<p>付款</p>
-				</li>
-				<li id="receivables">
-					<span class="fa fa-receivables"></span>
-					<p>收款</p>
-				</li>
-				<li id="transfer">
-					<span class="fa fa-transfer"></span>
-					<p>转账</p>
-				</li>
-				<li>
-					<span id="cash" class="fa fa-withdrawal"></span>
-					<p>提现</p>
-				</li>
-			</ul>
-			
-		</div>
-		  
-		<div class="mui-content mui-scroll-wrapper" style="background: #f0f0f0;top:130px;margin-bottom:50px;">
-			<div class="mui-scroll">
-				
-				<div class="index-main">
-					<span class="mylabel">
-						消费商城
-					</span>
-					<ul class="shop-img" id="banner_warp">
-						<!-- <li><img src="picture/shopa.png" alt=""></li>
-						<li><img src="picture/shopb.png" alt=""></li>
-						<li><img src="picture/shopc.png" alt=""></li> -->	
-					</ul>
-				</div>
-			</div>
-		</div>  
-		<div class="mui-off-canvas-backdrop"></div>
+<body>  
+  <!-- 主页面容器 -->
+  <div class="mui-content mui-scroll-wrapper" id="pullrefresh"> 	
+	<div class="header">
+		<h4>兑换交易</h4>
+		<ul class="headerul">
+			<li>
+				<span id="opens" class="fa fa-payment"></span>
+				<p>付款</p>
+			</li>
+			<li id="receivables">
+				<span class="fa fa-receivables"></span>
+				<p>收款</p>
+			</li>
+			<li id="transfer">
+				<span class="fa fa-transfer"></span>
+				<p>转账</p>
+			</li>
+			<li>
+				<span id="cash" class="fa fa-withdrawal"></span>
+				<p>提现</p>
+			</li>
+		</ul>
 	</div>
+	  
+	<div class="mui-scroll" style="margin-bottom: 50px;z-index: -1;">
+		<div class="index-main">
+			<span class="mylabel">
+				消费商城
+			</span>
+			<ul class="shop-img" id="banner_warp">
+				<li><img src="picture/shopa.png" alt=""></li>
+				<li><img src="picture/shopb.png" alt=""></li>
+				<li><img src="picture/shopc.png" alt=""></li>	
+			</ul>
+		</div>
+	</div>
+	<div class="mui-off-canvas-backdrop"></div>
 </div>
 
 <script type="text/html" id="banner_view">
@@ -96,12 +68,19 @@
 	
 	mui.init({
 		swipeBack: true ,//启用右滑关闭功能
+		pullRefresh: {
+			container: '#pullrefresh',
+			down: { //下拉刷新
+				callback: pulldownRefresh,
+				style: mui.os.android ? "circle" : "default"
+			}
+		}
 	});
 	
-	mui('.mui-scroll-wrapper').scroll({
-		deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-	});
-	mui('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
+	function pulldownRefresh() {	
+		loadData();
+		appPage.endPullRefresh();
+	}
 	
 	//2、创建子页面，首个选项卡页面显示，其它均隐藏
 	var view_show = {};
@@ -112,7 +91,6 @@
 				loginRequired(function(){
 					beforeOpenView("richscan.html");
 				})
-				
 			})
 			document.getElementById("cash").addEventListener('tap',function(){
 				loginRequired(function(){
@@ -167,7 +145,6 @@
 
 				// 匹配对应tab窗口	
 				if(currIndex > 0) {
-
 					var sub = mui.openWindow({
 						url: subpages[currIndex - 1],
 						id: subpages[currIndex - 1],
@@ -231,6 +208,7 @@
 	function initPage() {
 		loadData();
 	}
+	
 	//一次性拉取数据
 	function loadData() {
 		var url=postUrl+"Home/app/index.html";

@@ -41,7 +41,10 @@ bankcardRequired = function(callback){
 	})
 }
 // 打开新页面
-function openView(url,id,data=""){
+function openView(url,id,data){
+	if(data==""){
+		data = "";
+	}
 	mui.openWindow({
 		url: url,
 		id: id,
@@ -74,8 +77,8 @@ function getUid(){
 
 // 获取key
 function getAppKey(){
-	return "V1.0";
-	//return plus.runtime.version;
+	return "V1.2";
+	// return plus.runtime.version;
 }
 
 // 获取mobile
@@ -132,6 +135,7 @@ function diyAjax(url,data,callback,errcallback){
 		if(getAppKey()){
 			data['key']=getAppKey();
 		}	
+		
 		//var mask=mui.createMask();//遮罩层
 		return jQuery.ajax({
 			url:url,
@@ -353,19 +357,22 @@ function _login(thisButton){
     save_url = postUrl+"Home/member/login.html";
 	diyAjax(save_url,postData,function(result){
 		console.log("登录");
-		console.log(JSON.stringify(result));
 		if (result.code == 1) {
 			//成功
 			localStorage.setItem('$UserInfo', JSON.stringify(result['data']));
 
-			showMessage(result.msg);
-			
-			var indexPage =plus.webview.getLaunchWebview();
+			showMessage(result.msg);	
 			if(plus.webview.getWebviewById('nearby.html')){
-				plus.webview.getWebviewById('nearby.html').hide();
+				plus.webview.getWebviewById('nearby.html').hide();	
+			}
+			if(plus.webview.getWebviewById('wealth.html')){
 				plus.webview.getWebviewById('wealth.html').hide();
+			}
+			if(plus.webview.getWebviewById('user.html')){
 				plus.webview.getWebviewById('user.html').hide();
-			}			
+			}
+			var indexPage =plus.webview.getLaunchWebview();
+			indexPage.reload(true);
 			indexPage.show("pop-in");
 			
 			thisButton.button("reset");
@@ -413,8 +420,12 @@ function _reg(thisButton){
 
 			var indexPage =plus.webview.getLaunchWebview();
 			if(plus.webview.getWebviewById('nearby.html')){
-				plus.webview.getWebviewById('nearby.html').hide();
+				plus.webview.getWebviewById('nearby.html').hide();	
+			}
+			if(plus.webview.getWebviewById('wealth.html')){
 				plus.webview.getWebviewById('wealth.html').hide();
+			}
+			if(plus.webview.getWebviewById('user.html')){
 				plus.webview.getWebviewById('user.html').hide();
 			}
 
@@ -454,8 +465,12 @@ function _forgetpwd(thisButton){
 
 			var indexPage =plus.webview.getLaunchWebview();
 			if(plus.webview.getWebviewById('nearby.html')){
-				plus.webview.getWebviewById('nearby.html').hide();
+				plus.webview.getWebviewById('nearby.html').hide();	
+			}
+			if(plus.webview.getWebviewById('wealth.html')){
 				plus.webview.getWebviewById('wealth.html').hide();
+			}
+			if(plus.webview.getWebviewById('user.html')){
 				plus.webview.getWebviewById('user.html').hide();
 			}
 			
@@ -639,7 +654,49 @@ function _transfer(thisButton){
 		thisButton.button("reset");
 	});	
 }
-
+function _setpaypwd(thisButton){
+    var postData =  getPostData();
+	
+	if(postData["code"] == ""){
+		showMessage("请输入验证码");
+		return false;
+	}else if(postData["epassword"] == ""){
+		showMessage("请输入支付密码");
+		return false;
+	}else if(postData["epassword"].length != 6){
+		showMessage("支付密码格式不正确");
+		return false;
+	}else if(postData["epassword"] != postData["reepassword"]){
+		showMessage("两次输入的密码不一致");
+		return false;
+	}
+	var dealData={};
+	for (var data in postData){
+		if(data=="reepassword") continue;
+		dealData[data] = postData[data];
+	}
+	
+	var save_url = postUrl+"Home/member/updatePayPwd.html";
+	diyAjax(save_url,dealData,function(result){
+		console.log("修改支付密码");
+		if (result.code == 1) {
+			//成功
+			showMessage(result.msg);
+			mui.back();
+			return false;
+		} else{
+			// 失败
+			showMessage(result.msg);
+			thisButton.button("reset");
+			return false;
+		}
+	},function(xhr){
+		thisButton.button("reset");
+		console.log(JSON.stringify(xhr));
+	});
+	
+	return false;
+}
 function _checkSecure(resultValue){
 	var statics = getLoginStorage('$pwdPost');
 	var url = statics['url'],
@@ -717,7 +774,7 @@ function toIndex() {
 function getcaptchaAjax(account,type){	
 	var url = postUrl+"Home/sms/index.html",
 		data = {
-			"account": account,
+			"mobile": account,
 			"type":type,
 		};
 	diyAjax(url,data,function(result){
@@ -737,7 +794,7 @@ function getcaptchaAjax(account,type){
 			},1000);
 		}else{
 			$(".nocat").html(`<span>没收到验证码，重新发送></span>`);
-			showMessage(result.showMessage);
+			showMessage(result.msg);
 		}
 	},function(xhr){
 		console.log(JSON.stringify(xhr));
