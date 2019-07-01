@@ -13,120 +13,180 @@
 	<script type="text/javascript" src="js/mui.min.js"></script>
 	<script type="text/javascript" src="js/lib/artTemplate.js"></script>
 	<script type="text/javascript" src="js/lib/common.js"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
-	
-	
 </head>
 <body>
-	<header class="mui-bar mui-bar-nav">
-		<div class="mui-input-row mui-search">
-			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()" style="color: #fff;"></a>
-			<h1 class="mui-title" >
-				订单详情
-			</h1>
-		</div>
-	</header>
-	
-	<div class="mui-content mui-scroll-wrapper">
-		<div class="mui-slider mui-scroll">
-			<div class="address">
-				<div class="list-son ">
-					
-					<div class="list-son-show" >
-						
-						<div class="img">
-							<span class="fa fa-map"></span>
+	<div id="pullrefresh" v-cloak  >
+		<header class="mui-bar mui-bar-nav">
+			<div class="mui-input-row mui-search">
+				<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()" style="color: #fff;"></a>
+				<h1 class="mui-title" >
+					订单详情
+				</h1>
+			</div>
+		</header>
+		<div class="mui-content mui-scroll-wrapper"   >
+			<div class="mui-slider mui-scroll">
+				<div class="address">
+					<div class="list-son ">
+						<div class="list-son-show" >
+							<div class="img">
+								<span class="fa fa-map"></span>
+							</div>
+							<div class="atc">
+								<p>
+									<span class="cname">张三</span>
+									<span>18888888888</span>
+								</p>
+								<span >安徽省宣城市宣州区</span>
+							</div>
 						</div>
-						<div class="atc">
-							<p >
-								<span class="cname">张三</span>
-								<span>18888888888</span>
-							</p>
-							<span >安徽省宣城市宣州区</span>
+						<div class="addresslist" >
+							<span class="mui-icon mui-icon-forward"></span>
 						</div>
 					</div>
-					<div class="addresslist" >
-						<span class="mui-icon mui-icon-forward"></span>
+				</div>
+				<ul class="mui-table-view " style="margin-bottom: 40px;" >
+					<li v-for="good in goods" class="mui-table-view-cell" style="background: #fff;">
+						<div class="list-son">
+							<div class="list-son-show" >
+								<div class="img">
+									<img :src="good.img" >
+								</div>
+								<div class="atc">
+									<span >{{good.name}}</span>
+								</div>
+								<div class="price " >
+									<span>￥{{good.price}}</span><br>
+									<p style="text-align:right ">&times;{{good.num}}</p>
+								</div>
+								<div class="foot" >
+									<span>共<span>{{good.num}}</span>件商品 合计：￥<span>{{good.total}}</span></span>
+								</div>
+							</div>
+						</div>
+					</li>
+					
+				</ul>
+			</div>	
+		</div>
+		<nav class="mui-bar mui-bar-tab" style="box-shadow: none;">
+			<div class="car_foot row">
+				<div class="col-4">
+					<div class="mui-checkbox">
+						<label></label>
+					</div>
+				</div>
+				<div class="col-20">
+					<div class="pull-r beforeedit">
+						<div class="pull-l foot_txt">
+							<div class="total_money">
+								<span class="zongji">共
+									<span class="zongji">{{totalNum}}</span>件
+								</span>合计：<span class="all-price">{{totalPrice}}</span>&nbsp;元</div>
+							<p>不含运费</p>
+						</div>
+						<div class="pull-l jsbtn active" >提交订单</div>
 					</div>
 				</div>
 			</div>
-			
-			<ul class="mui-table-view " >
-				<li class="mui-table-view-cell" style="background: #fff;">
-					<div class="list-son">
-						
-						<div class="list-son-show" >
-							<div class="img">
-								<img src="picture/carimg.png" >
-							</div>
-							<div class="atc">
-								<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
-							</div>
-							<div class="price " >
-								<span>￥1.80</span><br>
-								<p style="text-align:right ">&times;1</p>
-							</div>
-							<div class="foot" >
-								<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
-							</div>
-						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell" style="background: #fff;">
-					<div class="list-son">
-						
-						<div class="list-son-show" >
-							<div class="img">
-								<img src="picture/carimg.png" >
-							</div>
-							<div class="atc">
-								<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
-							</div>
-							<div class="price " >
-								<span>￥1.80</span><br>
-								<p style="text-align:right ">&times;1</p>
-							</div>
-							<div class="foot" >
-								<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
-							</div>
-						</div>
-						
-					</div>
-				</li>
-			</ul>
-		</div>	
+		</nav>
 	</div>
-	<nav class="mui-bar mui-bar-tab" style="box-shadow: none;">
-		<div class="car_foot row">
-			<div class="col-4">
-				<div class="mui-checkbox">
-					<label></label>
-				</div>
-			</div>
-			<div class="col-20">
-				<div class="pull-r beforeedit">
-					<div class="pull-l foot_txt">
-						<div class="total_money">
-							<span class="zongji">共
-								<span class="zongji">888</span>件
-							</span>合计：<span class="all-price">xxx</span>&nbsp;元</div>
-						<p>不含运费</p>
-					</div>
-					
-					<div class="pull-l jsbtn active" v-if="checkednum">提交订单</div>
-				</div>
-				<div class="pull-r afteredit disshow">
-					
-					<div class="jsbtn active" style="min-width: 100px;" >提交订单</div>
-				</div>
-			</div>
-		</div>
-	</nav>
 	<script type="text/javascript">
-		mui.init();
-		mui.plusReady(function() {
-			afterOpenView();
-		})
+		(function($, doc) {
+			var app = new Vue({
+				el: '#pullrefresh',
+				data: function() {
+					return {
+						goods:[],
+					}
+				},
+				mounted: function(){
+					this._init();
+				},
+				computed:{
+					totalPrice:function(){
+						var total = 0;
+						this.goods.forEach(function(item, index) {
+							total += item.total;						
+						}) 
+						
+						return total;
+					},
+					totalNum:function(){
+						var totalnum = 0;
+						this.goods.forEach(function(item, index) {
+							totalnum += parseInt(item.num);						
+						}) 
+						
+						return totalnum;
+					}
+				},
+				methods: {
+					_init: function(){
+						var that = this;
+						$.plusReady(function() {	
+							that.loadData();
+							afterOpenView();
+						})
+					},
+					pulldownRefresh: function(){
+						appPage.endPullRefresh();
+					},
+					loadData:function(){
+						var url = postUrl+"Home/member/user.html";
+						var postData = {};
+						var result = {
+							data:{
+								goods:[
+									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"1"},
+									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"2"},
+									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"3"},
+									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"4"},
+									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"1"},
+									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"1"},
+								]
+							}
+						};
+						var newgoods = result['data']['goods'];
+						for(var i=0;i<newgoods.length;i++){
+							newgoods[i]['total'] = parseInt(newgoods[i]['price']*newgoods[i]['num']*100)/100;
+						}
+						this.goods=newgoods;
+					
+						
+// 							diyAjax(url,postData,function(result){
+// 								console.log("获取用户中心信息");
+// 								if(result.code == 1){
+// 									log(result.data.userinfo);
+// 									var userinfojson = {};
+// 									userinfojson.data = result.data.userinfo;
+// 									render("#diva_wrap", "diva_view", userinfojson);
+// 									render("#divb_wrap", "divb_view", userinfojson);
+// 									render("#divc_wrap", "divc_view", userinfojson);
+// 									
+// 									$("body").on("tap", "#phoneline", function() {
+// 										var tel= userinfojson['data']['hotline'];
+// 										plus.device.dial(tel, true);
+// 									})
+// 								}
+// 							},function(xhr){
+// 								console.log("失败"+JSON.stringify(xhr));
+// 							})	
+					}
+				}
+			});
+			$.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: { //下拉刷新
+						callback: app.pulldownRefresh,
+						style: $.os.android ? "circle" : "default"
+					}
+				}
+			});
+		}(mui, document))
 	</script>
 </body>
 </html>

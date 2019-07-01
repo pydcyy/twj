@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="css/mui.min.css"/>
 	<link rel="stylesheet" href="css/app.css" />
 	<link rel="stylesheet" href="css/shopcity.css" />
+	<link rel="stylesheet" href="css/mui-icons-extra.css" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/mui.min.js"></script>
 	<script type="text/javascript" src="js/lib/artTemplate.js"></script>
@@ -15,7 +16,7 @@
 	<script type="text/javascript" src="js/common.js"></script>
 </head>
 <body>
-	<div class="mui-content mui-scroll-wrapper" id="pullrefresh" v-cloak>
+	<div class="mui-content mui-scroll-wrapper" id="pullrefresh" v-cloak >
 		<header class="mui-bar mui-bar-nav">
 			<div class="mui-input-row mui-search">
 				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="addaddress" onclick="goback()"></a>
@@ -37,11 +38,6 @@
 					<div class="mui-table-view">
 						<div id="slider" class="mui-slider banner" >
 						  <div class="mui-slider-group mui-slider-loop">
-							<!-- <div v-for="(banner,index) in banners" :class="banner.class">
-							  <a href="#">
-								<img :src="banner.img">
-							  </a>
-							</div> -->
 							<div v-for="(banner,index) in banners" class="mui-slider-item mui-slider-item-duplicate" v-if="index=banners.length">
 							  <a href="#">
 								<img :src="banner.img">
@@ -87,26 +83,11 @@
 						</div>
 						<div class="fastnav">
 						  <ul>
-						  	<li>
-								<img src="picture/01.png" >
-								<p><span>方便素食</span></p>
+						  	<li v-for="list in lists">
+								<img :src="list.img" >
+								<p><span>{{list.text}}</span></p>
 							</li>
-							<li>
-								<img src="picture/01.png" >
-								<p><span>方便素食</span></p>
-							</li>
-							<li>
-								<img src="picture/01.png" >
-								<p><span>方便素食</span></p>
-							</li>
-							<li>
-								<img src="picture/01.png" >
-								<p><span>方便素食</span></p>
-							</li>
-							<li>
-								<img src="picture/01.png" >
-								<p><span>方便素食</span></p>
-							</li>
+							
 						  </ul>
 						</div>
 						<div class="ad">
@@ -122,7 +103,7 @@
 										</div>
 										<div class="p-content-price">
 											<span class="pull-l">￥{{good.price}}</span>
-											<span class="pull-r"><button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">购买</button></span>
+											<span class="pull-r"><span class="mui-icon mui-icon-extra mui-icon-extra-cart" :data-goodsid="good.id"></span></span>
 										</div>
 									</div>
 								</li>
@@ -150,6 +131,7 @@
 				    data: function() {
 				        return {
 							banners: [],
+							lists: [],
 							goods:[],
 				        }
 				    },
@@ -199,10 +181,8 @@
 							var postData = {};
 							var result = {
 								data:{
-									banner:[{id:"1",img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",url:"#"},
-											{id:"2",img:"http://api.tongwujie.cn/public/uploads/20190618/1157f1cc57d02fc66d5a7ebc88086c22.png",url:"#"},
-											{id:"3",img:"http://api.tongwujie.cn/public/uploads/20190618/56c66d19aec9816b874b374bb66c24af.png",url:"#"}],
-									aaa:[{img:"",url:"",text:""},{img:"",url:"",text:""},{img:"",url:"",text:""}],
+									banner:[{img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",url:"#"},{img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",url:"#"},{img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",url:"#"}],
+									list:[{img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",url:"#",text:"素食"},{img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",url:"#",text:"素食"},{img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",url:"#",text:"素食"}],
 									ad:{img:"",url:""},
 									goods:[
 										{id:"109",img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",name:"是德菲拉萨的飞机",price:"100"},
@@ -217,6 +197,7 @@
 							
 							this.goods=result['data']['goods'];
 							this.banners=result['data']['banner'];
+							this.lists=result['data']['list'];
 							
 // 							diyAjax(url,postData,function(result){
 // 								console.log("获取用户中心信息");

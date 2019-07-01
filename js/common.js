@@ -781,7 +781,7 @@ function getcaptchaAjax(account,type){
 		console.log(JSON.stringify(result));
 		if(result.code == 1){
 			//用户存在
-			var secondd = 60;
+			var secondd = 300;
 			var timerr = null;
 			timerr = setInterval(function(){
 				secondd -= 1;

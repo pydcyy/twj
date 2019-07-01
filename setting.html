@@ -18,14 +18,18 @@
 			<div class="mui-scroll-wrapper">
 				<div class="mui-scroll">
 					<ul class="mui-table-view mui-table-view-chevron">
+						<li class="mui-table-view-cell mui-media">
+								<a class="mui-navigate-right" href="#account">
+									<img class="mui-media-object mui-pull-left head-img" id="head-img" src="picture/mubantx.jpg">
+									<div class="mui-media-body">
+										小小
+										<p class="mui-ellipsis">手机号:188****8888</p>
+									</div>
+								</a>
+							</li>
 						<li class="mui-table-view-cell" id="safe">
 							<a href="#" class="mui-navigate-right">
 								账号与安全
-							</a>
-						</li>
-						<li class="mui-table-view-cell" >
-							<a href="#" class="mui-navigate-right" id="payType">
-								支付安全
 							</a>
 						</li>
 					</ul>
@@ -36,16 +40,9 @@
 								<i class="mui-pull-right update" id="appkey"></i>
 							</a>
 						</li>
-					</ul>
-					<ul class="mui-table-view mui-table-view-chevron">
 						<li class="mui-table-view-cell">
 							<a href="#" class="mui-navigate-right" id="aboutUs">
 								联系我们 
-							</a>
-						</li>
-						<li class="mui-table-view-cell">
-							<a href="#" class="mui-navigate-right">
-								服务条款 
 							</a>
 						</li>
 					</ul>
@@ -67,17 +64,19 @@
 		$.init();
 		var appkey = doc.getElementById('appkey');
 		
-		
 		$.plusReady(function() {
 			doc.getElementById("layout").addEventListener('tap',function(even){
 				_layout();
 			})
-			
 			doc.getElementById("update").addEventListener('tap', function() {
 				_update();
 			});
-		
-			
+			var safeButton = doc.getElementById("safe");
+			safeButton.addEventListener('tap',function(even){
+				loginRequired(function(){
+					openView("mysafe.html","mysafe.html");
+				})
+			})
 			var appkeya = getAppKey();
 			appkey.innerText = appkeya;
 		})
