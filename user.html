@@ -88,7 +88,7 @@
 							<span>0</span>
 							<p>金珠</p>
 						</li>
-						<li style="border-left:1px solid #E6E6E6 ;margin-top: -1px;">
+						<li style="border-left:1px solid #E6E6E6 ;margin-top: -1px;" id="mywallet">
 							<span class="mui-icon-extra mui-icon-extra-gold"style="font-size:20px"></span>
 							<p style="margin-bottom:0;">我的钱包</p>
 						</li>
@@ -173,7 +173,7 @@
 		<span>{{data.credit3}}</span>
 		<p>金珠</p>
 	</li>
-	<li style="border-left:1px solid #E6E6E6 ;margin-top: -1px;">
+	<li style="border-left:1px solid #E6E6E6 ;margin-top: -1px;" id="mywallet">
 		<span class="mui-icon-extra mui-icon-extra-gold"style="font-size:20px"></span>
 		<p style="margin-bottom:0;">我的钱包</p>
 	</li>
@@ -242,7 +242,7 @@
 			})
 			settingButton.addEventListener('tap',function(even){
 				loginRequired(function(){
-					openView('setting.html', 'setting');
+					openView('setting.html', 'setting.html');
 				})
 			})
 			
@@ -270,6 +270,10 @@
 				loginRequired(function(){
 					beforeOpenView("orderlist.html");
 				})
+			})
+			
+			$('body').on('tap','#mywallet',function(e){
+				openView("withdraw.html","withdraw.html");
 			})
 			
 			$('body').on('tap','.useravter',function(e){
@@ -419,7 +423,7 @@
 				
 				plus.nativeUI.closeWaiting();
 				
-				log(imgData);
+				console.log(imgData);
 				//var method = document.getElementsByName(targetId)[0].value;
 				
 				// console.log(method);

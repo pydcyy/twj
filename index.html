@@ -60,7 +60,7 @@
 		<li><img src="picture/shopb.png" alt=""></li>
 		<li><img src="picture/shopc.png" alt=""></li>
 	{{else}} {{each data as item}}
-		<li><a data-href="{{item[1]}}" data-id="#item2"><img src="{{item[0]}}" alt=""></a></li>
+		<li><a data-href="{{item['url']}}" data-id="#item2"><img src="{{item['img']}}" alt=""></a></li>
 	{{/each}} {{/if}}
 </script>
 
@@ -215,6 +215,7 @@
 		var postData = {};
 		diyAjax(url,postData,function(result){
 			console.log("获取首页信息");
+			log(result);
 			if(result.code == 1){
 				var bannerjson = {};
 				bannerjson.data = result.data.navlink;
@@ -222,7 +223,7 @@
 			}
 		},function(xhr){
 			console.log("失败"+JSON.stringify(xhr));
-		})
+		}) 
 	}
 	
 </script>

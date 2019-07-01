@@ -100,7 +100,7 @@
 						
 						doc.getElementById("addaddress").addEventListener('tap',function(even){
 							loginRequired(function(){
-								openView('addaddress.html', 'addaddress');
+								openView('addaddress.html', 'addaddress.html');
 							})
 						})
 						
@@ -108,7 +108,7 @@
 							var that = this;
 							var index = that.dataset.id;
 							var addresobj = app.address[index];
-							openView('editaddress.html', 'editaddress',addresobj);		
+							openView('editaddress.html', 'editaddress.html',addresobj);		
 						})
 						
 						

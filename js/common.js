@@ -6,7 +6,7 @@ var postUrl="http://api.tongwujie.cn/",
 //登录验证
 loginRequired = function(callback){
 	if(!getLoginStorage('$UserInfo')){
-		openView('login.html', 'login');
+		openView('login.html', 'login.html');
 	}else{
 		callback();
 	}
@@ -88,7 +88,7 @@ function getMobile(){
 		return user['mobile'];
 	}else{
 		showMessage("登录失效，请重新登录");
-		openView('login.html', 'login');
+		openView('login.html', 'login.html');
 	}
 	
 }
@@ -156,7 +156,7 @@ function diyAjax(url,data,callback,errcallback){
 				if(result.code=="-667"){
 					showMessage('登录失效，请重新登录!');
 					localStorage.removeItem("$UserInfo");		
-					openView('login.html','login');
+					openView('login.html','login.html');
 					return false;
 				}else if(result.code=="-666"){
 					showMessage(result.msg);
@@ -177,7 +177,7 @@ function diyAjax(url,data,callback,errcallback){
 					showMessage('登录失效，请重新登录!');
 					localStorage.removeItem("$UserInfo");	
 						
-					openView('login.html','login');
+					openView('login.html','login.html');
 
 					errcallback(xhr);
 				}else{
@@ -513,7 +513,7 @@ function _update(){
 function _layout(){
 	console.log("退出登录");
 	localStorage.removeItem("$UserInfo");
-	openView('login.html','login')
+	openView('login.html','login.html')
 
 // 	diyAjax(save_url," ",function(result){
 // 		console.log("退出登录");

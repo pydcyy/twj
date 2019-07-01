@@ -37,48 +37,52 @@
 					<div class="mui-table-view">
 						<div id="slider" class="mui-slider banner" >
 						  <div class="mui-slider-group mui-slider-loop">
-							<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-							<div class="mui-slider-item mui-slider-item-duplicate">
+							<!-- <div v-for="(banner,index) in banners" :class="banner.class">
 							  <a href="#">
-								<img src="http:\/\/placehold.it\/340x110">
+								<img :src="banner.img">
+							  </a>
+							</div> -->
+							<div v-for="(banner,index) in banners" class="mui-slider-item mui-slider-item-duplicate" v-if="index=banners.length">
+							  <a href="#">
+								<img :src="banner.img">
 							  </a>
 							</div>
-							<!-- 第一张 -->
+							<div v-for="(banner,index) in banners" class="mui-slider-item">
+							  <a href="#">
+								<img :src="banner.img">
+							  </a>
+							</div>
+							<div v-for="(banner,index) in banners" class="mui-slider-item mui-slider-item-duplicate" v-if="index==0">
+							  <a href="#">
+								<img :src="banner.img">
+							  </a>
+							</div>
+							<!-- <div class="mui-slider-item mui-slider-item-duplicate">
+							  <a href="#">
+								<img src="http://api.tongwujie.cn/public/uploads/20190618/56c66d19aec9816b874b374bb66c24af.png">
+							  </a>
+							</div> -->
+							<!-- <div class="mui-slider-item">
+							  <a href="#">
+								<img src="http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png">
+							  </a>
+							</div>
 							<div class="mui-slider-item">
 							  <a href="#">
-								<img src="http:\/\/placehold.it\/340x110">
+								<img src="http://api.tongwujie.cn/public/uploads/20190618/1157f1cc57d02fc66d5a7ebc88086c22.png">
 							  </a>
 							</div>
-							<!-- 第二张 -->
 							<div class="mui-slider-item">
 							  <a href="#">
-								<img src="http:\/\/placehold.it\/340x110">
+								<img src="http://api.tongwujie.cn/public/uploads/20190618/56c66d19aec9816b874b374bb66c24af.png">
 							  </a>
-							</div>
-							<!-- 第三张 -->
-							<div class="mui-slider-item">
-							  <a href="#">
-								<img src="http:\/\/placehold.it\/340x110">
-							  </a>
-							</div>
-							<!-- 第四张 -->
-							<div class="mui-slider-item">
-							  <a href="#">
-								<img src="http:\/\/placehold.it\/340x110">
-							  </a>
-							</div>
-							<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-							<div class="mui-slider-item mui-slider-item-duplicate">
-							  <a href="#">
-								<img src="http:\/\/placehold.it\/340x110">
-							  </a>
-							</div>
+							</div> -->
 						  </div>
 						  <div class="mui-slider-indicator">
-							<div class="mui-indicator mui-active"></div>
-							<div class="mui-indicator"></div>
-							<div class="mui-indicator"></div>
-							<div class="mui-indicator"></div>
+							    <div v-for="(banner,index) in banners" class="mui-indicator mui-active" v-if="index==0">
+							    </div>
+							    <div v-for="(banner,index) in banners" class="mui-indicator" v-if="index!=0">
+							    </div>
 						  </div>
 						</div>
 						<div class="fastnav">
@@ -145,10 +149,8 @@
 				    el: '#pullrefresh',
 				    data: function() {
 				        return {
-							banner: [],
-							goods:[
-								
-							],
+							banners: [],
+							goods:[],
 				        }
 				    },
 				    mounted: function(){
@@ -157,11 +159,15 @@
 				    methods: {
 				        _init: function(){
 							var that = this;
-							var gallery = mui('.banner');
+							that.loadData();
+
+								
+							$.plusReady(function() {	
+								var gallery = mui('.banner');
 								gallery.slider({
 								  interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
 								});
-							$.plusReady(function() {	
+									
 								var self = plus.webview.currentWebview();
 								console.log(self.pageid);
 								
@@ -180,7 +186,7 @@
 									
 								 }
 								 
-								that.loadData();
+								
 								
 								afterOpenView();
 							})
@@ -193,7 +199,9 @@
 							var postData = {};
 							var result = {
 								data:{
-									banner:[{img:"",url:""},{img:"",url:""},{img:"",url:""}],
+									banner:[{id:"1",img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",url:"#"},
+											{id:"2",img:"http://api.tongwujie.cn/public/uploads/20190618/1157f1cc57d02fc66d5a7ebc88086c22.png",url:"#"},
+											{id:"3",img:"http://api.tongwujie.cn/public/uploads/20190618/56c66d19aec9816b874b374bb66c24af.png",url:"#"}],
 									aaa:[{img:"",url:"",text:""},{img:"",url:"",text:""},{img:"",url:"",text:""}],
 									ad:{img:"",url:""},
 									goods:[
@@ -208,6 +216,8 @@
 							};
 							
 							this.goods=result['data']['goods'];
+							this.banners=result['data']['banner'];
+							
 // 							diyAjax(url,postData,function(result){
 // 								console.log("获取用户中心信息");
 // 								if(result.code == 1){
