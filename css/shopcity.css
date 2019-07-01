@@ -124,3 +124,29 @@
 .mui-table-view{
 	background-color: #efeff4;
 }
+.p-content-price .pull-l{
+	color: red;
+	margin-top: 3px;
+}
+.p-content-price .pull-r{
+	text-align: center;
+}
+.p-content-price .pull-r span{
+	background: red;
+	border: 1px solid red;
+	border-radius: 12.5px;
+	height: 23px;
+	width: 23px;
+	font-size: 18px;
+	font-weight: 550;
+	color:#fff;
+	padding-top:2px ;
+
+}
+.p-content-price .pull-r button{
+	color: red;
+	border: 1px solid red;
+	border-radius: 2px;
+	padding: 1px 5px;
+	font-size: 12px;
+}

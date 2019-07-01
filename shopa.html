@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="css/mui.min.css"/>
 	<link rel="stylesheet" href="css/app.css" />
 	<link rel="stylesheet" href="css/shopcity.css" />
+	<link rel="stylesheet" href="css/mui-icons-extra.css" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/mui.min.js"></script>
 	<script type="text/javascript" src="js/lib/artTemplate.js"></script>
@@ -15,7 +16,7 @@
 	<script type="text/javascript" src="js/common.js"></script>
 </head>
 <body>
-	<div class="mui-content mui-scroll-wrapper" id="pullrefresh" v-cloak>
+	<div class="mui-content mui-scroll-wrapper" id="pullrefresh" v-cloak >
 		<header class="mui-bar mui-bar-nav">
 			<div class="mui-input-row mui-search">
 				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="addaddress" onclick="goback()"></a>
@@ -38,7 +39,12 @@
 						<div id="slider" class="mui-slider banner" >
 						  <div class="mui-slider-group mui-slider-loop">
 							<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-							<div class="mui-slider-item mui-slider-item-duplicate">
+							<div class="mui-slider-item mui-slider-item-duplicate" v-for="(banner,index) in banners" v-if="index=0">
+							  <a href="#">
+								<img src="http:\/\/placehold.it\/340x110">
+							  </a>
+							</div>
+							<div class="mui-slider-item mui-slider-item-duplicate" v-for="(banner,index) in banners" v-if="index=0">
 							  <a href="#">
 								<img src="http:\/\/placehold.it\/340x110">
 							  </a>
@@ -83,26 +89,11 @@
 						</div>
 						<div class="fastnav">
 						  <ul>
-						  	<li>
-								<img src="picture/01.png" >
-								<p><span>方便素食</span></p>
+						  	<li v-for="list in lists">
+								<img :src="list.img" >
+								<p><span>{{list.text}}</span></p>
 							</li>
-							<li>
-								<img src="picture/01.png" >
-								<p><span>方便素食</span></p>
-							</li>
-							<li>
-								<img src="picture/01.png" >
-								<p><span>方便素食</span></p>
-							</li>
-							<li>
-								<img src="picture/01.png" >
-								<p><span>方便素食</span></p>
-							</li>
-							<li>
-								<img src="picture/01.png" >
-								<p><span>方便素食</span></p>
-							</li>
+							
 						  </ul>
 						</div>
 						<div class="ad">
@@ -118,7 +109,7 @@
 										</div>
 										<div class="p-content-price">
 											<span class="pull-l">￥{{good.price}}</span>
-											<span class="pull-r"><button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">购买</button></span>
+											<span class="pull-r"><span class="mui-icon mui-icon-extra mui-icon-extra-cart" :data-goodsid="good.id"></span></span>
 										</div>
 									</div>
 								</li>
@@ -145,10 +136,9 @@
 				    el: '#pullrefresh',
 				    data: function() {
 				        return {
-							banner: [],
-							goods:[
-								
-							],
+							banners: [],
+							lists: [],
+							goods:[],
 				        }
 				    },
 				    mounted: function(){
@@ -193,8 +183,8 @@
 							var postData = {};
 							var result = {
 								data:{
-									banner:[{img:"",url:""},{img:"",url:""},{img:"",url:""}],
-									aaa:[{img:"",url:"",text:""},{img:"",url:"",text:""},{img:"",url:"",text:""}],
+									banner:[{img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",url:"#"},{img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",url:"#"},{img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",url:"#"}],
+									list:[{img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",url:"#",text:"素食"},{img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",url:"#",text:"素食"},{img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",url:"#",text:"素食"}],
 									ad:{img:"",url:""},
 									goods:[
 										{id:"109",img:"http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",name:"是德菲拉萨的飞机",price:"100"},
@@ -208,6 +198,9 @@
 							};
 							
 							this.goods=result['data']['goods'];
+							this.banners=result['data']['banner'];
+							this.lists=result['data']['list'];
+							
 // 							diyAjax(url,postData,function(result){
 // 								console.log("获取用户中心信息");
 // 								if(result.code == 1){
