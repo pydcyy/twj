@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-	<title>修改支付密码</title>
+	<title>修改登录密码</title>
 	<link href="css/mui.min.css" rel="stylesheet" />
 	<link href="css/setting.css" rel="stylesheet" />
 	<link href="css/app.css" rel="stylesheet"/>
@@ -80,7 +80,7 @@
 			<h1 class="mui-title">修改支付密码</h1>
 		</header>
 		<div class="setpwdbox">
-			<p class="pwdreq">验证码已发送到您的手机：<span id="account"></span><br>注意支付密码是6位数字</p>
+			<p class="pwdreq">验证码已发送到您的手机：<span id="account"></span></p>
 			<form action="" id="normal-form">
 				<div class="mui-input-row">
 					<input type="hidden" name="mobile" id="mobile" value="">
@@ -88,10 +88,10 @@
 					
 				</div>
 				<div class="mui-input-row">
-					<input type="password" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class=" mui-input-password" placeholder="请输入支付密码" id="epassword" name="epassword" maxlength="6">
+					<input type="password"  class=" mui-input-password" placeholder="请输入登录密码" id="epassword" name="epassword" >
 				</div>
 				<div class="mui-input-row">
-					<input type="password" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class=" mui-input-password" placeholder="请再次输入支付密码" id="reepassword" name="reepassword" maxlength="6">
+					<input type="password" class=" mui-input-password" placeholder="请再次输入登录密码" id="reepassword" name="reepassword" >
 				</div>
 				<div class="nocat" style="color:#2695EF"><span>没收到验证码，重新发送></span></div>
 				<div class="mgt-2 login-form setpwdbox-btn">
