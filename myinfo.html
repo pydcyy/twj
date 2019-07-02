@@ -11,6 +11,42 @@
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/mui.min.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
+	<style type="text/css">
+		.mui-table-view-cell .setname input[type="text"]{
+			height: 18px;
+			line-height: 18px;
+			text-align: right;
+			border: 0;
+			position: absolute;
+			width: 64px;
+			right: 35px;
+			padding: 0;
+			
+		}
+		.sureDelete{display:none;position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: 999;}
+		.sureDelete-content{position: fixed;top: 0;bottom: 0;left: 0;right: 0;text-align: center;z-index: 11;}
+		.sureDelete-content>i{display: inline-block;height: 100%;width: 0;vertical-align: middle;}
+		.sureDelete-main{position: relative; display: inline-block;vertical-align: middle;background-color: #fff;border-radius: 10px;border: 1px solid #ebeef5;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);text-align: left;overflow: hidden;backface-visibility: hidden;}
+		.sureDelete-bg{position: fixed;left: 0;top: 0;width: 100%;height: 100%;opacity: .5;filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);background: #000;z-index: 10}
+		.sureDelete-title{color: #2769D7; height: 40px;line-height: 40px;text-align: center;font-size: 14px;letter-spacing: 2px;}
+		.sureDelete-body{padding: 5px 20px 15px;background: #fff;letter-spacing: 1px;}
+		.sureDelete .back{cursor: pointer; position: absolute;top: 1px;right: 0;width: 30px;height: 30px;line-height: 30px;font-size: 24px;}
+		.sureDelete .next{font-size: 14px;color: #CE445E;cursor: pointer;display: block;}
+		.sureDelete-footer{height: 35px;line-height: 35px;background: #fff;border-top: 1px solid #DFDFDF;text-align: center;}
+		.sureDelete-footer .btn{margin: 8px 20px; display: inline-block;}
+		.sureDelete-data{margin-left: 4px;font-size: 12px;}
+		.sureDelete-main{width: 400px;max-height: 400px;}
+		.sureDelete #showinput{border:1px #E0E0E0 solid;border-radius: 20px;width: 100%;height: 45px;line-height: 45px;padding: 0 10px;}
+		@media screen and (min-width: 400px) {
+		.sureDelete-main{width: 70%;}
+		}
+		@media screen and (min-width: 300px) and (max-width: 400px) {
+		.sureDelete-main{width: 300px;}
+		}
+		@media screen and (max-width: 300px) {
+		.sureDelete-main{width: 300px;}
+		}
+	</style>
 
 </head>
 <body>
@@ -19,11 +55,12 @@
 		<h1 class="mui-title">个人信息</h1>
 	</header>
 	<div class="mui-page-content">
+		
 		<div class="mui-scroll-wrapper">
 			<div class="mui-scroll">
 				<ul class="mui-table-view mui-table-view-chevron">
 					<li class="mui-table-view-cell myavater" >
-						<a href="#" class="mui-navigate-right">
+						<a href="#" id="" class="mui-navigate-right">
 							个人头像
 							<span>
 								<img src="picture/mubantx.jpg" alt="">
@@ -31,13 +68,12 @@
 						</a>
 					</li>
 					<li class="mui-table-view-cell" >
-						<a href="#" class="mui-navigate-right" >
+						<a href="#" id="show" class="mui-navigate-right" >
 							用户名
-							<span style="float: right;">
+							<span style="float: right;" class="setname">
 								<input type="text" name="nickname" id="nickname" readonly="readonly" value="小小" />
 							</span>
 						</a>
-						
 					</li>
 					<!-- <li class="mui-table-view-cell" >
 						<a href="#" class="mui-navigate-right" >
@@ -49,108 +85,27 @@
 					</li> -->
 					
 				</ul>
-				
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell" style="text-align: center;" id="layout">
 						<a>确认修改</a>
 					</li>
 				</ul>
 			</div>
+			
 		</div>
 	</div>
 	<script type="text/javascript">	
 		(function($, doc) {
-			var app = new Vue({
-				el: '#pullrefresh',
-				data: function() {
-					return {
-						goods:[],
+			$.plusReady(function() {
+				
+				document.getElementById("show").addEventListener('tap',function(even){
+					function callback(){
 					}
-				},
-				mounted: function(){
-					this._init();
-				},
-				computed:{
-					totalPrice:function(){
-						var total = 0;
-						this.goods.forEach(function(item, index) {
-							total += item.total;						
-						}) 
-						
-						return total;
-					},
-					totalNum:function(){
-						var totalnum = 0;
-						this.goods.forEach(function(item, index) {
-							totalnum += parseInt(item.num);						
-						}) 
-						
-						return totalnum;
-					}
-				},
-				methods: {
-					_init: function(){
-						var that = this;
-						$.plusReady(function() {	
-							that.loadData();
-							afterOpenView();
-						})
-					},
-					pulldownRefresh: function(){
-						appPage.endPullRefresh();
-					},
-					loadData:function(){
-						var url = postUrl+"Home/member/user.html";
-						var postData = {};
-						var result = {
-							data:{
-								goods:[
-									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"1"},
-									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"2"},
-									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"3"},
-									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"4"},
-									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"1"},
-									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"1"},
-								]
-							}
-						};
-						var newgoods = result['data']['goods'];
-						for(var i=0;i<newgoods.length;i++){
-							newgoods[i]['total'] = parseInt(newgoods[i]['price']*newgoods[i]['num']*100)/100;
-						}
-						this.goods=newgoods;
-					
-						
-	// 							diyAjax(url,postData,function(result){
-	// 								console.log("获取用户中心信息");
-	// 								if(result.code == 1){
-	// 									log(result.data.userinfo);
-	// 									var userinfojson = {};
-	// 									userinfojson.data = result.data.userinfo;
-	// 									render("#diva_wrap", "diva_view", userinfojson);
-	// 									render("#divb_wrap", "divb_view", userinfojson);
-	// 									render("#divc_wrap", "divc_view", userinfojson);
-	// 									
-	// 									$("body").on("tap", "#phoneline", function() {
-	// 										var tel= userinfojson['data']['hotline'];
-	// 										plus.device.dial(tel, true);
-	// 									})
-	// 								}
-	// 							},function(xhr){
-	// 								console.log("失败"+JSON.stringify(xhr));
-	// 							})	
-					}
-				}
-			});
-			$.init({
-				pullRefresh: {
-					container: '#pullrefresh',
-					down: { //下拉刷新
-						callback: app.pulldownRefresh,
-						style: $.os.android ? "circle" : "default"
-					}
-				}
-			});
+					sureDeleteinput('用户名','',callback);  
+				})
+				afterOpenView();
+			})
+			
 		}(mui, document))
 	</script>
 </body>

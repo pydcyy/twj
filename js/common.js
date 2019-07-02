@@ -135,7 +135,6 @@ function diyAjax(url,data,callback,errcallback){
 		if(getAppKey()){
 			data['key']=getAppKey();
 		}	
-		
 		//var mask=mui.createMask();//遮罩层
 		return jQuery.ajax({
 			url:url,
@@ -659,15 +658,20 @@ function _setpaypwd(thisButton){
 	
 	if(postData["code"] == ""){
 		showMessage("请输入验证码");
+		thisButton.button("reset");
 		return false;
+		
 	}else if(postData["epassword"] == ""){
 		showMessage("请输入支付密码");
+		thisButton.button("reset");
 		return false;
 	}else if(postData["epassword"].length != 6){
 		showMessage("支付密码格式不正确");
+		thisButton.button("reset");
 		return false;
 	}else if(postData["epassword"] != postData["reepassword"]){
 		showMessage("两次输入的密码不一致");
+		thisButton.button("reset");
 		return false;
 	}
 	var dealData={};
@@ -683,6 +687,50 @@ function _setpaypwd(thisButton){
 			//成功
 			showMessage(result.msg);
 			mui.back();
+			return false;
+		} else{
+			// 失败
+			showMessage(result.msg);
+			thisButton.button("reset");
+			return false;
+		}
+	},function(xhr){
+		thisButton.button("reset");
+		console.log(JSON.stringify(xhr));
+	});
+	
+	return false;
+}
+//修改登录密码
+function _setloginpwd(thisButton){
+    var postData =  getPostData();
+	
+	if(postData["code"] == ""){
+		showMessage("请输入验证码");
+		thisButton.button("reset");
+		return false;
+	}else if(postData["password"] == ""){
+		showMessage("请输入登录密码");
+		thisButton.button("reset");
+		return false;
+	}else if(postData["password"] != postData["reepassword"]){
+		showMessage("两次输入的密码不一致");
+		thisButton.button("reset");
+		return false;
+	}
+	var dealData={};
+	for (var data in postData){
+		if(data=="reepassword") continue;
+		dealData[data] = postData[data];
+	}
+	//暂无接口
+	var save_url = postUrl+"Home/member/updatePwd.html";
+	diyAjax(save_url,dealData,function(result){
+		console.log("修改登录密码");
+		if (result.code == 1) {
+			//成功
+			showMessage(result.msg);
+			openView('login.html','login.html')
 			return false;
 		} else{
 			// 失败
@@ -800,7 +848,55 @@ function getcaptchaAjax(account,type){
 		console.log(JSON.stringify(xhr));
 	});
 }
+/*输入框弹出框*/
+function sureDeleteinput(title,data,callback,param1){
+	var title = '' || title;
+	var param1 = '' || param1;
+	if($('.sureDelete').length){
+		$('.sureDelete').remove();
+	}
+	var template = [
+        '<div class="sureDelete">',
+        	'<div class="sureDelete-content">',
+        		'<div class="sureDelete-main">',
+        			'<div class="sureDelete-title">'+title+'</div>',
+        			'<div class="sureDelete-body">',
+        				'<span></span><span class="sureDelete-data textColor"><input type="text" id="showinput" name="showinput" value="'+data+'"/></span>',
+        			'</div>',
+        			'<div class="sureDelete-footer btn-group">',
+        				'<span class="next" onclick="sureDatainput('+callback+','+param1+');">确定</span>',
+        				'<span class="back" onclick="unsureDatainput();">×</span>',
+        			'</div>',
+        		'</div>',
+        		'<i></i>',
+        	'</div>',
+        	'<div class="sureDelete-bg"></div>',
+        '</div>'
+    ].join('');
+	$('body').append(template);
+	$('.sureDelete').fadeToggle(500); 
+}
+function sureDatainput(callback,param1){
+	$('.sureDelete').fadeToggle(500); 
 
+	$("#nickname").val($("#showinput").val());
+	$(".nickname").text($("#showinput").val());
+
+
+	var timer = window.setTimeout(function(){
+		$('.sureDelete').remove();
+		window.clearTimeout(timer); 
+	},800);
+	return true;
+}
+function unsureDatainput(){
+	$('.sureDelete').fadeToggle(500); 
+	var timer = window.setTimeout(function(){
+		$('.sureDelete').remove();
+		window.clearTimeout(timer); 
+	},800); 
+	return false;
+}
 $(function(){
 	//验证码获取
 	$('#yzmbtn').bind('click',function(){

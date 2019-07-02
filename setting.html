@@ -19,7 +19,7 @@
 				<div class="mui-scroll">
 					<ul class="mui-table-view mui-table-view-chevron">
 						<li class="mui-table-view-cell mui-media">
-								<a class="mui-navigate-right" href="#account">
+								<a class="mui-navigate-right" href="#" id="myinfo">
 									<img class="mui-media-object mui-pull-left head-img" id="head-img" src="picture/mubantx.jpg">
 									<div class="mui-media-body">
 										小小
@@ -40,11 +40,11 @@
 								<i class="mui-pull-right update" id="appkey"></i>
 							</a>
 						</li>
-						<li class="mui-table-view-cell">
+						<!-- <li class="mui-table-view-cell">
 							<a href="#" class="mui-navigate-right" id="aboutUs">
 								联系我们 
 							</a>
-						</li>
+						</li> -->
 					</ul>
 					<ul class="mui-table-view">
 						<li class="mui-table-view-cell" style="text-align: center;" id="layout">
@@ -72,9 +72,15 @@
 				_update();
 			});
 			var safeButton = doc.getElementById("safe");
+			var myinfoButton = doc.getElementById("myinfo");
 			safeButton.addEventListener('tap',function(even){
 				loginRequired(function(){
-					openView("mysafe.html","mysafe.html");
+					beforeOpenView("mysafe.html");
+				})
+			})
+			myinfoButton.addEventListener('tap',function(even){
+				loginRequired(function(){
+					beforeOpenView("myinfo.html");
 				})
 			})
 			var appkeya = getAppKey();

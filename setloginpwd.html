@@ -77,7 +77,7 @@
 	<div id="app">
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="gobackRefresh()"></a>
-			<h1 class="mui-title">修改支付密码</h1>
+			<h1 class="mui-title">修改登录密码</h1>
 		</header>
 		<div class="setpwdbox">
 			<p class="pwdreq">验证码已发送到您的手机：<span id="account"></span></p>
@@ -88,14 +88,14 @@
 					
 				</div>
 				<div class="mui-input-row">
-					<input type="password"  class=" mui-input-password" placeholder="请输入登录密码" id="epassword" name="epassword" >
+					<input type="password"  class=" mui-input-password" placeholder="请输入登录密码" id="password" name="password" >
 				</div>
 				<div class="mui-input-row">
 					<input type="password" class=" mui-input-password" placeholder="请再次输入登录密码" id="reepassword" name="reepassword" >
 				</div>
 				<div class="nocat" style="color:#2695EF"><span>没收到验证码，重新发送></span></div>
 				<div class="mgt-2 login-form setpwdbox-btn">
-					<button type="button" class="mui-btn mui-btn-warning" id='setpaypwd' data-loading-text="提交中">保 存</button>
+					<button type="button" class="mui-btn mui-btn-warning" id='setloginpwd' data-loading-text="提交中">保 存</button>
 				</div>
 			</form>
 		</div>
@@ -118,22 +118,22 @@
 				document.querySelector("#account").innerHTML=account;
 				document.querySelector("#mobile").value=account;
 				if(document.querySelector(".nocat").innerHTML=="<span>没收到验证码，重新发送&gt;</span>"){
-					getcaptchaAjax(account,4);
+					getcaptchaAjax(account,2);
 				}
 			})
 			
 			// 点击发送验证码
 			$(".nocat").on("tap","span",function(){
-				getcaptchaAjax(account,4);
+				getcaptchaAjax(account,2);
 			})
 
-			var setpaypwdButton = doc.getElementById("setpaypwd");
+			var setloginpwdButton = doc.getElementById("setloginpwd");
 			
-			setpaypwdButton.addEventListener('tap',function(even){
+			setloginpwdButton.addEventListener('tap',function(even){
 				jQuery("input").blur();
 				var thisButton = $(this);
 				$(this).button("loading");
-				_setpaypwd(thisButton);
+				_setloginpwd(thisButton);
 			})
 		})
 	}(mui, document))
