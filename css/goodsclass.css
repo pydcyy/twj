@@ -1,0 +1,61 @@
+.mui-bar-nav{
+	background-color:#2695ef;
+}
+.mui-active{
+	border: 0 solid #fff !important;
+}
+.mui-control-item {
+	padding: 14px 0;
+	border: 0 solid #fff !important;
+}
+#segmentedControls 	a.mui-active{
+	background-color:#efeff4 !important;
+	
+}
+#segmentedControls 	a.mui-active p{
+	color:#2695ef !important;
+}
+.mui-control-item p{
+	margin: 0;
+	color:#000;
+	height: 18px;
+	line-height: 16px;
+}
+.mui-active p{
+	border-left:3px solid #2695ef ;
+}
+.mui-control-content .mui-table-view{
+	background-color:#efeff4 !important;
+	padding-bottom: 15px;
+}
+.imglist {
+	overflow: hidden;
+	background-color: #fff !important;
+	padding: 7.5px;
+	padding-bottom: 4px;
+	border-radius: 6px;
+	margin-top: 14px;
+}
+.imglist li{
+	width: 33.33%;
+	float: left;
+	line-height: 11px;
+	text-align: center;
+	padding: 0 7.5px;
+}
+.imglist li img{
+	width: 100%;
+	
+}
+.mui-table-view-cell{
+	padding-bottom: 1px;
+}
+.imglist li span{
+	display: block;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	color:rgb(102, 102, 102);
+}
+.mui-table-view-cell:after{
+	height: 0 !important;
+}
