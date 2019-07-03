@@ -79,11 +79,15 @@
 		<input type="hidden" name="a" value="withdraw">
 	</div>
 	<div class="nextstep">
-		<input type="button" value="下一步" onclick="_withdraw();">
+		<input type="button" value="下一步" id="withdraw">
 	</div>
 </form>
 <script>
-	(function($, doc) {		
+	(function($, doc) {	
+		var aliChannel = null; // 支付宝支付 
+		var wxChannel = null; // 支付宝支付 
+		var channel = null; //支付通道 
+		
 		$.init();
 		$.plusReady(function() {
 			jQuery(".paymoney li").click(function(){
@@ -100,8 +104,61 @@
 			})
 			jQuery("#diymoney").bind("input propertychange", function() {
 				jQuery("#paymoneyinput").val(jQuery(this).val());
-			});		
+			});	
+
+			// 获取支付通道 
+			plus.payment.getChannels(function(channels) {
+				for(var i in channels) {
+					if(channels[i].id == "wxpay") {
+						wxChannel = channels[i];
+					} else {
+						aliChannel = channels[i];
+					}
+				}
+			}, function(e) {
+				alert("获取支付通道失败：" + e.message);
+			});
+			
+			doc.getElementById("withdraw").addEventListener("tap",function (even) {
+				pay('alipay');
+			});
+
 		})
+		
+		var ALIPAYSERVER = 'http://*****************/alipay/alipay.php?total=';//自己的后台的配置文件（我下一篇会放一个PHP实例），需要写订单信息等等在我的alipay.php中有讲解
+		// 2. 发起支付请求 
+		function pay(id) {
+			//var ZongJia = document.getElementById("ZongJia").textContent;//我自己的存放应付的金额的元素
+			var ZongJia =0.01;
+			// 从服务器请求支付订单 
+			var PAYSERVER = '';
+			PAYSERVER = ALIPAYSERVER;
+			channel = aliChannel;
+			var xhr = new XMLHttpRequest();
+			var amount = ZongJia;//amount变量表示要支付的金额;
+			xhr.onreadystatechange = function() {
+				switch(xhr.readyState) {
+					case 4:
+					if(xhr.status == 200) {
+						plus.payment.request(channel, xhr.responseText, function(result) {
+							plus.nativeUI.alert("支付成功！", function() {
+							//这里根据自己的需求写支付成功的函数
+								log("支付成功");
+							});
+						}, function(error) {
+							plus.nativeUI.alert("支付失败：" + error.code);
+						});
+					} else {
+						alert("获取订单信息失败！");
+					}
+					break;
+					default:
+					break;
+				}
+			}
+			xhr.open('GET', PAYSERVER + amount);
+			xhr.send();
+		}
 	}(mui, document))
 	
 </script>
