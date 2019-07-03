@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="css/mui.min.css"/>
 	<link rel="stylesheet" href="css/mui-icons-extra.css"/>
 	<link rel="stylesheet" href="css/app.css" />
-	<link rel="stylesheet" href="css/myinfo.css"/>
+	<link rel="stylesheet" href="css/mysafe.css"/>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/mui.min.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
@@ -15,7 +15,7 @@
 </head>
 <body>
 	<header class="mui-bar mui-bar-nav">
-		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()"></a>
 		<h1 class="mui-title">账户安全</h1>
 	</header>
 	<div class="mui-page-content">
@@ -47,19 +47,32 @@
 	<script type="text/javascript">	
 		(function($, doc) {
 			$.plusReady(function() {
+				var telephone = getMobile();
+				setpaypwd = mui.preload({
+					url: 'setpaypwd.html',
+					id: 'setpaypwd'
+				});
+				setloginpwd = mui.preload({
+					url: 'setloginpwd.html',
+					id: 'setloginpwd'
+				});
 				var loginpawButton = doc.getElementById("loginpaw");
 				var paypawButton = doc.getElementById("paypaw");
 				
-				paypawButton.addEventListener('tap',function(even){
-					loginRequired(function(){
-						openView('setpaypwd.html', 'setpaypwd.html');
-					})
-				})
 				loginpawButton.addEventListener('tap',function(even){
-					loginRequired(function(){
-						openView('setloginpwd.html', 'setloginpwd.html');
-					})
+					mui.fire(setloginpwd, 'getcaptcha',telephone);
+					setTimeout(function() {
+						setloginpwd.show("slide-in-right", 300);
+					}, 150);
 				})
+				paypawButton.addEventListener('tap',function(even){
+					mui.fire(setpaypwd, 'getcaptcha',telephone);
+					setTimeout(function() {
+						setpaypwd.show("slide-in-right", 300);
+					}, 150);
+				})
+				
+				afterOpenView();
 			})
 		}(mui, document))
 	</script>

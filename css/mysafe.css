@@ -231,7 +231,17 @@ body {
   padding-bottom: 18px !important;
  
 }
-
+.mui-table-view-cell input[type="password"],input[type="text"]{
+	height: 18px;
+	line-height: 18px;
+	text-align: right;
+	border: 0;
+	position: absolute;
+	width: 64px;
+	right: 35px;
+	padding: 0;
+	
+}
 .mui-active input {
 	background: #eee;
 }
