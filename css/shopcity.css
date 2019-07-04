@@ -174,7 +174,7 @@
     background-image: url(../images/gc-icon.png);
     background-size: 160px auto;
     background-repeat: no-repeat;
-    background-position: -48px 0;
+    background-position: -50px 0;
     vertical-align: -1px;
     margin-left: 6px; 
 }
@@ -195,5 +195,33 @@
     vertical-align: -4px;
 }
 .layout-vertical.on span {
-    background-position: 0 -62px;
+    background-position: 0 -62.5px;
+}
+.vertical .p-content{
+	padding: 10px 0;
+	padding-left: 10px;
+	overflow: hidden;
+	position: relative;
+	display: flex;
+	flex-direction:row;
+}
+.vertical li{
+	width: 100%;
+}
+.vertical li .imgsize{
+	float: left;
+	width: 100px;
+	height: 100px;
+	flex-shrink:0;
+}
+.vertical .p-content-title{
+	padding-left: 10px;
+	float: left;
+
+}
+.vertical .p-content-price{
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	padding-left: 120px;
 }

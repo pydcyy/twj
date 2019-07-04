@@ -38,39 +38,11 @@
 				<div class="mui-slider-group" id="contentbar">
 					<div id="item1" class="contentbarson mui-slider-item mui-control-content ">
 						<div class="mui-table-view">
-							<div class="p-list">
+							<div class="p-list vertical">
 								<ul>
 									<li v-for="good in goods">
 										<div class="p-content">
-											<div>
-												<img :src="good.img">
-											</div>
-											<div class="p-content-title">
-												<span>{{good.name}}</span>
-											</div>
-											<div class="p-content-price">
-												<span class="pull-l">￥{{good.price}}</span>
-												<span class="pull-r"><span class="mui-icon mui-icon-extra mui-icon-extra-cart" :data-goodsid="good.id"></span></span>
-											</div>
-										</div>
-									</li>
-									<li v-for="good in goods">
-										<div class="p-content">
-											<div>
-												<img :src="good.img">
-											</div>
-											<div class="p-content-title">
-												<span>{{good.name}}</span>
-											</div>
-											<div class="p-content-price">
-												<span class="pull-l">￥{{good.price}}</span>
-												<span class="pull-r"><span class="mui-icon mui-icon-extra mui-icon-extra-cart" :data-goodsid="good.id"></span></span>
-											</div>
-										</div>
-									</li>
-									<li v-for="good in goods">
-										<div class="p-content">
-											<div>
+											<div class="imgsize">
 												<img :src="good.img">
 											</div>
 											<div class="p-content-title">
@@ -124,7 +96,7 @@
 							var result = {
 								data: {
 									banner: [{
-										img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
+										img: "picture/carimg.png",
 										url: "#"
 									}, {
 										img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
@@ -152,25 +124,25 @@
 									},
 									goods: [{
 											id: "109",
-											img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
+											img: "picture/carimg.png",
+											name: "是德菲拉萨的飞机是德菲拉萨的飞机是德菲拉萨",
+											price: "100"
+										},
+										{
+											id: "109",
+											img: "picture/carimg.png",
 											name: "是德菲拉萨的飞机",
 											price: "100"
 										},
 										{
 											id: "109",
-											img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
+											img: "picture/carimg.png",
 											name: "是德菲拉萨的飞机",
 											price: "100"
 										},
 										{
 											id: "109",
-											img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
-											name: "是德菲拉萨的飞机",
-											price: "100"
-										},
-										{
-											id: "109",
-											img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
+											img: "picture/carimg.png",
 											name: "是德菲拉萨的飞机",
 											price: "100"
 										},
