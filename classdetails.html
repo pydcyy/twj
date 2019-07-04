@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>商场</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="css/shopcity.css" />
+		<link rel="stylesheet" href="css/mui-icons-extra.css" />
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/lib/artTemplate.js"></script>
+		<script type="text/javascript" src="js/lib/common.js"></script>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+	</head>
+	<body>
+		<div class="mui-content mui-scroll-wrapper" id="pullrefresh" v-cloak>
+			<header class="mui-bar mui-bar-nav">
+				<div class="mui-input-row mui-search">
+					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="addaddress" onclick="goback()"></a>
+					<h1 class="mui-title" style="right: 40px;left: 40px;">
+						<input type="search" class="mui-input-clear" placeholder="搜索商品">
+					</h1>
+					<a class="mui-icon mui-icon-search mui-pull-right" onclick="goback()"></a>
+				</div>
+			</header>
+			<div class="mui-slider mui-scroll" style="margin-top: 44px;">
+				<div class="mui-slider-group" id="contentbar">
+					<div id="item1" class="contentbarson mui-slider-item mui-control-content ">
+						<div class="mui-table-view">
+							<div class="p-list">
+								<ul>
+									<li v-for="good in goods">
+										<div class="p-content">
+											<div>
+												<img :src="good.img">
+											</div>
+											<div class="p-content-title">
+												<span>{{good.name}}</span>
+											</div>
+											<div class="p-content-price">
+												<span class="pull-l">￥{{good.price}}</span>
+												<span class="pull-r"><span class="mui-icon mui-icon-extra mui-icon-extra-cart" :data-goodsid="good.id"></span></span>
+											</div>
+										</div>
+									</li>
+									<li v-for="good in goods">
+										<div class="p-content">
+											<div>
+												<img :src="good.img">
+											</div>
+											<div class="p-content-title">
+												<span>{{good.name}}</span>
+											</div>
+											<div class="p-content-price">
+												<span class="pull-l">￥{{good.price}}</span>
+												<span class="pull-r"><span class="mui-icon mui-icon-extra mui-icon-extra-cart" :data-goodsid="good.id"></span></span>
+											</div>
+										</div>
+									</li>
+									<li v-for="good in goods">
+										<div class="p-content">
+											<div>
+												<img :src="good.img">
+											</div>
+											<div class="p-content-title">
+												<span>{{good.name}}</span>
+											</div>
+											<div class="p-content-price">
+												<span class="pull-l">￥{{good.price}}</span>
+												<span class="pull-r"><span class="mui-icon mui-icon-extra mui-icon-extra-cart" :data-goodsid="good.id"></span></span>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						
+					</div>
+				</div>			
+			</div>
+			<a style="display:none;" href="javascript:;"  id="gotop"  title="回到顶部"></a>
+		</div>
+		
+		<script type="text/javascript">
+			(function($, doc) {
+				var app = new Vue({
+					el: '#pullrefresh',
+					data: function() {
+						return {
+							banners: [],
+							lists: [],
+							goods: [],
+						}
+					},
+					mounted: function() {
+						this._init();
+					},
+					methods: {
+						_init: function() {
+							var that = this;
+							that.loadData();
+							$.plusReady(function() {							
+								toTop();			
+								afterOpenView();
+							})
+						},
+						pulldownRefresh: function() {
+							appPage.endPullRefresh();
+						},
+						loadData: function() {
+							var url = postUrl + "Home/member/user.html";
+							var postData = {};
+							var result = {
+								data: {
+									banner: [{
+										img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
+										url: "#"
+									}, {
+										img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
+										url: "#"
+									}, {
+										img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
+										url: "#"
+									}],
+									list: [{
+										img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
+										url: "#",
+										text: "素食"
+									}, {
+										img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
+										url: "#",
+										text: "素食"
+									}, {
+										img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
+										url: "#",
+										text: "素食"
+									}],
+									ad: {
+										img: "",
+										url: ""
+									},
+									goods: [{
+											id: "109",
+											img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
+											name: "是德菲拉萨的飞机",
+											price: "100"
+										},
+										{
+											id: "109",
+											img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
+											name: "是德菲拉萨的飞机",
+											price: "100"
+										},
+										{
+											id: "109",
+											img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
+											name: "是德菲拉萨的飞机",
+											price: "100"
+										},
+										{
+											id: "109",
+											img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
+											name: "是德菲拉萨的飞机",
+											price: "100"
+										},
+										{
+											id: "109",
+											img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
+											name: "是德菲拉萨的飞机",
+											price: "100"
+										},
+										{
+											id: "109",
+											img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
+											name: "是德菲拉萨的飞机",
+											price: "100"
+										},
+									]
+								}
+							};
+
+							this.goods = result['data']['goods'];
+							this.banners = result['data']['banner'];
+							this.lists = result['data']['list'];
+						}
+					}
+				});
+
+				$.init({
+					pullRefresh: {
+						container: '#pullrefresh',
+						down: { //下拉刷新
+							callback: app.pulldownRefresh,
+							style: $.os.android ? "circle" : "default"
+						}
+					}
+				});
+
+
+			}(mui, document))
+		</script>
+	</body>
+</html>

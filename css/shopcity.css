@@ -150,3 +150,17 @@
 	padding: 1px 5px;
 	font-size: 12px;
 }
+
+#gotop {
+    width:40px;
+    height: 40px;
+    position:fixed;
+    right:10px;
+    bottom:30px;
+    background:url(../picture/gotop.png)  no-repeat  left top;
+	background-size: cover;
+}
+#gotop:hover {
+    background:url(../picture/gotop.png)  no-repeat  left -40px;
+	background-size: cover;
+}
