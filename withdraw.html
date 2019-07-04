@@ -125,15 +125,30 @@
 
 		})
 		
-		var ALIPAYSERVER = 'http://*****************/alipay/alipay.php?total=';//自己的后台的配置文件（我下一篇会放一个PHP实例），需要写订单信息等等在我的alipay.php中有讲解
+		//var ALIPAYSERVER = 'http://*****************/alipay/alipay.php?total=';//自己的后台的配置文件（我下一篇会放一个PHP实例），需要写订单信息等等在我的alipay.php中有讲解
+		var ALIPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';    
+		var WXPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total=';    
+		
 		// 2. 发起支付请求 
 		function pay(id) {
 			//var ZongJia = document.getElementById("ZongJia").textContent;//我自己的存放应付的金额的元素
 			var ZongJia =0.01;
 			// 从服务器请求支付订单 
 			var PAYSERVER = '';
-			PAYSERVER = ALIPAYSERVER;
-			channel = aliChannel;
+			PAYSERVER = WXPAYSERVER;
+			channel = wxChannel;
+			
+			if(id=='alipay'){    
+				PAYSERVER=ALIPAYSERVER;    
+				channel = aliChannel;    
+			}else if(id=='wxpay'){    
+				PAYSERVER=WXPAYSERVER;    
+				channel = wxChannel;    
+			}else{    
+				plus.nativeUI.alert("不支持此支付通道！",null,"捐赠");    
+				return;    
+			}   
+			 
 			var xhr = new XMLHttpRequest();
 			var amount = ZongJia;//amount变量表示要支付的金额;
 			xhr.onreadystatechange = function() {

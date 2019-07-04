@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="css/goodsclass.css" />
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/mui.min.js"></script>
+	    <script type="text/javascript" src="js/vue.min.js"></script>
 		<script type="text/javascript" src="js/common.js"></script>
 		<style>
 			.mui-row.mui-fullscreen>[class*="mui-col-"] {
@@ -36,223 +37,88 @@
 		</style>
 	</head>
 	<body>
+	<div id="app">
+
 		<header class="mui-bar mui-bar-nav">
-			<div class="mui-input-row ">
-				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="" onclick="goback()"></a>
-				<h1 class="mui-title">
-					商品分类
-				</h1>
-			</div>
+			<h1 class="mui-title">商品分类</h1>
 		</header>
 		<div class="mui-content mui-row mui-fullscreen">
 			<div class="mui-col-xs-3">
 				<div id="segmentedControls" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
-					<a class="mui-control-item" href="#content1">
-						<p>栏目1</p>
+					<a class="mui-control-item mui-active" v-for="(classdata,index) in classdatas" :href="'#content'+index" v-if="index==0">
+						<p>{{classdata.name}}</p>
 					</a>
-					<a class="mui-control-item" href="#content2">
-						<p>栏目栏目2</p>
+					<a class="mui-control-item" v-for="(classdata,index) in classdatas" :href="'#content'+index" v-if="index!=0">
+						<p>{{classdata.name}}</p>
 					</a>
 				</div>
 			</div>
-			<div id="segmentedControlContents" class="mui-col-xs-9" style="background:#efeff4 ;" >
-				<div id="content1" class="mui-control-content mui-active">
+			<div id="segmentedControlContents" class="mui-col-xs-9" style="background:#efeff4 ;">
+				<div class="mui-control-content mui-active" v-for="(classdata,index) in classdatas" :id="'content'+index">
 					<ul class="mui-table-view">
-						<li class="mui-table-view-cell">
-							<span>栏目1子项-1</span>
-							<ul class="imglist">
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
+						<li class="mui-table-view-cell" v-for="(cclassdata,index) in classdata.children">
+							<span>{{cclassdata.name}}</span>
+							<ul class="imglist" style="padding: 0;">
+								<li v-for="(rcclassdata,index) in cclassdata.children" style="padding-top: 15px;">
+									<img :src="rcclassdata.img">
+									<span>{{rcclassdata.name}}</span>
 								</li>
 							</ul>
 						</li>
-						<li class="mui-table-view-cell">
-							<span>栏目1子项-2</span>
-							<ul class="imglist">
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-							</ul>
-						</li>
-						<li class="mui-table-view-cell">
-							<span>栏目1子项-2</span>
-							<ul class="imglist">
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-				<div id="content2" class="mui-control-content mui-active">
-					<ul class="mui-table-view">
-						<li class="mui-table-view-cell">
-							<span>栏目2子项-1</span>
-							<ul class="imglist">
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-							</ul>
-						</li>
-						<li class="mui-table-view-cell">
-							<span>栏目2子项-2</span>
-							<ul class="imglist">
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-							</ul>
-						</li>
-						<li class="mui-table-view-cell">
-							<span>栏目1子项-2</span>
-							<ul class="imglist">
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-								<li>
-									<img src="picture/dog.jpg" >
-									<span>宠物</span>
-								</li>
-							</ul>
-						</li>
+						
 					</ul>
 				</div>
 			</div>
 		</div>
+	</div>
 		<script>
-			mui.init({
-				swipeBack: true //启用右滑关闭功能
-			});
-			var controls = document.getElementById("segmentedControls");
-			var contents = document.getElementById("segmentedControlContents");
-
-
-
-
-			//默认选中第一个
-			controls.querySelector('.mui-control-item').classList.add('mui-active');
-			contents.querySelector('.mui-control-content').classList.add('mui-active');
+			(function($, doc) {
+				var app = new Vue({
+					el: '#app',
+					data: function() {
+						return {
+							classdatas: []
+						}
+					},
+					mounted: function(){
+						this._init();
+					},
+					methods: {
+						_init: function(){
+							var that = this;
+							$.plusReady(function() {
+								that.loadData();
+								
+// 								var controls = document.getElementById("segmentedControls");
+// 								var contents = document.getElementById("segmentedControlContents");
+// 								
+// 								//默认选中第一个
+// 								controls.querySelector('.mui-control-item').classList.add('mui-active');
+// 								contents.querySelector('.mui-control-content').classList.add('mui-active');
+								
+								afterOpenView();	
+							})
+						},
+						loadData:function(){
+							var that = this;
+							var url = postUrl+"Home/goods/categoryList.html";
+							var postData = {};
+							diyAjax(url,postData,function(result){
+								console.log("获取分类信息");
+								if(result.code == 1){
+									that.classdatas = result.data;
+								}
+							},function(xhr){
+								console.log("失败"+JSON.stringify(xhr));
+							})	
+						},
+					}
+				});
+				
+				$.init({
+					swipeBack: true //启用右滑关闭功能
+				});		
+			}(mui, document))
 		</script>
 	</body>
 

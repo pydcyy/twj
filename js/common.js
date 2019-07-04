@@ -172,16 +172,22 @@ function diyAjax(url,data,callback,errcallback){
 				callback(result);
 			}, 
 			error: function(xhr, type, errorThrown) { 
-				if( eval('(' + xhr['responseText'] + ')')['code']==401){
-					showMessage('登录失效，请重新登录!');
-					localStorage.removeItem("$UserInfo");	
-						
-					openView('login.html','login.html');
-
-					errcallback(xhr);
-				}else{
-					errcallback(xhr);
-				}	
+				showMessage('服务器异常，请稍后重试!');
+// 				localStorage.removeItem("$UserInfo");	
+// 					
+// 				openView('login.html','login.html');
+// 				
+// 				errcallback(xhr);
+// 				if( eval('(' + xhr['responseText'] + ')')['code']==401){
+// 					showMessage('登录失效，请重新登录!');
+// 					localStorage.removeItem("$UserInfo");	
+// 						
+// 					openView('login.html','login.html');
+// 
+// 					errcallback(xhr);
+// 				}else{
+// 					errcallback(xhr);
+// 				}	
 			} 
 		})
 	}
