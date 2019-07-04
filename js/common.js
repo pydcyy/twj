@@ -804,21 +804,48 @@ function popToTarget(targetId){
     //没有找到目标页面
     console.log("目标页面不是当前页面的祖先页面！");
 }
-function toIndex() {
-        var all = plus.webview.all();
-        var launch = plus.webview.getLaunchWebview() //基座，不可以关掉
-        for(var i = 0; i < all.length; i++) {
-            if(all[i] === launch)
-                continue;
-            all[i].close();
-            all[i].clear();
-        }
-        //立刻退出
-        setTimeout(function() {
-            launch.show();　　//不要重新打开login，app的基座就是login页面，直接show出来就行了
-        }, 0);
-    }
 
+function toIndex() {
+	var all = plus.webview.all();
+	var launch = plus.webview.getLaunchWebview() //基座，不可以关掉
+	for(var i = 0; i < all.length; i++) {
+		if(all[i] === launch)
+			continue;
+		all[i].close();
+		all[i].clear();
+	}
+	//立刻退出
+	setTimeout(function() {
+		launch.show();　　//不要重新打开login，app的基座就是login页面，直接show出来就行了
+	}, 0);
+}
+// 回到顶部
+function toTop(){
+	var topbtn = document.getElementById("gotop");
+	var timer = null;    //获取屏幕的高度
+	var pagelookheight = document.documentElement.clientHeight;
+								 
+	window.onscroll = function(){
+		//滚动超出高度，显示按钮，否则隐藏
+		var backtop = document.body.scrollTop;           //  滚动超过一频    应该显示
+		if(backtop >= pagelookheight){
+			topbtn.style.display = "block";
+		}else{
+			topbtn.style.display = "none";
+		}
+	}
+								 
+	topbtn.onclick = function () {
+		timer = setInterval(function () {
+			var backtop = document.body.scrollTop;             //速度操作  减速
+			var speedtop = backtop/5;  
+			document.body.scrollTop = backtop -speedtop;  //高度不断减少
+			if(backtop ==0){  //滑动到顶端
+				clearInterval(timer);  //清除计时器
+			}
+		}, 30);
+	}
+}
 function getcaptchaAjax(account,type){	
 	var url = postUrl+"Home/sms/index.html",
 		data = {
