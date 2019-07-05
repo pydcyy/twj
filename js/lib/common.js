@@ -689,9 +689,9 @@ var appPage = {
 	getParam: function(name) {
 		var currPage = plus.webview.currentWebview();
 		if(mui.os.plus) {
-			//log(currPage.id + "的全部参数=" + JSON.stringify(currPage));
-			if(currPage.info)
-				return currPage.info[name] || null;
+			// log(currPage.id + "的全部参数=" + JSON.stringify(currPage));
+			if(currPage)
+				return currPage[name] || null;
 			else
 				return null;
 		} else {

@@ -187,7 +187,7 @@
 .layout-vertical span {
     display: inline-block;
     width: 18px;
-    height: 18px;
+    height: 20px;
     background-image: url(../images/gc-icon.png);
     background-size: 160px auto;
     background-repeat: no-repeat;
@@ -195,5 +195,21 @@
     vertical-align: -4px;
 }
 .layout-vertical.on span {
-    background-position: 0 -62px;
+    background-position: 0 -61px;
+}
+.price-select .item.on{
+	/* background: #efeff4;
+	border-top-left-radius:5px;
+	border-top-right-radius:5px; */
+	color: #D03030;
+	font-weight: bolder;
+}
+.price-select .item.selected-down .icon {
+    background-position: -100px 0;
+}
+.price-select .item.selected-up .icon {
+    background-position: -150px 0;
+}
+.vertical li{
+	width: 100%;
 }

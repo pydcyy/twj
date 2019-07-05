@@ -14,6 +14,11 @@
 		<script type="text/javascript" src="js/lib/common.js"></script>
 		<script type="text/javascript" src="js/vue.min.js"></script>
 		<script type="text/javascript" src="js/common.js"></script>
+		<style>
+			.mui-icon-clear{
+				top: 13px!important;
+			} 
+		</style>
 	</head>
 	<body>
 		<div class="mui-content mui-scroll-wrapper" id="pullrefresh" v-cloak>
@@ -21,16 +26,16 @@
 				<div class="mui-input-row mui-search">
 					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="addaddress" onclick="goback()"></a>
 					<h1 class="mui-title" style="right: 40px;left: 40px;">
-						<input type="search" class="mui-input-clear" placeholder="搜索商品">
+						<input type="text" class="mui-input" placeholder="搜索商品" v-model="search.keyword" style="height: 35px;line-height:40px;color:#000;border-radius: 20px;border: none;">
 					</h1>
-					<a class="mui-icon mui-icon-search mui-pull-right" onclick="goback()"></a>
+					<a class="mui-icon mui-icon-search mui-pull-right"></a>
 				</div>
 			</header>
 			<div class="price-select flex">
-				<div class="item on">默认</div> 
-				<div class="item">价格<i class="icon"></i></div> 
-				<div class="item">销量<i class="icon"></i></div> 
-				<div class="layout-vertical on">
+				<div class="item" :class="{ on:search.priceOrder =='' && search.salesOrder == ''}" @tap="changeDefault">默认</div> 
+				<div class="item" :class="{'selected-up':search.priceOrder == 'asc','selected-down':search.priceOrder == 'desc','on':search.priceOrder!=''}" @tap="changePriceOrder">价格<i class="icon"></i></div> 
+				<div class="item" :class="{'selected-up':search.salesOrder == 'asc','selected-down':search.salesOrder == 'desc','on':search.salesOrder!=''}" @tap="changeSalesOrder">销量<i class="icon"></i></div> 
+				<div class="layout-vertical" :class="{on:vertical != true}" @tap="vertical = !vertical">
 					<span></span>
 				</div>
 			</div>
@@ -38,7 +43,7 @@
 				<div class="mui-slider-group" id="contentbar">
 					<div id="item1" class="contentbarson mui-slider-item mui-control-content ">
 						<div class="mui-table-view">
-							<div class="p-list">
+							<div class="p-list" :class="{vertical:vertical == true}">
 								<ul>
 									<li v-for="good in goods">
 										<div class="p-content">
@@ -46,38 +51,12 @@
 												<img :src="good.img">
 											</div>
 											<div class="p-content-title">
-												<span>{{good.name}}</span>
+												<span>{{good.goodsname}}</span>
 											</div>
 											<div class="p-content-price">
-												<span class="pull-l">￥{{good.price}}</span>
-												<span class="pull-r"><span class="mui-icon mui-icon-extra mui-icon-extra-cart" :data-goodsid="good.id"></span></span>
-											</div>
-										</div>
-									</li>
-									<li v-for="good in goods">
-										<div class="p-content">
-											<div>
-												<img :src="good.img">
-											</div>
-											<div class="p-content-title">
-												<span>{{good.name}}</span>
-											</div>
-											<div class="p-content-price">
-												<span class="pull-l">￥{{good.price}}</span>
-												<span class="pull-r"><span class="mui-icon mui-icon-extra mui-icon-extra-cart" :data-goodsid="good.id"></span></span>
-											</div>
-										</div>
-									</li>
-									<li v-for="good in goods">
-										<div class="p-content">
-											<div>
-												<img :src="good.img">
-											</div>
-											<div class="p-content-title">
-												<span>{{good.name}}</span>
-											</div>
-											<div class="p-content-price">
-												<span class="pull-l">￥{{good.price}}</span>
+												<span class="pull-l" v-if="search.shop==3">￥{{good.moneyprice}}</span>
+												<span class="pull-l" v-if="search.shop==2">{{good.integralprice}}积分</span>
+												<span class="pull-l" v-if="search.shop==1">{{good.goldprice}}金铢</span>
 												<span class="pull-r"><span class="mui-icon mui-icon-extra mui-icon-extra-cart" :data-goodsid="good.id"></span></span>
 											</div>
 										</div>
@@ -98,101 +77,120 @@
 					el: '#pullrefresh',
 					data: function() {
 						return {
-							banners: [],
-							lists: [],
+							vertical:false,
 							goods: [],
+							search:{
+								goodsid:'',
+ 								catg1:'', 
+								catg2:'',
+								catg3:'',
+								shop:getShop(),
+								priceOrder:'',
+								salesOrder:'',
+								news:0,
+								keyword:''
+							},
+							loaded:false,
+							pageParam:{
+								page:1,
+								loaded:false
+							}
 						}
 					},
 					mounted: function() {
 						this._init();
 					},
+					watch:{
+						search:{
+							handler:function(v){
+								this.loadData();
+							},
+							deep:true
+						}
+					},
 					methods: {
 						_init: function() {
 							var that = this;
-							that.loadData();
+
 							$.plusReady(function() {							
-								toTop();			
-								afterOpenView();
+								toTop();
+								that.loadData();
+                                afterOpenView();
 							})
 						},
-						pulldownRefresh: function() {
-							appPage.endPullRefresh();
+						changeDefault:function () {
+							this.search.salesOrder = '';
+							this.search.priceOrder = '';
 						},
-						loadData: function() {
-							var url = postUrl + "Home/member/user.html";
-							var postData = {};
-							var result = {
-								data: {
-									banner: [{
-										img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
-										url: "#"
-									}, {
-										img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
-										url: "#"
-									}, {
-										img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
-										url: "#"
-									}],
-									list: [{
-										img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
-										url: "#",
-										text: "素食"
-									}, {
-										img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
-										url: "#",
-										text: "素食"
-									}, {
-										img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
-										url: "#",
-										text: "素食"
-									}],
-									ad: {
-										img: "",
-										url: ""
-									},
-									goods: [{
-											id: "109",
-											img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
-											name: "是德菲拉萨的飞机",
-											price: "100"
-										},
-										{
-											id: "109",
-											img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
-											name: "是德菲拉萨的飞机",
-											price: "100"
-										},
-										{
-											id: "109",
-											img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
-											name: "是德菲拉萨的飞机",
-											price: "100"
-										},
-										{
-											id: "109",
-											img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
-											name: "是德菲拉萨的飞机",
-											price: "100"
-										},
-										{
-											id: "109",
-											img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
-											name: "是德菲拉萨的飞机",
-											price: "100"
-										},
-										{
-											id: "109",
-											img: "http://api.tongwujie.cn/public/uploads/20190618/41b7c9fdd3d5d6d700df653feebc3c73.png",
-											name: "是德菲拉萨的飞机",
-											price: "100"
-										},
-									]
-								}
+						changeSalesOrder:function(){
+							if(this.search.salesOrder == '')
+								this.search.salesOrder = 'desc';
+							else if(this.search.salesOrder == 'desc')
+								this.search.salesOrder = 'asc';
+							else if(this.search.salesOrder == 'asc')
+								this.search.salesOrder = 'desc';
+							this.search.priceOrder = '';
+						},
+						changePriceOrder:function(){
+							if(this.search.priceOrder == '')
+								this.search.priceOrder = 'desc';
+							else if(this.search.priceOrder == 'desc')
+								this.search.priceOrder = 'asc';
+							else if(this.search.priceOrder == 'asc')
+								this.search.priceOrder = 'desc';
+							this.search.salesOrder = '';
+						},
+						pulldownRefresh: function() {
+							this.loadData();
+							
+						},
+						pullupRefresh: function(){
+							this.loadData(1);
+						},
+						loadData: function(type=0) {
+							
+// 							if(this.loading) return;
+							var that = this;
+// 								pageParam = that.pageParam;
+// 							if(pageParam.loaded) return ;
+// 							this.loading = true;
+							
+							var url = postUrl + "Home/goods/seachGoods.html";
+							if(type==0){
+								this.pageParam.page=1;
+							}else{
+								this.pageParam.page++;
+							}
+							var postData = {
+								goodsid:0,
+								sellnumorder:this.search.priceOrder || 0,
+								pricenumorder:this.search.salesOrder || 0,
+								keyword:this.search.keyword || " ",
+								catg3:appPage.getParam("cid"),
+								page:this.pageParam.page
 							};
-
-							this.goods = result['data']['goods'];
-							this.banners = result['data']['banner'];
-							this.lists = result['data']['list'];
+							
+							log(postData);
+							diyAjax(url,postData,function(result){
+								console.log("获取商品信息");
+								if(result.code == 1){
+									if(type==0){
+										that.goods = result['data'];
+										appPage.endPullRefresh();
+									}else{
+										that.goods = that.goods.concat(result['data']);
+										if(result.data.length<pagenum){
+											appPage.endPullRefresh(true);
+										}
+										mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+									}
+									
+									afterOpenView();
+								}
+							},function(xhr){
+								console.log("失败"+JSON.stringify(xhr));
+							})								
+							
 						}
 					}
 				});
@@ -203,6 +201,12 @@
 						down: { //下拉刷新
 							callback: app.pulldownRefresh,
 							style: $.os.android ? "circle" : "default"
+						},
+						up: {
+							contentinit: '',
+							contentrefresh: '正在加载...',
+							contentnomore:'没有更多了',
+							callback: app.pullupRefresh
 						}
 					}
 				});

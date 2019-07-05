@@ -59,7 +59,7 @@
 						<li class="mui-table-view-cell" v-for="(cclassdata,index) in classdata.children">
 							<span>{{cclassdata.name}}</span>
 							<ul class="imglist" style="padding: 0;">
-								<li v-for="(rcclassdata,index) in cclassdata.children" style="padding-top: 15px;">
+								<li v-for="(rcclassdata,index) in cclassdata.children" class="imglistli" style="padding-top: 15px;"  :data-cid="rcclassdata.id">
 									<img :src="rcclassdata.img">
 									<span>{{rcclassdata.name}}</span>
 								</li>
@@ -71,55 +71,56 @@
 			</div>
 		</div>
 	</div>
-		<script>
-			(function($, doc) {
-				var app = new Vue({
-					el: '#app',
-					data: function() {
-						return {
-							classdatas: []
-						}
-					},
-					mounted: function(){
-						this._init();
-					},
-					methods: {
-						_init: function(){
-							var that = this;
-							$.plusReady(function() {
-								that.loadData();
-								
-// 								var controls = document.getElementById("segmentedControls");
-// 								var contents = document.getElementById("segmentedControlContents");
-// 								
-// 								//默认选中第一个
-// 								controls.querySelector('.mui-control-item').classList.add('mui-active');
-// 								contents.querySelector('.mui-control-content').classList.add('mui-active');
-								
-								afterOpenView();	
-							})
-						},
-						loadData:function(){
-							var that = this;
-							var url = postUrl+"Home/goods/categoryList.html";
-							var postData = {};
-							diyAjax(url,postData,function(result){
-								console.log("获取分类信息");
-								if(result.code == 1){
-									that.classdatas = result.data;
-								}
-							},function(xhr){
-								console.log("失败"+JSON.stringify(xhr));
-							})	
-						},
+	<script>
+		(function($, doc) {
+			var app = new Vue({
+				el: '#app',
+				data: function() {
+					return {
+						classdatas: []
 					}
-				});
-				
-				$.init({
-					swipeBack: true //启用右滑关闭功能
-				});		
-			}(mui, document))
-		</script>
+				},
+				mounted: function(){
+					this._init();
+				},
+				methods: {
+					_init: function(){
+						var that = this;
+						$.plusReady(function() {
+							that.loadData();
+							
+							$("#app").on("tap", ".imglistli", function() {
+								var cid = this.getAttribute("data-cid");
+								beforeOpenView("classdetails.html", "classdetails.html",{
+									cid: cid
+								});
+							});
+							
+						})
+					},
+					loadData:function(){
+						var that = this;
+						var url = postUrl+"Home/goods/categoryList.html";
+						var postData = {};
+						diyAjax(url,postData,function(result){
+							console.log("获取分类信息");
+							if(result.code == 1){
+								that.classdatas = result.data;
+								afterOpenView();
+							}
+						},function(xhr){
+							console.log("失败"+JSON.stringify(xhr));
+						})	
+					},
+
+				}
+			});
+			
+			$.init({
+				swipeBack: true //启用右滑关闭功能
+			});		
+		}(mui, document))
+	</script>
 	</body>
 
 </html>

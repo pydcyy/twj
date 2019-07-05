@@ -1,10 +1,12 @@
 // 获得当前网站目录
 var postUrl="http://api.tongwujie.cn/",
 	weburl="http://api.tongwujie.cn/reg.php",
-	appdown="http://api.tongwujie.cn/app.apk";
+	appdown="http://api.tongwujie.cn/app.apk",
+	pagenum =14;
 	// appkey=1;
 //登录验证
 loginRequired = function(callback){
+	log(getToken());
 	if(!getLoginStorage('$UserInfo')){
 		openView('login.html', 'login.html');
 	}else{
@@ -74,7 +76,14 @@ function getUid(){
 	var user = getLoginStorage('$UserInfo');
 	return user['id'];
 }
-
+function getShop(){
+	var shop = getLoginStorage('$Shop');
+	if(!shop){
+		return 0;
+	}else{
+		return shop;
+	}
+}
 // 获取key
 function getAppKey(){
 	return "V1.2";
@@ -111,9 +120,12 @@ function gobackRefreshTrue(){
 function log(data){
 	console.log(JSON.stringify(data));
 }
-function beforeOpenView(page,id,pageid){
+function beforeOpenView(page,id,data){
+	if(data==""){
+		data = "";
+	}
 	plus.nativeUI.showWaiting(); 
-	webviewShow = plus.webview.create(page,'id',{},{pageid:pageid}); 
+	webviewShow = plus.webview.create(page,id,{},data); 
 }
 
 function afterOpenView(){

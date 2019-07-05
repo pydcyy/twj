@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>商场</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="css/mui.min.css"/>
+	<link rel="stylesheet" href="css/app.css" />
+	<link rel="stylesheet" href="css/shopcity.css" />
+	<link rel="stylesheet" href="css/mui-icons-extra.css" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/lib/artTemplate.js"></script>
+	<script type="text/javascript" src="js/lib/common.js"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<style type="text/css">
+		.fa{
+			font-size: 30px!important;
+			width: auto!important;
+			height: auto!important;
+		}
+	</style>
+</head>
+<body>
+	<nav class="mui-bar mui-bar-tab" style="background: #fff;border-top: 1px solid #e2e2e2;">
+	    <a class="mui-tab-item mui-active" data-href="shopa.html" data-index="0">
+	        <span class="mui-icon fa fa-index"></span>
+	        <span class="mui-tab-label">商城首页</span>
+	    </a>
+	    <a class="mui-tab-item" data-href="goodsclass.html" data-index="1">
+	        <span class="mui-icon iconfont icon-tool"></span>
+	        <span class="mui-tab-label">分类</span>
+	    </a>
+
+	</nav>
+	<script type="text/javascript">
+		mui.init();
+		var showMenu = false,
+			showPop = "";
+		var subPages = ["shopa.html","goodsclass.html"];
+		var subPagesLoad = [false, false, false];
+		var subPageStyle = {
+			top: '0',
+			bottom: '52',
+			zindex: '0',
+			position: 'relative'
+		}
+		var self, pkbtn_def, pkbtn_activity, defstyle, deftxt, activetxt, activestyle, activeTab, targetTab, firstPage, tabindex;
+		mui.plusReady(function() {
+			self = plus.webview.currentWebview();
+
+			storage.init();
+			var sub = plus.webview.create(subPages[0], subPages[0], subPageStyle);
+			self.append(sub);
+			
+			
+			// plus.webview.show(subPages[0]);
+		
+			//底部切換
+			activeTab = "shopa.html";
+			mui('.mui-bar-tab').on('tap', 'a', function(e) {
+				var clientX = e.clientX;
+				if(clientX > 0 && clientX <= parseInt(pageW * 0.5)) {
+					currIndex = 0;
+				} else{
+					currIndex = 1;
+				}
+				var suba = mui.openWindow({
+					url: subPages[currIndex],
+					id: subPages[currIndex],
+					styles:subPageStyle,
+					extras:{},
+					createNew:false,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+					show:{
+					  autoShow:true,//页面loaded事件发生后自动显示，默认为true
+					  aniShow:'',//页面显示动画，默认为”slide-in-right“；
+					  duration:200//页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+					},
+					waiting:{
+					  autoShow:false,//自动显示等待框，默认为true
+					  title:'正在加载...',//等待对话框上显示的提示内容
+					  options:{}
+					}
+				});
+				self.append(suba);
+				
+				
+				targetTab = this.dataset.href;
+				tabindex = this.dataset.index;
+				if(targetTab == activeTab) {
+					return;
+				}
+				plus.webview.show(targetTab); //显示页面
+				if(subPagesLoad[tabindex] == false) {
+					mui.fire(plus.webview.getWebviewById(targetTab), 'refreshPage'); //初次刷新页面
+					subPagesLoad[tabindex] = true;
+				}
+				//隐藏当前;
+				plus.webview.hide(activeTab);
+				//更改当前活跃的选项卡
+				activeTab = targetTab;
+			});
+			
+			afterOpenView();
+		})
+	</script>
+</body>
+</html>

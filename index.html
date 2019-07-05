@@ -45,9 +45,7 @@
 				消费商城
 			</span>
 			<ul class="shop-img" id="banner_warp">
-				<li><img src="picture/shopa.png" alt=""></li>
-				<li><img src="picture/shopb.png" alt=""></li>
-				<li><img src="picture/shopc.png" alt=""></li>	
+				
 			</ul>
 		</div>
 	</div>
@@ -56,12 +54,12 @@
 
 <script type="text/html" id="banner_view">
 	{{if data==null || data.length==0}}
-		<li><img src="picture/shopa.png" alt=""></li>
-		<li><img src="picture/shopb.png" alt=""></li>
-		<li><img src="picture/shopc.png" alt=""></li>
-	{{else}} {{each data as item}}
-		<li><a data-href="{{item['url']}}" data-id="#item2"><img src="{{item['img']}}" alt=""></a></li>
-	{{/each}} {{/if}}
+		
+	{{else}} 
+		{{each data as item}}
+			<li><a data-href="{{item['url']}}"><img src="{{item['img']}}" alt=""></a></li>
+		{{/each}} 
+	{{/if}}
 </script>
 
 <script type="text/javascript">
@@ -133,16 +131,14 @@
 		nview.addEventListener('click', function(e) {
 			loginRequired(function(){
 				var clientX = e.clientX;
-				if(clientX > 0 && clientX <= parseInt(pageW * 0.20)) {
+				if(clientX > 0 && clientX <= parseInt(pageW * 0.25)) {
 					currIndex = 0;
-				} else if(clientX > parseInt(pageW * 0.20) && clientX <= parseInt(pageW * 0.40)) {
+				} else if(clientX > parseInt(pageW * 0.25) && clientX <= parseInt(pageW * 0.50)) {
 					currIndex = 1;
-				} else if(clientX > parseInt(pageW * 0.40) && clientX <= parseInt(pageW * 0.60)) {
+				} else if(clientX > parseInt(pageW * 0.50) && clientX <= parseInt(pageW * 0.75)) {
 					currIndex = 2;
-				} else if(clientX > parseInt(pageW * 0.60) && clientX <= parseInt(pageW * 0.80)) {
-					currIndex = 3;
 				} else {
-					currIndex = 4;
+					currIndex = 3;
 				}
 
 				// 匹配对应tab窗口	
@@ -175,18 +171,16 @@
 					return;
 				}
 				
-				if(currIndex!=3){
+				if(currIndex!=2){
 					if(plus.webview.getWebviewById("wealth.html")){
 						plus.webview.getWebviewById("wealth.html").close();
 					}
 				}
-				if(currIndex!=4){
+				if(currIndex!=3){
 					if(plus.webview.getWebviewById("user.html")){
 						plus.webview.getWebviewById("user.html").close();
 					}
-				}
-
-			
+				}		
 				//底部选项卡切换
 				util.toggleNview(currIndex);
 				// 子页面切换
@@ -200,7 +194,17 @@
 		initPage();
 		$("body").on("tap", ".shop-img a", function() {
 			// showMessage("功能开发中");
-			openView("classdetails.html","classdetails.html");
+			var pageid= this.dataset.href;
+			var shop="";
+			if(pageid=="shopa"){
+				shop = 3;
+			}else if(pageid=="shopb"){
+				shop = 2;
+			}else{
+				shop = 1;
+			}
+			localStorage.setItem('$Shop', shop);
+			beforeOpenView("shopmain.html");
 //  			var that = this;
 //  			var pageid= that.dataset.id;
 // 			beforeOpenView('shopa.html','shopa',pageid);

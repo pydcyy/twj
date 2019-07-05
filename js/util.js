@@ -2,7 +2,7 @@ var util = {
 	options: {
 		ACTIVE_COLOR: "#2695EF",
 		NORMAL_COLOR: "#000",
-		subpages: ["goodsclass.html","nearby.html","wealth.html","user.html"]
+		subpages: ["nearby.html","wealth.html","user.html"]
 	},
 	/**
 	 *  简单封装了绘制原生view控件的方法
@@ -75,6 +75,7 @@ var util = {
 	 * 点击重绘底部tab （view控件）
 	 */
 	toggleNview: function(currIndex) {
+		
 		currIndex = currIndex * 2;
 		// 重绘当前tag 包括icon和text，所以执行两个重绘操作
 		util.updateSubNView(currIndex, util.options.ACTIVE_COLOR);
