@@ -503,4 +503,21 @@ header.mui-bar-nav a,header.mui-bar-nav h1{
 .fa-map:before{
   content:"\e333";
 }
-
+.fa-fukuan:before{
+  content:"\e59b";
+}
+.fa-shoukuan:before{
+  content:"\e59c";
+}
+.fa-zhuanzhuang:before{
+  content:"\e59f";
+}
+.fa-tixian:before{
+  content:"\e59e";
+}
+.fa-yaoqing:before{
+  content:"\e59a";
+}
+.fa-tuandui:before{
+  content:"\e59d";
+}
