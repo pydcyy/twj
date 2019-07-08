@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<title>订单详情</title>
+	<title>订单列表</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 	<link rel="stylesheet" href="css/mui.min.css"/>
 	<link rel="stylesheet" href="css/app.css" />
@@ -12,170 +12,321 @@
 	<script type="text/javascript" src="js/mui.min.js"></script>
 	<script type="text/javascript" src="js/lib/artTemplate.js"></script>
 	<script type="text/javascript" src="js/lib/common.js"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
-	
-	
 </head>
 <body>
+<div  class="mui-content mui-scroll-wrapper" id="pullrefresh" v-cloak>
 	<header class="mui-bar mui-bar-nav">
 		<div class="mui-input-row mui-search">
 			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()" style="color: #fff;"></a>
-			<h1 class="mui-title" >
-				订单详情
+			<h1 class="mui-title">
+				订单列表
 			</h1>
 		</div>
 	</header>
-	
-	<div class="mui-content mui-scroll-wrapper">
-		<div class="mui-slider mui-scroll">
-			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-				<a class="mui-control-item mui-active" href="#item1">全部</a>
-				<a class="mui-control-item" href="#item2">待付款</a>
-				<a class="mui-control-item" href="#item3">待发货</a>
-				<a class="mui-control-item" href="#item4">待收货</a>
-			</div>
-			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-3"></div>
-			<div class="mui-slider-group">
-				<div id="item1" class="mui-slider-item mui-control-content mui-active">
-					<ul class="mui-table-view " >
-						<li class="mui-table-view-cell" style="background: #fff;">
-							<div class="list-son">
-								<p class="status"><span style="color: #FB6F18;">交易成功</span></p>
-								<div class="list-son-show" >
-									<div class="img">
-										<img src="picture/carimg.png" >
-									</div>
-									<div class="atc">
-										<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
-									</div>
-									<div class="price " >
-										<span>￥1.80</span><br>
-										<p style="text-align:right ">&times;1</p>
-									</div>
-									<div class="foot" >
-										<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
-									</div>
-								</div>
-								<div class="list-son-del">
-									<button type="button" class="mui-btn">删除订单</button>
-								</div>
-							</div>
-						</li>
-						<li class="mui-table-view-cell" style="background: #fff;">
-							<div class="list-son">
-								<p class="status"><span style="color: #FB6F18;">交易成功</span></p>
-								<div class="list-son-show" >
-									<div class="img">
-										<img src="picture/carimg.png" >
-									</div>
-									<div class="atc">
-										<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
-									</div>
-									<div class="price " >
-										<span>￥1.80</span><br>
-										<p style="text-align:right ">&times;1</p>
-									</div>
-									<div class="foot" >
-										<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
-									</div>
-								</div>
-								<div class="list-son-del">
-									<button type="button" class="mui-btn">删除订单</button>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-				<div id="item2" class="mui-slider-item mui-control-content">
-					<ul class="mui-table-view">
-						<li class="mui-table-view-cell" style="background: #fff;">
-							<div class="list-son">
-								<p class="status"><span style="color: #FB6F18;">交易成功</span></p>
-								<div class="list-son-show" >
-									<div class="img">
-										<img src="picture/carimg.png" >
-									</div>
-									<div class="atc">
-										<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
-									</div>
-									<div class="price " >
-										<span>￥1.80</span><br>
-										<p style="text-align:right ">&times;1</p>
-									</div>
-									<div class="foot" >
-										<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
-									</div>
-								</div>
-								<div class="list-son-del">
-									<button type="button" class="mui-btn">删除订单</button>
-								</div>
-							</div>
-						</li>
-						
-					</ul>
-				</div>
-				<div id="item3" class="mui-slider-item mui-control-content">
-					<ul class="mui-table-view">
-						<li class="mui-table-view-cell" style="background: #fff;">
-							<div class="list-son">
-								<p class="status"><span style="color: #FB6F18;">交易成功</span></p>
-								<div class="list-son-show" >
-									<div class="img">
-										<img src="picture/carimg.png" >
-									</div>
-									<div class="atc">
-										<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
-									</div>
-									<div class="price " >
-										<span>￥1.80</span><br>
-										<p style="text-align:right ">&times;1</p>
-									</div>
-									<div class="foot" >
-										<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
-									</div>
-								</div>
-								<div class="list-son-del">
-									<button type="button" class="mui-btn">删除订单</button>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-				<div id="item4" class="mui-slider-item mui-control-content">
-					<ul class="mui-table-view">
-						<li class="mui-table-view-cell" style="background: #fff;">
-							<div class="list-son">
-								<p class="status"><span style="color: #FB6F18;">交易成功</span></p>
-								<div class="list-son-show" >
-									<div class="img">
-										<img  src="picture/03.png" >
-									</div>
-									<div class="atc">
-										<span >mysql数据库视屏教程分mysql数据库视屏教程分</span>
-									</div>
-									<div class="price " >
-										<span>￥1.80</span><br>
-										<p style="text-align:right ">&times;1</p>
-									</div>
-									<div class="foot" >
-										<span>共<span>1</span>件商品 合计：￥<span>1.80</span></span>
-									</div>
-								</div>
-								<div class="list-son-del">
-									<button type="button" class="mui-btn">删除订单</button>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
+
+	<div class="" style="margin-top: 44px;">
+		<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background: #efeff4;position: fixed;width: 100%;top: 44px;z-index: 100;">
+			<a class="mui-control-item mui-active" href="#item1">全部</a>
+			<a class="mui-control-item" href="#item2">待付款</a>
+			<a class="mui-control-item" href="#item3">待发货</a>
+			<a class="mui-control-item" href="#item4">待收货</a>
 		</div>
+		<!-- <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-3"></div> -->
+		<div class="mui-slider-group" style="margin-top: 84px;">
+			<div id="item1" class="mui-slider-item mui-control-content mui-active">
+				<!-- 完成订单 -->
+				<div class="item-block product-info" v-for="orderlist in orderlists" @tap='orderInfo(orderlist)'>
+					<div class="con-tit">
+						<span class="count"><!---->订单: {{orderlist.ordersn}}</span> 
+						<span class="status-txt fr" v-if="orderlist.status==-1">交易关闭</span>
+						<span class="status-txt off fr" v-if="orderlist.status==0">待付款</span>
+						<span class="status-txt off fr" v-if="orderlist.status==1">待发货</span>
+						<span class="status-txt off fr" v-if="orderlist.status==2">待收货</span>
+						<span class="status-txt off fr" v-if="orderlist.status==3">交易完成</span>
+					</div> 
+					<div class="delivery-con">
+						<ul>
+							<li v-for="good in orderlist.goods">
+								<a href="javascript:void(0);" class="flex">
+									<div class="picture">
+										<img :src="good.img">
+									</div> 
+									<div class="info-centent flex">
+										<p class="name">{{good.goodsname}}</p> 
+										<!-- <p class="description">黑色</p> -->
+										<p class="count">
+											<span v-if="orderlist.type==3">￥{{good.money}}</span> 
+											<span v-if="orderlist.type==2">{{good.money}}积分</span> 
+											<span v-if="orderlist.type==1">{{good.money}}金铢</span> 
+											X{{good.number}}
+										</p>
+									</div>
+								</a> <!---->
+							</li>
+						</ul>
+					</div> 
+					<div class="all-price">
+						<!-- <div class="infos">
+							<p>商品总价
+								<span v-if="orderlist.type==3" class="fr">￥{{orderlist.money}}</span> 
+								<span v-if="orderlist.type==2" class="fr">{{orderlist.money}}积分</span> 
+								<span v-if="orderlist.type==1" class="fr">{{orderlist.money}}金铢</span>
+							</p> 
+							<p class="deb" style="display: none;">优惠 <span class="fr">-￥0.00</span></p> 
+							<p class="deb" style="display: none;">积分抵扣 <span class="fr">-￥0.00</span></p>
+						</div> -->
+						<div class="all-count">实付款 
+								<span v-if="orderlist.type==3" class="fr">￥{{orderlist.money}}</span> 
+								<span v-if="orderlist.type==2" class="fr">{{orderlist.money}}积分</span> 
+								<span v-if="orderlist.type==1" class="fr">{{orderlist.money}}金铢</span>
+						</div> 
+						<div class="order-con-btn">
+							<a href="javascript:void(0);" class="payment" v-if="orderlist.status==0">立即付款</a>
+							<a href="javascript:void(0);" class="payment" v-if="orderlist.status==2">立即收货</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="item2" class="mui-slider-item mui-control-content">
+				<div class="item-block product-info" v-for="orderlist in orderlists" v-if="orderlist.status==0"  @tap='orderInfo(orderlist)'>
+					<div class="con-tit">
+						<span class="count"><!---->订单: {{orderlist.ordersn}}</span> 
+						<span class="status-txt off fr" v-if="orderlist.status==0">待付款</span>
+					</div> 
+					<div class="delivery-con">
+						<ul>
+							<li v-for="good in orderlist.goods">
+								<a href="javascript:void(0);" class="flex">
+									<div class="picture">
+										<img :src="good.img">
+									</div> 
+									<div class="info-centent flex">
+										<p class="name">{{good.goodsname}}</p> 
+										<!-- <p class="description">黑色</p> -->
+										<p class="count">
+											<span v-if="orderlist.type==3">￥{{good.money}}</span> 
+											<span v-if="orderlist.type==2">{{good.money}}积分</span> 
+											<span v-if="orderlist.type==1">{{good.money}}金铢</span> 
+											X{{good.number}}
+										</p>
+									</div>
+								</a> <!---->
+							</li>
+						</ul>
+					</div> 
+					<div class="all-price">
+						<div class="infos"><!----> 
+							<p>商品总价
+								<span v-if="orderlist.type==3" class="fr">￥{{orderlist.money}}</span> 
+								<span v-if="orderlist.type==2" class="fr">{{orderlist.money}}积分</span> 
+								<span v-if="orderlist.type==1" class="fr">{{orderlist.money}}金铢</span>
+							</p> 
+							<!-- <p class="deb" style="display: none;">优惠 <span class="fr">-￥0.00</span></p> 
+							<p class="deb" style="display: none;">积分抵扣 <span class="fr">-￥0.00</span></p> -->
+						</div> 
+						<div class="all-count">实付款 
+								<span v-if="orderlist.type==3" class="fr">￥{{orderlist.money}}</span> 
+								<span v-if="orderlist.type==2" class="fr">{{orderlist.money}}积分</span> 
+								<span v-if="orderlist.type==1" class="fr">{{orderlist.money}}金铢</span>
+						</div> 
+						<div class="order-con-btn">
+							<a href="javascript:void(0);" class="payment" v-if="orderlist.status==0">立即付款</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="item3" class="mui-slider-item mui-control-content">
+				<!-- 完成订单 -->
+				<div class="item-block product-info" v-for="orderlist in orderlists"  v-if="orderlist.status==1"  @tap='orderInfo(orderlist)'>
+					<div class="con-tit">
+						<span class="count"><!---->订单: {{orderlist.ordersn}}</span> 
+						<span class="status-txt off fr" v-if="orderlist.status==1">待发货</span>
+					</div> 
+					<div class="delivery-con">
+						<ul>
+							<li v-for="good in orderlist.goods">
+								<a href="javascript:void(0);" class="flex">
+									<div class="picture">
+										<img :src="good.img">
+									</div> 
+									<div class="info-centent flex">
+										<p class="name">{{good.goodsname}}</p> 
+										<!-- <p class="description">黑色</p> -->
+										<p class="count">
+											<span v-if="orderlist.type==3">￥{{good.money}}</span> 
+											<span v-if="orderlist.type==2">{{good.money}}积分</span> 
+											<span v-if="orderlist.type==1">{{good.money}}金铢</span> 
+											X{{good.number}}
+										</p>
+									</div>
+								</a> <!---->
+							</li>
+						</ul>
+					</div> 
+					<div class="all-price">
+						<div class="infos"><!----> 
+							<p>商品总价
+								<span v-if="orderlist.type==3" class="fr">￥{{orderlist.money}}</span> 
+								<span v-if="orderlist.type==2" class="fr">{{orderlist.money}}积分</span> 
+								<span v-if="orderlist.type==1" class="fr">{{orderlist.money}}金铢</span>
+							</p> 
+							<!-- <p class="deb" style="display: none;">优惠 <span class="fr">-￥0.00</span></p> 
+							<p class="deb" style="display: none;">积分抵扣 <span class="fr">-￥0.00</span></p> -->
+						</div> 
+						<div class="all-count">实付款 
+								<span v-if="orderlist.type==3" class="fr">￥{{orderlist.money}}</span> 
+								<span v-if="orderlist.type==2" class="fr">{{orderlist.money}}积分</span> 
+								<span v-if="orderlist.type==1" class="fr">{{orderlist.money}}金铢</span>
+						</div> 
+						<div class="order-con-btn">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="item4" class="mui-slider-item mui-control-content">
+				<div class="item-block product-info" v-for="orderlist in orderlists" v-if="orderlist.status==2"  @tap='orderInfo(orderlist)'>
+					<div class="con-tit">
+						<span class="count"><!---->订单: {{orderlist.ordersn}}</span> 
+						<span class="status-txt off fr" v-if="orderlist.status==2">待收货</span>
+					</div> 
+					<div class="delivery-con">
+						<ul>
+							<li v-for="good in orderlist.goods">
+								<a href="javascript:void(0);" class="flex">
+									<div class="picture">
+										<img :src="good.img">
+									</div> 
+									<div class="info-centent flex">
+										<p class="name">{{good.goodsname}}</p> 
+										<!-- <p class="description">黑色</p> -->
+										<p class="count">
+											<span v-if="orderlist.type==3">￥{{good.money}}</span> 
+											<span v-if="orderlist.type==2">{{good.money}}积分</span> 
+											<span v-if="orderlist.type==1">{{good.money}}金铢</span> 
+											X{{good.number}}
+										</p>
+									</div>
+								</a> <!---->
+							</li>
+						</ul>
+					</div> 
+					<div class="all-price">
+						<div class="infos"><!----> 
+							<p>商品总价
+								<span v-if="orderlist.type==3" class="fr">￥{{orderlist.money}}</span> 
+								<span v-if="orderlist.type==2" class="fr">{{orderlist.money}}积分</span> 
+								<span v-if="orderlist.type==1" class="fr">{{orderlist.money}}金铢</span>
+							</p> 
+							<!-- <p class="deb" style="display: none;">优惠 <span class="fr">-￥0.00</span></p> 
+							<p class="deb" style="display: none;">积分抵扣 <span class="fr">-￥0.00</span></p> -->
+						</div> 
+						<div class="all-count">实付款 
+								<span v-if="orderlist.type==3" class="fr">￥{{orderlist.money}}</span> 
+								<span v-if="orderlist.type==2" class="fr">{{orderlist.money}}积分</span> 
+								<span v-if="orderlist.type==1" class="fr">{{orderlist.money}}金铢</span>
+						</div> 
+						<div class="order-con-btn">
+							<a href="javascript:void(0);" class="payment" v-if="orderlist.status==2">立即收货</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
 	</div>
-	<script type="text/javascript">
-		mui.init();
-		mui.plusReady(function() {
-			afterOpenView();
-		})
-	</script>
+</div>
+<script type="text/javascript">
+	(function($, doc) {
+		var app = new Vue({
+			el: '#pullrefresh',
+			data: function() {
+				return {
+					page:1,
+					orderlists:[],
+				}
+			},
+			mounted: function(){
+				this._init();
+			},
+			methods: {
+				_init: function(){
+					var that = this;
+					$.plusReady(function() {
+						that.loadData();
+					})
+				},
+				loadData:function(type){
+					var type = type || 0;
+					var url=postUrl+"Home/order/orderList.html";
+					var that = this;
+					
+					if(type==0){
+						that.page=1;
+					}else{
+						that.page++;
+					}
+					
+					var postData = {
+						// "page":that.page,
+						'status': 5,
+					};
+					diyAjax(url,postData,function(result){
+						console.log("获取订单列表");
+						if(result.code==1){
+							if(type==0){
+								that.orderlists = result.data;
+								if(that.orderlists.length==0){
+									
+								}
+								appPage.endPullRefresh();
+							}else{
+								that.orderlists = that.orderlists.concat(result['data']);
+								if(result.data.length<pagenum){
+									appPage.endPullRefresh(true);
+								}
+								mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+							}
+							afterOpenView();	
+						}else{	
+							showMessage(result.msg);
+							
+							appPage.endPullRefresh();
+							mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+						}
+						
+					},function(xhr){
+						console.log("失败"+JSON.stringify(xhr));
+					}) 
+				},
+				pulldownRefresh: function(){
+					this.loadData();
+				},
+				pullupRefresh: function(){
+					this.loadData(1);
+				},
+				orderInfo:function(orderlist){
+					beforeOpenView("orderinfo.html","orderinfo.html",{data:orderlist})
+				}
+			}
+		});
+		$.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: { //下拉刷新
+					callback: app.pulldownRefresh,
+					style: $.os.android ? "circle" : "default"
+				},
+				up: {
+					contentinit: '',
+					contentrefresh: '正在加载...',
+					contentnomore:'没有更多了',
+					callback: app.pullupRefresh
+				}
+			}
+		});
+	}(mui, document))
+</script>
 </body>
 </html>

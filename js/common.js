@@ -6,7 +6,6 @@ var postUrl="http://api.tongwujie.cn/",
 	// appkey=1;
 //登录验证
 loginRequired = function(callback){
-	log(getToken());
 	if(!getLoginStorage('$UserInfo')){
 		openView('login.html', 'login.html');
 	}else{

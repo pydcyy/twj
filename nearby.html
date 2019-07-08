@@ -135,8 +135,6 @@
 					p.coords.latitude = newcoords[1];
 				}
 				
-
-				
 				log(mklog() + "【当前位置】:" + p.coords.longitude + "|" + p.coords.latitude)
 				
 				//将用户当前位置存入storage
@@ -151,8 +149,7 @@
 				//地图图块加载完毕
 				mapObj.on('complete', function() {
 					appUI.closeWaiting();
-					log(mklog() + "地图图块加载完毕！当前地图中心点为：" + mapObj.getCenter())
-					log(p);
+					log(mklog() + "地图图块加载完毕！当前地图中心点为：" + mapObj.getCenter());
 					//获取当前城市数据
 					// gdMap.getCurrentCity(function(city) {
 						var city = " ";
@@ -291,52 +288,56 @@
 // 			},function(r) {
 			var posturl=postUrl+"Home/member/storelatlng.html";
 			var postData = {};
-			postData['lon'] = storageLocation.Lon;
-			postData['lat'] = storageLocation.Lat;
-
 			
+			postData['lon'] = localStorage.getItem("longitude");
+			postData['lat'] = localStorage.getItem("latitude");
 			diyAjax(posturl,postData,function(r){
-				mapObj.remove(markers);
-				markers=[];
-				mui.each(r.data, function(j, k) {
-					
-					var markerPosition = JSON.parse('[' + k.lon + ',' + k.lat + ']');
-// 					var Shopstatus=0;
-// 					if(k.IsHaveMatch=='Y')Shopstatus=1;
-					var iconUrl = "images/amp-mk0.svg";
-					var marker = new AMap.Marker({
-						position: markerPosition,
-						"content": "<div class='experience-image'>" +
-							// "<span class='map-icon-url' data_name='" + k.name+ "' style='position:absolute;border-radius:6px ;width:90px;height:20px;text-align: center;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;font-size:12px;color:#666;left:50%;bottom:50px;margin-left:-45px;border-radio:25%;background: #fff;'>"+k.name+"</span>" +
-							//"<img class='shopIcon' src='" + iconUrl + "'/>"+
-							"<i class='shopIcon1' style='background: url("+k.img+");background-size:cover;'>"+
-							
-							"</i>"+
-							"</div>",
-						"extData": {
-							"id": k.id,
-							"name": k.name,
-							"ImgUrl":k.img,
-							"mobile":k.mobile,
-							"address":k.place,
-							"Lon":k.lon,
-							"Lat":k.lat,
-							"projects":k.projects,
-
-
-							//"designerId": k.designerId
-						},
+				if(r.code==1){
+					mapObj.remove(markers);
+					markers=[];
+					mui.each(r.data, function(j, k) {
+						
+						var markerPosition = JSON.parse('[' + k.lon + ',' + k.lat + ']');
+	// 					var Shopstatus=0;
+	// 					if(k.IsHaveMatch=='Y')Shopstatus=1;
+						var iconUrl = "images/amp-mk0.svg";
+						var marker = new AMap.Marker({
+							position: markerPosition,
+							"content": "<div class='experience-image'>" +
+								// "<span class='map-icon-url' data_name='" + k.name+ "' style='position:absolute;border-radius:6px ;width:90px;height:20px;text-align: center;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;font-size:12px;color:#666;left:50%;bottom:50px;margin-left:-45px;border-radio:25%;background: #fff;'>"+k.name+"</span>" +
+								//"<img class='shopIcon' src='" + iconUrl + "'/>"+
+								"<i class='shopIcon1' style='background: url("+k.img+");background-size:cover;'>"+
+								
+								"</i>"+
+								"</div>",
+							"extData": {
+								"id": k.id,
+								"name": k.name,
+								"ImgUrl":k.img,
+								"mobile":k.mobile,
+								"address":k.place,
+								"Lon":k.lon,
+								"Lat":k.lat,
+								"projects":k.projects,
 	
-					}) //marker end
 	
-					markers.push(marker);
-	
-				})
-	
-				if(markers.length) {
-					log(mklog() + '【debug】点数量:' + markers.length)
-					gdMap.addClusterToMap(markers) //执行一次
+								//"designerId": k.designerId
+							},
+		
+						}) //marker end
+		
+						markers.push(marker);
+		
+					})
+		
+					if(markers.length) {
+						log(mklog() + '【debug】点数量:' + markers.length)
+						gdMap.addClusterToMap(markers) //执行一次
+					}
+				}else{
+					showMessage(r.msg);
 				}
+				
 			}) //request end
 		},
 		setMarkersBySearchResult: function(dataParm) {

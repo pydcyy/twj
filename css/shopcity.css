@@ -151,10 +151,10 @@
 	font-size: 12px;
 }
 .price-select {
-    z-index: 50;
     position: fixed;
 	top: 44px;
     width: 100%;
+	z-index: 20;
     background-color: #fff;
     border-bottom: 1px solid #eee;
 	display: flex;
@@ -195,8 +195,7 @@
     vertical-align: -4px;
 }
 .layout-vertical.on span {
-<<<<<<< HEAD
-    background-position: 0 -61px;
+    background-position: 0 -63px;
 }
 .price-select .item.on{
 	/* background: #efeff4;
@@ -209,8 +208,7 @@
     background-position: -100px 0;
 }
 .price-select .item.selected-up .icon {
-    /* background-position: -150px 0; */
-    background-position: 0 -62.5px;
+    background-position: -150px 0;
 }
 .vertical .p-content{
 	padding: 10px 0;
@@ -220,13 +218,16 @@
 	display: flex;
 	flex-direction:row;
 }
-
+.vertical li{
+	width: 100%;
+}
 .vertical li .imgsize{
 	float: left;
 	width: 100px;
 	height: 100px;
 	flex-shrink:0;
 }
+
 .vertical .p-content-title{
 	padding-left: 10px;
 	float: left;
@@ -237,4 +238,152 @@
 	bottom: 0px;
 	right: 0px;
 	padding-left: 120px;
+}
+
+.model-bg.on {
+    z-index: 50;
+    background-color: rgba(0,0,0,.65);
+    -webkit-transition: all 50ms ease;
+    transition: all 50ms ease;
+}
+.model-bg {
+    z-index: -1;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0);
+    -webkit-backdrop-filter: blur(10px);
+}
+.card-model.up {
+    /* -webkit-transform: translate3d(0,0,0); */
+    transform: translate3d(0,0,0);
+}
+.card-model {
+    z-index: 999;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: #fff;
+    width: 100%;
+    -webkit-transform: translate3d(0,110%,0);
+    transform: translate3d(0,110%,0);
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+}
+.card-model .cm-header {
+    position: relative;
+    margin: 0 13px;
+}
+.card-model .cm-header .header-product {
+    position: absolute;
+    left: -2.5px;
+    top: -19px;
+    width: 113px;
+    height: 113px;
+    padding: 5px;
+    overflow: hidden;
+    border-radius: 5px;
+    background-color: #fff;
+    -webkit-box-shadow: 2px 2px 1px #e4e4e4;
+    box-shadow: 2px 2px 1px #e4e4e4;
+}
+.card-model .cm-header .header-product img {
+    width: 100%;
+    height: 100%;
+}
+.card-model .cm-header .header-info {
+    padding: 14px 0 0 131px;
+    font-size: 14px;
+    color: #666;
+    height: 107px;
+}
+.card-model .cm-header .header-info .money {
+    font-size: 18px;
+    color: #d2303a;
+}
+.header-info i{
+	font-style: normal;
+}
+.card-model .cm-header .header-info .stock {
+    display: block;
+    margin: 12px 0;
+}
+.amount {
+    margin: 19px 12px 0;
+	overflow: hidden;
+}
+.amount .text {
+    line-height: 40px;
+	float: left;
+}
+.amount .count {
+    width: 158px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    border: 1px solid #b5b5b5;
+    border-radius: 3px;
+    height: 40px;
+    line-height: 40px;
+	float: right;
+}
+.amount .count div {
+    display: block;
+    width: 40px;
+	line-height: 36px;
+    text-align: center;
+    font-size: 22px;
+    color: #999;
+    cursor: pointer;
+}
+.amount .count input {
+	height: 38px;
+	line-height: 38px;
+    width: 77px;
+    text-align: center;
+    border: 1px solid #b5b5b5;
+    border-top: 0;
+    border-bottom: 0;
+    color: #666;
+    border-radius: 0;
+	padding: 0 15px;
+
+}
+.card-model .model-footer {
+    width: 100%;
+    display: -webkit-flex;
+    display: flex;
+    margin-top: 25px;
+}
+.card-model .model-footer .footer-car {
+    background-image: linear-gradient(to right,#ffca00,#ff9502);
+}
+.card-model .model-footer a {
+    display: block;
+    -webkit-flex: 1;
+    flex: 1;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    color: #fff;
+}
+.card-model .model-footer .footer-buy {
+    background-image: linear-gradient(to right,#ff7000,#fc4b1a);
+}
+.card-model .model-footer .footer-buy.no, .card-model .model-footer .footer-car.no {
+    background-color: #ccc;
+    background-image: initial;
+}
+.card-model .model-close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 25px;
+    height: 25px;
+    background-image: url(../picture/model-close.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 }

@@ -20,13 +20,13 @@
 			} 
 		</style>
 	</head>
-	<body>
+	<body style="min-height: 100%;">
 		<div class="mui-content mui-scroll-wrapper" id="pullrefresh" v-cloak>
 			<header class="mui-bar mui-bar-nav">
 				<div class="mui-input-row mui-search">
 					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="addaddress" onclick="goback()"></a>
 					<h1 class="mui-title" style="right: 40px;left: 40px;">
-						<input type="text" class="mui-input" placeholder="搜索商品" v-model="search.keyword" style="height: 35px;line-height:40px;color:#000;border-radius: 20px;border: none;">
+						<input id="search" type="text" class="mui-input" placeholder="搜索商品" v-model="keyword" style="height: 35px;line-height:40px;color:#000;border-radius: 20px;border: none;">
 					</h1>
 					<a class="mui-icon mui-icon-search mui-pull-right"></a>
 				</div>
@@ -39,7 +39,10 @@
 					<span></span>
 				</div>
 			</div>
-			<div class="mui-slider mui-scroll"  style="margin-top: 94px;">
+			<div class="nosta" v-if="goods.length==0">
+				<img src="picture/nosta.png" alt="">
+			</div>
+			<div class="mui-slider mui-scroll"  style="margin-top: 94px;">	
 				<div class="mui-slider-group" id="contentbar">
 					<div id="item1" class="contentbarson mui-slider-item mui-control-content ">
 						<div class="mui-table-view">
@@ -47,7 +50,7 @@
 								<ul>
 									<li v-for="good in goods">
 										<div class="p-content">
-											<div>
+											<div class="imgsize">
 												<img :src="good.img">
 											</div>
 											<div class="p-content-title">
@@ -57,10 +60,11 @@
 												<span class="pull-l" v-if="search.shop==3">￥{{good.moneyprice}}</span>
 												<span class="pull-l" v-if="search.shop==2">{{good.integralprice}}积分</span>
 												<span class="pull-l" v-if="search.shop==1">{{good.goldprice}}金铢</span>
-												<span class="pull-r"><span class="mui-icon mui-icon-extra mui-icon-extra-cart" :data-goodsid="good.id"></span></span>
+												<span class="pull-r" @tap="shopCard(good)"><span class="mui-icon mui-icon-extra mui-icon-extra-cart" :data-goodsid="good.id"></span></span>
 											</div>
 										</div>
 									</li>
+
 								</ul>
 							</div>
 						</div>
@@ -69,6 +73,40 @@
 				</div>			
 			</div>
 			<a style="display:none;" href="javascript:;"  id="gotop"  title="回到顶部"></a>
+			<div class="shop-card">
+				<div class="model-bg" :class="{on:gooddetail.show ==true}"></div>
+				<div class="card-model" :class="{up:gooddetail.show ==true}">
+					<div class="cm-header">
+						<div class="header-product">
+							<img :src="gooddetail.img">
+						</div>
+						<div class="header-info">
+							<p class="money" v-if="search.shop==3">￥<i>{{gooddetail.moneyprice}}</i></p>
+							<p class="money" v-if="search.shop==2"><i>{{gooddetail.integralprice}}</i>积分</p>
+							<p class="money" v-if="search.shop==1"><i>{{gooddetail.goldprice}}</i>金铢</p>
+							<span class="stock">库存<i>{{gooddetail.housenum}}</i>件</span>
+						</div>
+					</div>
+					<div id="selects-wrapper" class="selects-info" style="display: none;">
+						<div class="scroll">
+						</div>
+					</div>
+					<div class="amount clearfix">
+						<div class="text fl">购买数量</div>
+						<div class="count fr">
+							<div @tap="reduce()" :disabled="gooddetail.actionnum === 1">-</div>
+							<input type="number" readonly="readonly"  :value="gooddetail.actionnum">
+							<div @tap="add()" :disabled="gooddetail.actionnum === gooddetail.housenum">+</div>
+						</div>
+					</div>
+					<div class="model-footer">
+						<a href="javascript:void(0);" class="footer-car" @tap="addCar()">加入购物车</a>
+						<a href="javascript:void(0);" class="footer-buy" style=""  @tap="buynow()">立即购买</a>
+						<!-- <a href="javascript:void(0);" class="footer-buy no">无货</a> -->
+					</div>
+					<div class="model-close" @tap="closeShopCard"></div>
+				</div>
+			</div>
 		</div>
 		
 		<script type="text/javascript">
@@ -88,12 +126,23 @@
 								priceOrder:'',
 								salesOrder:'',
 								news:0,
-								keyword:''
 							},
+							keyword:'',
 							loaded:false,
 							pageParam:{
 								page:1,
 								loaded:false
+							},
+							gooddetail:{
+								show:false,
+								gid:'',
+								name:'',
+								img:'',
+								moneyprice:'',
+								integralprice:'',
+								goldprice:'',
+								housenum:10,
+								actionnum:1,
 							}
 						}
 					},
@@ -115,8 +164,49 @@
 							$.plusReady(function() {							
 								toTop();
 								that.loadData();
+								
+								document.getElementById("search").addEventListener("keypress",function(event) {
+									if(event.keyCode == "13") {
+										document.activeElement.blur();//收起虚拟键盘
+										that.loadData();
+										event.preventDefault(); // 阻止默认事件---阻止页面刷新
+									}
+								});
+								
                                 afterOpenView();
 							})
+						},
+						addCar: function() {
+							showMessage('开发购物车接口');
+						},
+						buynow:function(){
+							beforeOpenView("confirm.html","confirm.html",{data:this.gooddetail});
+						},
+						reduce: function() {
+							//再次判断 reduce 减法的可靠性
+							if (this.gooddetail.actionnum === 1) return;
+							this.gooddetail.actionnum--;
+						},
+						add: function() {
+							if (this.gooddetail.actionnum === this.gooddetail.housenum) return;
+							this.gooddetail.actionnum++;
+						},
+						shopCard:function(good){
+							var that = this;
+ 							plus.nativeUI.showWaiting();						
+							that.gooddetail.gid=good.id;
+							that.gooddetail.img=good.img;
+							that.gooddetail.name=good.goodsname;
+							that.gooddetail.moneyprice=good.moneyprice;
+							that.gooddetail.integralprice=good.integralprice;
+							that.gooddetail.goldprice=good.goldprice;
+							that.gooddetail.housenum=10;
+
+							that.gooddetail.show = true;
+							plus.nativeUI.closeWaiting();
+						},
+						closeShopCard:function(){
+							this.gooddetail.show = false;
 						},
 						changeDefault:function () {
 							this.search.salesOrder = '';
@@ -147,8 +237,8 @@
 						pullupRefresh: function(){
 							this.loadData(1);
 						},
-						loadData: function(type=0) {
-							
+						loadData: function(type) {
+							var type = type || 0;
 // 							if(this.loading) return;
 							var that = this;
 // 								pageParam = that.pageParam;
@@ -165,17 +255,19 @@
 								goodsid:0,
 								sellnumorder:this.search.priceOrder || 0,
 								pricenumorder:this.search.salesOrder || 0,
-								keyword:this.search.keyword || " ",
+								keyword:this.keyword || " ",
 								catg3:appPage.getParam("cid"),
 								page:this.pageParam.page,
 							};
 							
-							log(postData);
 							diyAjax(url,postData,function(result){
 								console.log("获取商品信息");
 								if(result.code == 1){
 									if(type==0){
 										that.goods = result['data'];
+										if(that.goods.length==0){
+											
+										}
 										appPage.endPullRefresh();
 									}else{
 										that.goods = that.goods.concat(result['data']);
@@ -186,6 +278,11 @@
 									}
 									
 									afterOpenView();
+								}else{	
+									showMessage(result.msg);
+									
+									appPage.endPullRefresh();
+									mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
 								}
 							},function(xhr){
 								console.log("失败"+JSON.stringify(xhr));

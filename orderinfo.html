@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>确认订单</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="css/mui.min.css"/>
+	<link rel="stylesheet" href="css/mynb.cn.css" />
+	<link rel="stylesheet" href="css/app.css" />
+	<link rel="stylesheet" href="css/confirm.css" />
+	<link rel="stylesheet" href="css/shopcity.css" />
+	<link rel="stylesheet" href="css/mui-icons-extra.css" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/lib/artTemplate.js"></script>
+	<script type="text/javascript" src="js/lib/common.js"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<header class="mui-bar mui-bar-nav">
+			<div class="mui-input-row mui-search">
+				<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()" style="color: #fff;"></a>
+				<h1 class="mui-title" >
+					订单详情
+				</h1>
+			</div>
+		</header>
+		<div style="margin-top: 44px;">
+			<div class="coc-header send clearfix">
+				<div class="logistics-state state-nfh fl"></div> 
+				<div class="logistics-info fr">
+					<div class="logistics-info-txt">
+						<p>未发货</p> 
+						<span>商家未发货,请耐心等待</span>
+					</div>
+				</div>
+			</div>
+			<div class="coc-header send clearfix"><div class="logistics-state state-ysh fl"></div> <div class="logistics-info fr"><div class="logistics-info-txt"><p>待收货</p> <span>01月01日08时00分服务商已发货</span></div></div></div>
+			<div class="coc-header send clearfix"><div class="logistics-state state-ytk fl"></div> <div class="logistics-info fr"><div class="logistics-info-txt"><p>交易完成</p> <span>交易完成,感谢您的支持</span></div></div></div>
+			<div class="address item-block" style="padding: 0;">
+				<div class="list-son " style="width: 100%;">
+					<div class="list-son-show">
+						<div class="img">
+							<span class="fa fa-map"></span>
+						</div>
+						<div class="atc">
+							<p>
+								<span class="cname">111111</span>
+								<span>222222</span>
+							</p>
+							<span >333333</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="item-block product-info">
+				<div class="con-tit">产品信息</div> 
+				<div class="delivery-con">
+					<ul>
+						<li>
+							<a href="javascript:void(0);" class="flex">
+								<div class="picture">
+									<img src="http://datong.crmeb.net/public/uploads/attach/2019/01/15/5c3dba1366885.jpg">
+								</div> 
+								<div class="info-centent flex">
+									<p class="name">无线吸尘器F8 玫瑰金礼盒版</p> 
+									<p class="description">黑色</p> 
+									<p class="count">
+										<span>￥0.01</span> X1
+									</p>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div> 
+				<div class="all-price">
+					<div class="infos">
+						<p>商品总价 <span class="fr">￥0.01</span></p>
+					</div> 
+					<div class="all-count">实付款 <span class="fr">￥0.01</span>
+					</div>
+				</div>
+			</div>
+			<div class="item-block delivery-infos">
+				<div class="con-tit">订单信息</div> 
+				<div class="delivery-con">
+					<ul>
+						<li>订单编号：wx2019070715202710002</li> 
+						<li>下单时间：2019-07-07 15:20</li> 
+						<li>支付方式：余额支付</li> 
+						<li>支付状态：已支付</li> 
+						<li>支付时间：2019-07-07 15:20</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="order-con-btn">
+			<a href="javascript:void(0);" class="payment">立即付款</a>
+		</div>
+	</div>
+	<script type="text/javascript">
+		(function($, doc) {
+			var app = new Vue({
+				el: '#app',
+				data: function() {
+					return {
+						shop:getShop(),
+						goods:[],
+						addressdetail:{
+							index:0,
+							address:[],
+							show:false
+						}
+					}
+				},
+				mounted: function(){
+					this._init();
+				},
+				methods: {
+					_init: function(){
+						var that = this;
+						$.plusReady(function() {
+							
+							// 加载收货地址
+							//that.loadData();
+							afterOpenView();
+						})
+					},
+					submitOrder:function(){
+						var url=postUrl+"Home/order/submitOrder.html";
+						var postData = {
+							'goodsid': this.goods[0].id,
+							'number':this.goods[0].num,
+							'shop':this.shop,
+							'addressid':this.addressdetail.address[this.addressdetail.index]['aid'],
+						};
+						
+						diyAjax(url,postData,function(result){
+							console.log("提交订单");
+							showMessage(result.msg);
+							if(result.code==1){
+								var orderid=result.data.orderid;
+								showMessage("跳转"+orderid);
+								return;
+								beforeOpenView('data','data',{orderid:orderid});
+							}
+							
+						},function(xhr){
+							console.log("失败"+JSON.stringify(xhr));
+						}) 
+					},
+					loadData:function(){
+						var data = appPage.getParam('data');
+						var price = '';
+						if(shop==3){
+							price = data["moneyprice"];
+						}else if(shop==2){
+							price = data["integralprice"];
+						}else{
+							price = data["goldprice"];
+						}
+						
+						var newgoods = [{
+							id:data["gid"],
+							img:data["img"],
+							name:data["name"],
+							price:price,
+							num:data["actionnum"]
+						}]
+						
+						
+						for(var i=0;i<newgoods.length;i++){
+							newgoods[i]['total'] = parseInt(newgoods[i]['price']*newgoods[i]['num']*100)/100;
+						}
+						this.goods=newgoods;
+						
+						
+					}
+				}
+			});
+			$.init({
+
+			});
+		}(mui, document))
+	</script>
+</body>
+</html>

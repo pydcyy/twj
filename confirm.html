@@ -8,12 +8,14 @@
 	<link rel="stylesheet" href="css/mynb.cn.css" />
 	<link rel="stylesheet" href="css/app.css" />
 	<link rel="stylesheet" href="css/confirm.css" />
+	<link rel="stylesheet" href="css/shopcity.css" />
 	<link rel="stylesheet" href="css/mui-icons-extra.css" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/mui.min.js"></script>
 	<script type="text/javascript" src="js/lib/artTemplate.js"></script>
 	<script type="text/javascript" src="js/lib/common.js"></script>
 	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="js/common.js"></script>
 </head>
 <body>
@@ -26,20 +28,20 @@
 				</h1>
 			</div>
 		</header>
-		<div class="mui-content mui-scroll-wrapper"   >
+		<div class="mui-content mui-scroll-wrapper">
 			<div class="mui-slider mui-scroll">
 				<div class="address">
 					<div class="list-son ">
-						<div class="list-son-show" >
+						<div class="list-son-show" @tap="shopCard()" v-for="item,index in addressdetail.address" v-if="addressdetail.index == index">
 							<div class="img">
 								<span class="fa fa-map"></span>
 							</div>
 							<div class="atc">
 								<p>
-									<span class="cname">张三</span>
-									<span>18888888888</span>
+									<span class="cname">{{item.cname}}</span>
+									<span>{{item.mobile}}</span>
 								</p>
-								<span >安徽省宣城市宣州区</span>
+								<span >{{item.address}}</span>
 							</div>
 						</div>
 						<div class="addresslist" >
@@ -58,11 +60,18 @@
 									<span >{{good.name}}</span>
 								</div>
 								<div class="price " >
-									<span>￥{{good.price}}</span><br>
+									<span v-if="shop==3">￥{{good.price}}</span>
+									<span v-if="shop==2">{{good.price}}积分</span>
+									<span v-if="shop==1">{{good.price}}金铢</span>
 									<p style="text-align:right ">&times;{{good.num}}</p>
 								</div>
-								<div class="foot" >
-									<span>共<span>{{good.num}}</span>件商品 合计：￥<span>{{good.total}}</span></span>
+								<div class="foot">
+									<span>
+										共<span>{{good.num}}</span>件商品 合计：
+										<span v-if="shop==3">￥<span>{{good.total}}</span></span>
+										<span v-if="shop==2"><span>{{good.total}}</span>积分</span>
+										<span v-if="shop==1"><span>{{good.total}}</span>金铢</span>
+									</span>
 								</div>
 							</div>
 						</div>
@@ -84,14 +93,46 @@
 							<div class="total_money">
 								<span class="zongji">共
 									<span class="zongji">{{totalNum}}</span>件
-								</span>合计：<span class="all-price">{{totalPrice}}</span>&nbsp;元</div>
+								</span>合计：
+								<span class="all-price">{{totalPrice}}</span>&nbsp;
+									<span v-if="shop==3">元</span>
+									<span v-if="shop==2">积分</span>
+									<span v-if="shop==1">金铢</span>
+							</div>
 							<p>不含运费</p>
 						</div>
-						<div class="pull-l jsbtn active" >提交订单</div>
+						<div class="pull-l jsbtn active" @tap="submitOrder();">提交订单</div>
 					</div>
 				</div>
 			</div>
 		</nav>
+		<div class="shop-card">
+			<div class="model-bg" :class='{on:addressdetail.show==true}' @tap="closeShopCard()"></div>
+			<div class="card-model addres-select" :class='{up:addressdetail.show==true}'>
+				<div class="cm-header">收货地址</div>
+				<div class="empty" style="display: none;">
+					<!-- <img src="/public/wap/first/crmeb/images/empty_address.png"> -->
+					<p>&nbsp;</p>
+				</div>
+				<div id="selects-wrapper" class="selects-info">
+					<ul>
+						<li @tap="checkaddress(index)" class="flex" v-for="item,index in addressdetail.address" :class="{on:addressdetail.index == index}">
+							<div class="select-icon"></div>
+							<div class="user-info">
+								<p>
+									<span class="name">{{item.cname}}</span> 
+									<span class="tel">{{item.mobile}}</span>
+								</p>
+								<p class="address-info">{{item.address}}</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="model-footer" id="addaddress">
+					<a href="javascript:void(0);" class="footer-buy">添加新地址</a>
+				</div>
+			</div>
+		</div>
 	</div>
 	<script type="text/javascript">
 		(function($, doc) {
@@ -99,7 +140,13 @@
 				el: '#pullrefresh',
 				data: function() {
 					return {
+						shop:getShop(),
 						goods:[],
+						addressdetail:{
+							index:0,
+							address:[],
+							show:false
+						}
 					}
 				},
 				mounted: function(){
@@ -109,82 +156,115 @@
 					totalPrice:function(){
 						var total = 0;
 						this.goods.forEach(function(item, index) {
-							total += item.total;						
-						}) 
-						
+							total += item.total;
+						})
 						return total;
 					},
 					totalNum:function(){
 						var totalnum = 0;
 						this.goods.forEach(function(item, index) {
-							totalnum += parseInt(item.num);						
-						}) 
-						
+							totalnum += parseInt(item.num);
+						})
 						return totalnum;
 					}
 				},
 				methods: {
 					_init: function(){
 						var that = this;
-						$.plusReady(function() {	
+						$.plusReady(function() {
+							
+							mui("body").on("tap", "#addaddress", function() {
+								loginRequired(function(){
+									openView('addaddress.html', 'addaddress.html');
+								})
+							})
+							
+							// 加载收货地址
 							that.loadData();
-							afterOpenView();
+							that.loadAddress();
 						})
 					},
-					pulldownRefresh: function(){
-						appPage.endPullRefresh();
+					checkaddress:function(index){
+						this.addressdetail.index=index;
+						this.addressdetail.show = false;
+					},
+					shopCard:function(){
+						var that = this;
+						plus.nativeUI.showWaiting();						
+						
+						that.addressdetail.show = true;
+						plus.nativeUI.closeWaiting();
+					},
+					closeShopCard:function(){
+						this.addressdetail.show = false;
+					},
+					submitOrder:function(){
+						var url=postUrl+"Home/order/submitOrder.html";
+						var postData = {
+							'goodsid': this.goods[0].id,
+							'number':this.goods[0].num,
+							'shop':this.shop,
+							'addressid':this.addressdetail.address[this.addressdetail.index]['aid'],
+						};
+						
+						diyAjax(url,postData,function(result){
+							console.log("提交订单");
+							showMessage(result.msg);
+							if(result.code==1){
+								var orderid=result.data.orderid;
+								showMessage("跳转"+orderid);
+								return;
+								beforeOpenView('data','data',{orderid:orderid});
+							}
+							
+						},function(xhr){
+							console.log("失败"+JSON.stringify(xhr));
+						}) 
+					},
+					loadAddress:function(){
+						var that = this;
+						addressRequired(function(result){
+							var address=result['data']['address'];
+							for (i = 0; i < address.length; i++) { 
+								address[i]['address'] = getNameByCode(address[i]['cityid'])+" "+address[i]['address'];
+								address[i]['aid'] = address[i]['id'];
+							}
+							that.addressdetail.address=result['data']['address'];
+							afterOpenView();
+						}) 		
 					},
 					loadData:function(){
-						var url = postUrl+"Home/member/user.html";
-						var postData = {};
-						var result = {
-							data:{
-								goods:[
-									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"1"},
-									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"2"},
-									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"3"},
-									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"4"},
-									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"1"},
-									{id:"109",img:"picture/yqm.png",name:"我购买的商品名称",price:"8.8",num:"1"},
-								]
-							}
-						};
-						var newgoods = result['data']['goods'];
+						var shop = getShop();
+						var data = appPage.getParam('data');
+						var price = '';
+						if(shop==3){
+							price = data["moneyprice"];
+						}else if(shop==2){
+							price = data["integralprice"];
+						}else{
+							price = data["goldprice"];
+						}
+						
+						var newgoods = [{
+							id:data["gid"],
+							img:data["img"],
+							name:data["name"],
+							price:price,
+							num:data["actionnum"]
+						}]
+						
+						
 						for(var i=0;i<newgoods.length;i++){
 							newgoods[i]['total'] = parseInt(newgoods[i]['price']*newgoods[i]['num']*100)/100;
 						}
 						this.goods=newgoods;
-					
 						
-// 							diyAjax(url,postData,function(result){
-// 								console.log("获取用户中心信息");
-// 								if(result.code == 1){
-// 									log(result.data.userinfo);
-// 									var userinfojson = {};
-// 									userinfojson.data = result.data.userinfo;
-// 									render("#diva_wrap", "diva_view", userinfojson);
-// 									render("#divb_wrap", "divb_view", userinfojson);
-// 									render("#divc_wrap", "divc_view", userinfojson);
-// 									
-// 									$("body").on("tap", "#phoneline", function() {
-// 										var tel= userinfojson['data']['hotline'];
-// 										plus.device.dial(tel, true);
-// 									})
-// 								}
-// 							},function(xhr){
-// 								console.log("失败"+JSON.stringify(xhr));
-// 							})	
+						
 					}
 				}
 			});
 			$.init({
-				pullRefresh: {
-					container: '#pullrefresh',
-					down: { //下拉刷新
-						callback: app.pulldownRefresh,
-						style: $.os.android ? "circle" : "default"
-					}
-				}
+				
 			});
 		}(mui, document))
 	</script>

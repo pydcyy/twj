@@ -21,7 +21,7 @@
 .mui-slider-item{
 	border: 0 solid #777 !important;
 }
-.mui-content .list-son{
+.list-son{
 	
 	background: #fff;
 	border-radius: 3px;
@@ -67,10 +67,10 @@
 	right: 0;
  }
  
- .mui-content .address{
+.address{
 	 padding: 10px 10px 0 10px;
  }
-.mui-content .address .img {
+.address .img {
 	height: 30px;
 	width: 30px;
 	background:#2695ef ;
@@ -79,7 +79,7 @@
 	text-align: center;
 }
 
-.mui-content .address .img .fa-map{
+ .address .img .fa-map{
 	font-size: 22px;
 	color:#fff;
 	
@@ -87,28 +87,28 @@
 .mui-table-view:before{
 	background: #efeff4;
 }
-.mui-content .address .list-son-show{
+.address .list-son-show{
 	float: left;
 	width: 97%;
 	display: flex;
 	height: 100%;
 	
 }
-.mui-content .address .list-son-show .img{
+.address .list-son-show .img{
 	align-self:center ;
 }
-.mui-content .address .list-son{
+.address .list-son{
 	overflow: hidden;
 	 display: flex;
 }
-.mui-content .address .list-son-show .atc{
+.address .list-son-show .atc{
 	width: 75%;
 }
-.mui-content .address .list-son-show .atc p{
-	line-height: 13px;
+.address .list-son-show .atc p{
+	line-height: 15px;
 	margin-bottom: 6px;
 }
-.mui-content .address .list-son-show .atc p .cname{
+.address .list-son-show .atc p .cname{
 	font-size: 14px;
 	color: #000000;
 }
@@ -156,4 +156,264 @@
 .total_money .zongji{
 	color:#8f8f94;
 	font-size: 12px;
+}
+
+.empty {
+    width: 100%;
+    padding-top: 1.4rem;
+}
+.empty img {
+    width: 46%;
+    display: block;
+    margin: 0 auto;
+}
+.empty p {
+    font-size: .22rem;
+    line-height: 1.2rem;
+    text-align: center;
+    color: #aaa;
+}
+.card-model .selects-info {
+	margin-top: 0;
+    max-height: 315px;
+    max-height: 250px;
+    overflow: hidden;
+    margin: 19px 12px 0;
+    overflow-y: scroll;
+}
+.addres-select .selects-info li {
+    position: relative;
+    padding: 17px 0;
+    border-bottom: 1px solid #eee;
+	display: flex;
+}
+.addres-select .selects-info li .select-icon {
+    position: absolute;
+    left: 0;
+    top: 17px;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+.addres-select .cm-header {
+    height: 65px;
+    line-height: 65px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    font-size: 16px;
+    color: #1d1d1d;
+}
+.addres-select .selects-info li.on .select-icon {
+    border: 1px solid transparent;
+    background-color: #ff6b00;
+    background-image: url(../picture/enter.png);
+    background-size: 11rem 8rem;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.addres-select .selects-info li .user-info {
+    width: 305px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: #1d1d1d;
+}
+.addres-select .selects-info li.on .user-info p{
+    color: #ff6b00;
+}
+.card-model .model-footer {
+    width: 100%;
+    display: -webkit-flex;
+    display: flex;
+    margin-top: 25px;
+}
+.card-model .model-footer .footer-buy {
+    background-image: -webkit-linear-gradient(to right,#ff7000,#fc4b1a);
+    background-image: linear-gradient(to right,#ff7000,#fc4b1a);
+}
+.card-model .model-footer a {
+    display: block;
+    -webkit-flex: 1;
+    flex: 1;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    color: #fff;
+}
+
+/* 订单详情页*/
+.coc-header.send {
+    background-color: #e3383e;
+}
+.coc-header {
+    background-image: url(../picture/logistics-bg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 123px;
+    padding: 0 12px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.logistics-state.nobuy {
+    background-image: url(../picture/state-nobuy.png);
+}
+.logistics-state {
+    width: 25%;
+    height: 100%;
+    background-size: 75px 75px;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.send .state-nfh{
+	background-image: url(../picture/state-nfh.png);
+}
+.send .state-ysh{
+	background-image: url(../picture/state-ysh.png);
+}
+.send .state-ytk{
+	background-image: url(../picture/state-ytk.png);
+}
+.logistics-info {
+    width: 70%;
+    height: 100%;
+    display: table;
+}
+.logistics-info .logistics-info-txt {
+    display: table-cell;
+    vertical-align: middle;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.logistics-info .logistics-info-txt p {
+    font-size: 16px;
+    margin-bottom: 3px;
+	color: #fff;
+}
+
+
+.item-block {
+    border-top: 6px solid #EFEFF4;
+    background: #fff;
+}
+.item-block .con-tit {
+    height: 45px;
+    line-height: 45px;
+    padding: 0 13px;
+    border-top: 1px solid #efefef;
+    border-bottom: 1px solid #efefef;
+}
+.product-info .delivery-con {
+    padding: 9px 13px;
+    border-bottom: 1px solid #efefef;
+}
+.product-info .delivery-con ul {
+    background: #fafafa;
+}
+
+.product-info .delivery-con ul li {
+    position: relative;
+    padding: 9px 13px;
+    border-bottom: 1px dashed #ddd;
+}
+.product-info .delivery-con ul li:last-child {
+    border-bottom: 0;
+}
+.product-info .delivery-con ul li a {
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+	display: flex;
+}
+.product-info .delivery-con ul li .picture {
+    width: 23%;
+    height: 23%;
+}
+.product-info .delivery-con ul li .picture img {
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+}
+.product-info .delivery-con ul li .info-centent {
+    width: 73%;
+    -webkit-flex-flow: column;
+    flex-flow: column;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+    line-height: 1.5;
+}
+.product-info .delivery-con ul li .info-centent .name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.product-info .delivery-con ul li .info-centent .description {
+    font-size: 13px;
+    color: #666;
+}
+.product-info .delivery-con ul li .info-centent .count {
+    color: #454545;
+}
+.product-info .delivery-con ul li .info-centent .count span {
+    color: #ec1f18;
+    font-size: 16px;
+}
+.product-info .all-price .infos {
+    padding: 0 13px 16px;
+    font-size: 13px;
+    color: #686868;
+}
+.product-info .all-price .infos p {
+    margin-top: 11px;
+}
+.product-info .all-price .infos span {
+    font-size: 16px;
+}
+.product-info .all-price .all-count {
+    position: relative;
+    padding: 0 13px;
+    line-height: 44px;
+    color: #e3383e;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+.product-info .all-price .all-count span {
+    font-size: 16px;
+}
+
+
+.delivery-infos .delivery-con {
+    padding: 0 13px 13px;
+    font-size: 13px;
+    color: #686868;
+    border-bottom: 1px solid #efefef;
+}
+.delivery-infos .delivery-con li {
+    margin-top: 13px;
+}
+.order-con-btn {
+    z-index: 30;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 11px 12px;
+    background-color: #fff;
+    border-top: 1px solid #efefef;
+    font-size: 12px;
+    text-align: right;
+}
+.order-con-btn .payment {
+    display: inline-block;
+    width: 87px;
+    height: 31px;
+    line-height: 31px;
+    margin-left: 6px;
+    text-align: center;
+    color: #fff;
+    background-image: -webkit-linear-gradient(to right,#ffc600,#ff8b00);
+    background-image: linear-gradient(to right,#ffc600,#ff8b00);
+    border-radius: 30px;
 }

@@ -233,7 +233,6 @@
 		var postData = {};
 		diyAjax(url,postData,function(result){
 			console.log("获取首页信息");
-			log(result);
 			if(result.code == 1){
 				var bannerjson = {};
 				bannerjson.data = result.data.navlink;
