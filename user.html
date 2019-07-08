@@ -45,7 +45,7 @@
 							<span>0</span>
 							<p>购物车</p>
 						</li>
-						<li>
+						<li id="transaction">
 							<span>0</span>
 							<p>交易记录</p>
 						</li>
@@ -209,6 +209,7 @@
 			var referralsButton = doc.getElementById("referrals");
 			var myteamButton = doc.getElementById("myteam");
 			var orderlistButton = doc.getElementById("orderlist");
+			var transaction = doc.getElementById("transaction");
 
 			// 去推广注册页面
 			var invite = plus.webview.getWebviewById("invite");
@@ -271,6 +272,11 @@
 			orderlistButton.addEventListener('tap',function(even){
 				loginRequired(function(){
 					beforeOpenView("orderlist.html");
+				})
+			})
+			transactionButton.addEventListener('tap',function(even){
+				loginRequired(function(){
+					beforeOpenView("transaction.html");
 				})
 			})
 			

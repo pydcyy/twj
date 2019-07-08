@@ -4,3 +4,17 @@
 /* .mui-ellipsis{
 	text-align: right;
 } */
+.transaction .avater img{
+	border-radius: 15px;
+	width: 30px;
+	height: 30px;
+}
+.transaction .mui-media-body .add{
+	color: red;
+}
+.transaction .mui-ellipsis span{
+	float: left;
+    font-size: 12px;
+    line-height: 13px;
+    padding-top: 10px;
+}
