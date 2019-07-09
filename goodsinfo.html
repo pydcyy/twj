@@ -10,102 +10,140 @@
 	<link rel="stylesheet" href="css/mui-icons-extra.css" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/lib/artTemplate.js"></script>
+	<script type="text/javascript" src="js/lib/common.js"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
 	
 </head>
 <body>
-	<header class="mui-bar mui-bar-nav">
-		<div class="mui-input-row mui-search">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="addaddress" onclick="goback()"></a>
-			<h1 class="mui-title" >
-				商品详情
-			</h1>
-			<a class="mui-icon mui-icon-extra mui-icon-extra-cart mui-pull-right" onclick="goback()"></a>
+	<div  id="app" v-cloak >
+		<header class="mui-bar mui-bar-nav">
+			<div class="mui-input-row mui-search">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="addaddress" onclick="goback()"></a>
+				<h1 class="mui-title" >
+					商品详情
+				</h1>
+				<a class="mui-icon mui-icon-extra mui-icon-extra-cart mui-pull-right" onclick="goback()"></a>
+			</div>
+		</header>
+		<div >
+			<div >
+				<!--这里放置真实显示的DOM内容-->
+				<div id="slider" class="mui-slider" >
+					<div class="mui-slider-group mui-slider-loop banner">
+						<div v-for="(banner,index) in banners" class="mui-slider-item mui-slider-item-duplicate" v-if="index=banners.length">
+						  <a href="#">
+							<img :src="banner">
+						  </a>
+						</div> 
+						<div v-for="(banner,index) in banners" class="mui-slider-item">
+						  <a href="#">
+							<img :src="banner">
+						  </a>
+						</div>
+						<div v-for="(banner,index) in banners" class="mui-slider-item mui-slider-item-duplicate" v-if="index==0">
+						  <a href="#">
+							<img :src="banner">
+						  </a>
+						</div> 
+					</div>
+				</div>
+				<div class="gooodstitle">
+					<p class="pirce">￥{{price}}</p>
+					<p class="title">{{title}}</p>
+				</div>
+				<div class="gooodsinfo">
+					<p class="title">详情</p>
+					<div class="content">
+						<span>{{info}}</span>
+						<ul style="margin-bottom:50px ;">
+							<li v-for="banner in banners">
+								<img :src="banner" alt="">
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+			</div>
 		</div>
-	</header>
-	<div class="mui-scroll-wrapper mui-content ">
-		<div class="mui-scroll">
-			<!--这里放置真实显示的DOM内容-->
-			<div id="slider" class="mui-slider" >
-			  <div class="mui-slider-group mui-slider-loop">
-				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-				<div class="mui-slider-item mui-slider-item-duplicate">
-				  <a href="#">
-					<img src="http:\/\/placehold.it\/400x300">
-				  </a>
-				</div>
-				<!-- 第一张 -->
-				<div class="mui-slider-item">
-				  <a href="#">
-					<img src="http:\/\/placehold.it\/400x300">
-				  </a>
-				</div>
-				<!-- 第二张 -->
-				<div class="mui-slider-item">
-				  <a href="#">
-					<img src="http:\/\/placehold.it\/400x300">
-				  </a>
-				</div>
-				<!-- 第三张 -->
-				<div class="mui-slider-item">
-				  <a href="#">
-					<img src="http:\/\/placehold.it\/400x300">
-				  </a>
-				</div>
-				<!-- 第四张 -->
-				<div class="mui-slider-item">
-				  <a href="#">
-					<img src="http:\/\/placehold.it\/400x300">
-				  </a>
-				</div>
-				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-				<div class="mui-slider-item mui-slider-item-duplicate">
-				  <a href="#">
-					<img src="http:\/\/placehold.it\/400x300">
-				  </a>
-				</div>
-			  </div>
-			  <div class="mui-slider-indicator">
-				<div class="mui-indicator mui-active"></div>
-				<div class="mui-indicator"></div>
-				<div class="mui-indicator"></div>
-				<div class="mui-indicator"></div>
-			  </div>
-			</div>
-			<div class="gooodstitle">
-				<p class="pirce">￥8.88</p>
-				<p class="title">汤达人汤达人汤达人汤达人汤达人汤达人</p>
-			</div>
-			<div class="gooodsinfo">
-				<p class="title">详情</p>
-				<div class="content">详情内容</div>
-			</div>
-			
-		</div>
-	</div>
-	<nav class="mui-bar mui-bar-tab"style="height: 45px;">
-		<a class="mui-tab-item " style="height: 45px;">
-			<button type="button" class="mui-btn mui-btn-blue mui-btn-block">
-				<!-- <span class="mui-icon mui-icon-extra mui-icon-extra-cart"></span> -->
-				加入购物车
-			</button>
-		</a>
-		<a class="mui-tab-item" style="height: 45px;">
-			<button type="button" class="mui-btn mui-btn-red mui-btn-block">
-				<!-- <span class="fa fa-transfer"></span> -->立即购买
-			</button>
-		</a>
-	</nav>
+		<nav class="mui-bar mui-bar-tab"style="height: 50px;">
+			<a class="mui-tab-item " style="height: 50px;">
+				<button type="button" class="mui-btn mui-btn-blue mui-btn-block"  @tap="addCar()">
+					加入购物车
+				</button>
+			</a>
+			<a class="mui-tab-item" style="height: 50px;">
+				<button type="button" class="mui-btn mui-btn-red mui-btn-block" @tap="buynow()">
+					立即购买
+				</button>
+			</a>
+		</nav>
+	</div>	
 	
 	<script type="text/javascript">
-		var gallery = mui('.mui-slider');
-			gallery.slider({
-			  interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
+		
+		(function($, doc) {
+			var app = new Vue({
+				el: '#app',
+				data: function() {
+					return {
+						banners:[],
+						price:[],
+						title:[],
+						info:[],
+						gooddetail:{
+							show:false,
+							gid:'',
+							name:'',
+							img:'',
+							moneyprice:'',
+							integralprice:'',
+							goldprice:'',
+							housenum:10,
+							actionnum:1,
+						}
+						
+					}
+				},
+				mounted: function(){
+					this._init();
+				},
+				updated: function() {
+				    var sliderMuiObj = mui("#slider");
+				    sliderMuiObj.slider({
+				        interval: 3000
+				    });
+				},
+				methods: {
+					_init: function(){
+						var that = this;
+						$.plusReady(function() {
+							that.loadData();
+							afterOpenView();
+						})
+					},
+					addCar: function() {
+						showMessage('开发购物车接口');
+					},
+					buynow:function(){
+						beforeOpenView("confirm.html","confirm.html",{data:this.gooddetail});
+					},
+					loadData:function(){
+						var that = this;
+						var data = appPage.getParam('data');
+						that.banners=JSON.parse(data.imgarr);
+						that.price=data.moneyprice;
+						that.title=data.goodsname;
+						that.info=data.goodstitle;
+					}
+					
+				}
 			});
-		mui.init();
-		mui('.mui-scroll-wrapper').scroll({
-			deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-		});
-		mui('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);//100毫秒滚动到顶
+			$.init({
+		
+			});
+		}(mui, document))
 	</script>
 </body>
 </html>

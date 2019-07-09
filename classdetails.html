@@ -49,11 +49,11 @@
 							<div class="p-list" :class="{vertical:vertical == true}">
 								<ul>
 									<li v-for="good in goods">
-										<div class="p-content">
-											<div class="imgsize">
+										<div class="p-content"  >
+											<div class="imgsize" @tap="oppenshow(good)">
 												<img :src="good.img">
 											</div>
-											<div class="p-content-title">
+											<div class="p-content-title" @tap="oppenshow(good)">
 												<span>{{good.goodsname}}</span>
 											</div>
 											<div class="p-content-price">
@@ -111,6 +111,7 @@
 		
 		<script type="text/javascript">
 			(function($, doc) {
+				
 				var app = new Vue({
 					el: '#pullrefresh',
 					data: function() {
@@ -180,6 +181,11 @@
                                 afterOpenView();
 							})
 						},
+						//跳转详情页
+						oppenshow: function(good) {
+							beforeOpenView("goodsinfo.html","goodsinfo.html",{data:good});
+						},
+						//加入购物车
 						addCar: function() {
 							var url = postUrl + "Home/goods/cart.html";
 							var that =this;

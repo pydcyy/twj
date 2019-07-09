@@ -33,7 +33,7 @@
 				<a class="mui-control-item " href="#item2">积分商城</a>
 				<a class="mui-control-item" href="#item3">金珠商城</a>
 			</div> -->
-			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+			<!-- <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div> -->
 			<div class="mui-slider-group" id="contentbar">
 				<div id="item1"  class="contentbarson mui-slider-item mui-control-content " >
 					<div class="mui-table-view">
@@ -53,7 +53,7 @@
 							  <a href="#">
 								<img :src="banner.img">
 							  </a>
-							</div>
+							</div> 
 							<!-- <div class="mui-slider-item mui-slider-item-duplicate">
 							  <a href="#">
 								<img src="http://api.tongwujie.cn/public/uploads/20190618/56c66d19aec9816b874b374bb66c24af.png">
@@ -101,8 +101,8 @@
 						</div>
 						<div class="p-list">
 							<ul>
-								<li v-for="good in goods">
-									<div class="p-content">
+								<li v-for="good in goods" >
+									<div class="p-content" @tap="oppenshow(good)">
 										<div><img :src="good.img"></div>
 										<div class="p-content-title">
 											<span>{{good.goodsname}}</span>
@@ -161,8 +161,7 @@
 					var that = this;
 					
 					$.plusReady(function() {	
-						that.loadData();	
-							
+						that.loadData();
 						document.getElementById("search").addEventListener("keypress",function(event) {
 							if(event.keyCode == "13") {
 								document.activeElement.blur();//收起虚拟键盘
@@ -188,7 +187,10 @@
 						
 					})
 				},
-
+				//跳转详情页
+				oppenshow: function(good) {
+					beforeOpenView("goodsinfo.html","goodsinfo.html",{data:good});
+				},
 				pulldownRefresh: function(){
 					this.loadData();
 					appPage.endPullRefresh();
@@ -205,6 +207,7 @@
 					diyAjax(url,postData,function(result){
 						console.log("获取商品信息");
 						if(result.code == 1){
+							
 							that.goods=that.goods.concat(result.data);
 							if(result.data.length<pagenum){
 								appPage.endPullRefresh(true);
@@ -226,6 +229,7 @@
 					diyAjax(url,postData,function(result){
 						console.log("获取商品信息");
 						if(result.code == 1){
+							log(result.data);
 							that.goods=result.data;
 							that.page=1;
 							

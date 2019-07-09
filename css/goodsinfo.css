@@ -33,8 +33,9 @@
 }
 .mui-bar-tab button {
 	border-radius: 0px;
-	font-size: 12px !important;
-	height: 45px;
+	font-size: 14px !important;
+	height: 50px;
+	line-height: 50px;
 	
 }
 .mui-bar-tab button.mui-btn {
@@ -46,4 +47,35 @@
 }
 .mui-bar-tab button .fa{
 	font-size: 24px;
+}
+.mui-bar-tab button.mui-btn-blue{
+	background-image: linear-gradient(to right,#ffca00,#ff9502);
+	border: 0px solid #007aff;
+}
+.mui-bar-tab button.mui-btn-red{
+	background-image: linear-gradient(to right,#ff7000,#fc4b1a);
+	border: 0px solid #007aff;
+}
+.mui-bar .mui-btn-block{
+	padding: 0;
+}
+.mui-slider{
+	max-height:300px;
+}
+
+.banner div a{
+	display: inline-block;
+	width: 100%;
+}
+.banner div a img{
+	width: 100%;	
+}
+.content ul{
+	padding-top: 10px;
+}
+.content li{
+	width: 100%;
+}
+.content li img{
+	width: 100%;
 }
