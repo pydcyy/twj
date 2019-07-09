@@ -33,27 +33,27 @@
 				<a class="mui-control-item " href="#item2">积分商城</a>
 				<a class="mui-control-item" href="#item3">金珠商城</a>
 			</div> -->
-			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+			<!-- <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div> -->
 			<div class="mui-slider-group" id="contentbar">
 				<div id="item1"  class="contentbarson mui-slider-item mui-control-content " >
 					<div class="mui-table-view">
 						<div id="slider" class="mui-slider banner" >
 						  <div class="mui-slider-group mui-slider-loop">
-							<!-- <div v-for="(banner,index) in banners" class="mui-slider-item mui-slider-item-duplicate" v-if="index=banners.length">
+							<div v-for="(banner,index) in banners" class="mui-slider-item mui-slider-item-duplicate" v-if="index=banners.length">
 							  <a href="#">
 								<img :src="banner.img">
 							  </a>
-							</div> -->
+							</div>
 							<div v-for="(banner,index) in banners" class="mui-slider-item">
 							  <a href="#">
 								<img :src="banner.img">
 							  </a>
 							</div>
-							<!-- <div v-for="(banner,index) in banners" class="mui-slider-item mui-slider-item-duplicate" v-if="index==0">
+							<div v-for="(banner,index) in banners" class="mui-slider-item mui-slider-item-duplicate" v-if="index==0">
 							  <a href="#">
 								<img :src="banner.img">
 							  </a>
-							</div> -->
+							</div> 
 							<!-- <div class="mui-slider-item mui-slider-item-duplicate">
 							  <a href="#">
 								<img src="http://api.tongwujie.cn/public/uploads/20190618/56c66d19aec9816b874b374bb66c24af.png">
@@ -101,8 +101,8 @@
 						</div>
 						<div class="p-list">
 							<ul>
-								<li v-for="good in goods">
-									<div class="p-content">
+								<li v-for="good in goods" >
+									<div class="p-content" @tap="oppenshow(good)">
 										<div><img :src="good.img"></div>
 										<div class="p-content-title">
 											<span>{{good.goodsname}}</span>
@@ -160,24 +160,13 @@
 					var that = this;
 					
 					$.plusReady(function() {	
-						that.loadData();		
-								
-// 								var demo= document.getElementById("navbar").getElementsByTagName("a");
-// 								var demo2= document.getElementsByClassName("contentbarson");
-// 								for(var i=0;i<demo.length;i++){
-// 									demo[i].classList.remove("mui-active");
-// 									demo2[i].classList.remove("mui-active");
-// 									var hrefid=demo[i].getAttribute("href");
-// 									var hrefid2="#"+demo2[i].getAttribute("id");
-// 									if(hrefid==self.pageid){
-// 										demo[i].classList.add("mui-active");
-// 										demo2[i].classList.add("mui-active");
-// 									}	
-// 								}	
-						
+						that.loadData();	
 					})
 				},
-
+				//跳转详情页
+				oppenshow: function(good) {
+					beforeOpenView("goodsinfo.html","goodsinfo.html",{data:good});
+				},
 				pulldownRefresh: function(){
 					this.loadData();
 					appPage.endPullRefresh();
@@ -194,6 +183,7 @@
 					diyAjax(url,postData,function(result){
 						console.log("获取商品信息");
 						if(result.code == 1){
+							
 							that.goods=that.goods.concat(result.data);
 							if(result.data.length<pagenum){
 								appPage.endPullRefresh(true);
@@ -215,6 +205,7 @@
 					diyAjax(url,postData,function(result){
 						console.log("获取商品信息");
 						if(result.code == 1){
+							log(result.data);
 							that.goods=result.data;
 							that.page=1;
 							
