@@ -207,19 +207,26 @@
 							'addressid':this.addressdetail.address[this.addressdetail.index]['aid'],
 						};
 						
-						diyAjax(url,postData,function(result){
-							console.log("提交订单");
-							showMessage(result.msg);
-							if(result.code==1){
-								var orderid=result.data.orderid;
-								showMessage("跳转"+orderid);
-								return;
-								beforeOpenView('data','data',{orderid:orderid});
-							}
-							
-						},function(xhr){
-							console.log("失败"+JSON.stringify(xhr));
-						}) 
+						
+						sureMessage("确定提交订单",function(){	
+							var data={};
+							data["url"]=url;
+							data["postData"]=postData;
+							// 支付密码验证
+							localStorage.setItem('$pwdPost', JSON.stringify(data));
+							beforeOpenView("payCode.html","payCode.html");
+						});	
+						
+// 						diyAjax(url,postData,function(result){
+// 							console.log("提交订单");
+// 							if(result.code>=1){
+// 								var orderid=result.data.orderid;
+// 								beforeOpenView('orderinfo.html','orderinfo.html',{oid:orderid});
+// 							}
+// 							
+// 						},function(xhr){
+// 							console.log("失败"+JSON.stringify(xhr));
+// 						}) 
 					},
 					loadAddress:function(){
 						var that = this;

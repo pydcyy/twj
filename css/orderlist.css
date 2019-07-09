@@ -84,6 +84,8 @@
     padding: 0 12px;
     border-top: 1px solid #efefef;
     border-bottom: 1px solid #efefef;
+	position: relative;
+	overflow: hidden;
 }
  .item-block .con-tit {
     height: 45px;
@@ -221,4 +223,32 @@
     background-image: linear-gradient(to right,#ffc600,#ff8b00);
     border-radius: 30px;
 }
-
+.shopflag{
+	position: absolute;
+	top: -20px;
+	right: 25%;
+	text-align: center;
+}
+.shopflag:before{
+    content: "";
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	transform: rotate(45deg);
+}
+.shopflag span{
+	position: absolute;
+	top: 9px;
+	left: 12px;
+	font-size: 16px;
+	color: #fff;
+}
+.jinzhu:before{
+	background: #FFC118;
+}
+.jifen:before{
+	background: #4BB5FF;
+}
+.xianjin:before{
+	background: #DD3119;
+}

@@ -19,7 +19,9 @@
 	<div class="mui-content mui-scroll-wrapper" id="pullrefresh">
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()"></a>
-			<h1 class="mui-title" style="right: 80px;left: 80px;">我的购物车</h1>
+			<h1 class="mui-title" style="right: 80px;left: 80px;" v-if="shop==3">现金商城购物车</h1>
+			<h1 class="mui-title" style="right: 80px;left: 80px;" v-if="shop==2">积分商城购物车</h1>
+			<h1 class="mui-title" style="right: 80px;left: 80px;" v-if="shop==1">金铢商城购物车</h1>
 			<a class="mui-pull-right" style="height: 44px;line-height: 44px;float: right;" id="edit">管理</a>
 			<a class="mui-pull-right disshow" style="height: 44px;line-height: 44px;float: right;" id="complate">完成</a>
 		</header>
@@ -36,16 +38,18 @@
 						<td class="tb-two">
 							<a href="#">
 								<div class="car-img">
-									<img :src="shopCarList.imgurl">
+									<img :src="shopCarList.img">
 								</div>
 							</a>
 						</td>
 						<td class="tb-three">
-							<a href=""><h1 class="goods_name">{{shopCarList.name}}</h1></a>
+							<a href=""><h1 class="goods_name">{{shopCarList.goodsname}}</h1></a>
 							<div class="goods_info">
-								<span class="salesprice">￥{{shopCarList.price}}</span>
+								<span class="salesprice" v-if="shop==3">￥{{shopCarList.shopprice}}</span>
+								<span class="salesprice" v-if="shop==2">{{shopCarList.shopprice}}积分</span>
+								<span class="salesprice" v-if="shop==1">{{shopCarList.shopprice}}金铢</span>
 								<div class="compute-car">
-									<i class="num-small fa fa-minus" data="" @click="reduce(index)" :disabled="shopCarList.num === 1"></i><input type="number" class="lone-num" :value="shopCarList.num" readonly="readonly"  data="0"><i class="num-big fa fa-plus" data="" data-housenum="" @click="add(index)"></i>
+									<i class="num-small fa fa-minus" data="" @click="reduce(index)" :disabled="shopCarList.number === 1"></i><input type="number" class="lone-num" :value="shopCarList.number" readonly="readonly"  data="0"><i class="num-big fa fa-plus" data="" data-housenum="" @click="add(index)" :disabled="shopCarList.number === shopCarList.stock"></i>
 								</div>
 							</div>
 						</td>
@@ -65,7 +69,9 @@
 				<div class="col-18">
 					<div class="pull-r beforeedit">
 						<div class="pull-l foot_txt">
-							<div class="total_money">合计：<span class="all-price">{{checkedPrice}}</span>&nbsp;元</div>
+							<div class="total_money" v-if="shop==3">合计：<span class="all-price">{{checkedPrice}}</span>&nbsp;元</div>
+							<div class="total_money" v-if="shop==2">合计：<span class="all-price">{{checkedPrice}}</span>&nbsp;积分</div>
+							<div class="total_money" v-if="shop==1">合计：<span class="all-price">{{checkedPrice}}</span>&nbsp;金铢</div>
 							<p>不含运费</p>
 						</div>
 						<div class="pull-l jsbtn" v-if="!checkednum">结算（<span class="all-num">{{totalnum}}</span>）</div>
@@ -73,7 +79,7 @@
 					</div>
 					<div class="pull-r afteredit disshow">
 						<div class="jsbtn" style="min-width: 100px;" v-if="!checkednum">删除</div>
-						<div class="jsbtn active" style="min-width: 100px;" v-if="checkednum">删除</div>
+						<div class="jsbtn active" style="min-width: 100px;" @tap="delList()" v-if="checkednum">删除</div>
 					</div>
 				</div>
 			</div>
@@ -85,13 +91,8 @@
 		    el: '#pullrefresh',
 		    data: function() {
 		        return {
-					shopCarLists: [{
-						checked:false,
-						imgurl:"picture/03.png",
-						name:"面达人",
-						price:"9.99",
-						num:4
-					}]
+					shop:getShop(),
+					shopCarLists: []
 		        }
 		    },
 		    mounted: function(){
@@ -103,7 +104,7 @@
 					var total = 0;
 					this.shopCarLists.forEach(function(item, index) {
 						if (item.checked) {
-							total = (total*100 + item.price * item.num*100)/100;
+							total = (total*100 + item.shopprice * item.number*100)/100;
 						}
 					})
 					return total;
@@ -112,7 +113,7 @@
 					var totalnum = 0;
 					this.shopCarLists.forEach(function(item, index) {
 						if (item.checked) {
-							totalnum += item.num;
+							totalnum += parseInt(item.number);
 						}
 					})
 					return totalnum;
@@ -131,9 +132,12 @@
 					}
 					
 				},
+
 			},
+
 		    methods: {
 		        _init: function(){
+					var that =this;
 					$.plusReady(function() {	
 						doc.getElementById("edit").addEventListener('tap',function(even){
 							var that = jQuery(this);		
@@ -147,29 +151,81 @@
 								jQuery(".beforeedit").show();
 							}
 						})
+						that.loadData();
+						
 						afterOpenView();	
 					})
 		        },
 				pulldownRefresh: function(){
+					this.loadData();
 					appPage.endPullRefresh();
 				},
+				delList:function(){
+					var that = this;
+					sureMessage("确定删除?",function(){
+						var goodsid = [];
+						that.shopCarLists.forEach(function(item, index) {
+							if (item.checked) {
+								goodsid.push(item.goodsid);
+							}
+						})
+						that.updateData('del',goodsid);
+					})
+					
+				},
 				loadData:function(){
-					var url = postUrl+"Home/member/user.html";
-					var postData = {};
+					var url = postUrl+"Home/goods/cart.html";
+					var postData = {
+						act:"sel",
+						shop:this.shop
+					};
+					var that = this;
 					diyAjax(url,postData,function(result){
-						console.log("获取用户中心信息");
+						log(result);
+						console.log("获取购物车信息");
 						if(result.code == 1){
-							log(result.data.userinfo);
-							var userinfojson = {};
-							userinfojson.data = result.data.userinfo;
-							render("#diva_wrap", "diva_view", userinfojson);
-							render("#divb_wrap", "divb_view", userinfojson);
-							render("#divc_wrap", "divc_view", userinfojson);
-							
-							$("body").on("tap", "#phoneline", function() {
-								var tel= userinfojson['data']['hotline'];
-								plus.device.dial(tel, true);
+							result.data.forEach(function(item, index) {
+								result.data[index]['checked']=false;
 							})
+							that.shopCarLists=result.data;
+						}else{
+							showMessage(result.msg);
+						}
+					},function(xhr){
+						console.log("失败"+JSON.stringify(xhr));
+					})	
+				},
+				updateData:function(type,index){
+					var type = type || 'add';
+					
+					if(index instanceof Array){
+						var goodsid = index;
+					}else{
+						var goodsid = this.shopCarLists[index]['goodsid'];
+					}
+					
+					if(type=="add"){
+						var num = 1;
+					}else if(type=="edit"){
+						var num = -1;
+					}
+					var url = postUrl+"Home/goods/cart.html";
+					var postData = {
+						act:type,
+						goodsid:goodsid,
+						num:num||1,
+						shop:this.shop
+					};
+					
+					
+					var that = this;
+
+					diyAjax(url,postData,function(result){
+						if(result.code == 1){
+							console.log("修改购物车信息成功");
+							if(type=="del"){
+								that.shopCarLists = that.shopCarLists.filter(t => t.checked == false)
+							}
 						}
 					},function(xhr){
 						console.log("失败"+JSON.stringify(xhr));
@@ -182,11 +238,15 @@
 				},
 				reduce: function(index) {
 					//再次判断 reduce 减法的可靠性
-					if (this.shopCarLists[index].num === 1) return;
-					this.shopCarLists[index].num--;
+					if (this.shopCarLists[index].number === 1) 
+						return;
+					this.shopCarLists[index].number--;
+					
+					this.updateData('edit',index);
 				},
 				add: function(index) {
-					this.shopCarLists[index].num++;
+					this.shopCarLists[index].number++;
+					this.updateData('add',index);
 				},
 				checkboxLone:function(index,obj){
 					this.shopCarLists[index].checked = !this.shopCarLists[index].checked;

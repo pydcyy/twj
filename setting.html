@@ -104,6 +104,7 @@
 	function loadData(){
 		var userinfojson = getLoginStorage('$UserDetailInfo');
 		render("#myinfo", "user_view", userinfojson);
+		afterOpenView();
 	}
 }(mui, document))
 

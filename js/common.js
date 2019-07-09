@@ -110,11 +110,29 @@ function goback(){
 function gobackRefresh(){
 	mui.back();
 }
+
 function gobackRefreshTrue(){
 	var list = plus.webview.currentWebview().opener();
 	//触发列表界面的自定义事件（refresh）,从而进行数据刷新   
 	mui.fire(list, 'refresha'); 
 	//返回true，继续页面关闭逻辑     
+}
+function stback(){
+// 	var current = plus.webview.currentWebview();
+// 	var opener = current.opener();
+// 	var pages = new Array(current);
+// 	while (opener){
+// 
+// 		log(opener);
+// 	    opener = opener.opener();
+// 	}
+	
+	if(plus.webview.getWebviewById('classdetails.html')){
+		popToTarget('classdetails.html');
+	}else{
+		popToTarget('orderlist.html',1);
+	}
+	
 }
 function log(data){
 	console.log(JSON.stringify(data));
@@ -129,8 +147,11 @@ function beforeOpenView(page,id,data){
 
 function afterOpenView(){
 	var currentView = plus.webview.currentWebview();
-	currentView.show('slide-in-right', 300);
-	plus.nativeUI.closeWaiting();
+	setTimeout(function(){
+		currentView.show('slide-in-right', 300);
+		plus.nativeUI.closeWaiting();
+	},100)
+	
 }
 // 封装ajax
 function diyAjax(url,data,callback,errcallback){
@@ -665,7 +686,7 @@ function _transfer(thisButton){
 	sureMessage("确定转账",function(){	
 		// 支付密码验证
 		localStorage.setItem('$pwdPost', JSON.stringify(data));
-		beforeOpenView("payCode.html");
+		beforeOpenView("payCode.html","payCode.html");
 		console.log("转账");
 		thisButton.button("reset");
 	});	
@@ -765,14 +786,31 @@ function _setloginpwd(thisButton){
 function _checkSecure(resultValue){
 	var statics = getLoginStorage('$pwdPost');
 	var url = statics['url'],
+	    type = statics['type']||0,
 		data = statics['postData'];
 	data['epassword'] = resultValue;
 	
 	diyAjax(url,data,function(result){
-		if (result.code == 1) {
+		if (result.code >= 1) {
 			//成功
 			showMessage(result.msg);
-			toIndex();
+			
+			if(plus.webview.getWebviewById('payCode.html')){
+				plus.webview.getWebviewById('payCode.html').hide();
+			}
+			
+			if(url.search("submitOrder.html")!=-1){
+				if(type==1){
+					// 订单详情页面支付
+					plus.webview.getWebviewById('orderInfo.html').reload();
+				}else{
+					var orderid=result.data.orderid;
+					beforeOpenView('orderinfo.html','orderinfo.html',{oid:orderid});
+				}
+			}else{
+				toIndex();
+			}
+			
 			return false;
 		}else{
 			// 失败
@@ -790,9 +828,11 @@ function _checkSecure(resultValue){
 * 从当前页面pop到目标页面
 * @param {String} targetId 目标页面ID
 */
-function popToTarget(targetId){
+function popToTarget(targetId,type){
     //获取目标页面
     var target = plus.webview.getWebviewById(targetId);
+	var type = type || 0;
+	
     if (!target) {
         console.log("目标页面不存在！");
         return;
@@ -808,14 +848,23 @@ function popToTarget(targetId){
     //父级页面
     var opener = current.opener();
     while (opener){
-        if (opener === target) {//找到了目标页面
+
+        if (opener.id === target.id) {//找到了目标页面
             //关闭目标页面的所有子级页面pages
+			if(type==1){
+				opener.reload();
+			}
+			
+			
             pages.map(function(page){
-                page.close();
+				setTimeout(function(){
+					page.close();
+				},100)
             });
             return;
         }
         pages.push(opener);
+		
         opener = opener.opener();
     }
     //没有找到目标页面

@@ -257,15 +257,16 @@
     -ms-box-sizing: border-box;
     box-sizing: border-box;
 }
-.logistics-state.nobuy {
-    background-image: url(../picture/state-nobuy.png);
-}
+
 .logistics-state {
     width: 25%;
     height: 100%;
     background-size: 75px 75px;
     background-repeat: no-repeat;
     background-position: center center;
+}
+.send .state-nobuy {
+    background-image: url(../picture/state-nobuy.png);
 }
 .send .state-nfh{
 	background-image: url(../picture/state-nfh.png);
@@ -275,6 +276,9 @@
 }
 .send .state-ytk{
 	background-image: url(../picture/state-ytk.png);
+}
+.send .state-cancel{
+    background-image: url(../picture/state-dqh.png);
 }
 .logistics-info {
     width: 70%;

@@ -22,12 +22,12 @@
 			<div class="mui-input-row mui-search">
 				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="addaddress" onclick="goback()"></a>
 				<h1 class="mui-title" style="right: 40px;left: 40px;">
-					<input type="search" class="mui-input-clear" placeholder="搜索商品">
+					<input id="search" type="text" class="mui-input" placeholder="搜索商品" v-model="keyword" style="height: 30px;line-height:30px;color:#000;border-radius: 20px;border: none;">
 				</h1>
-				<a class="mui-icon mui-icon-search mui-pull-right" onclick="goback()"></a>
+				<a class="mui-icon mui-icon-extra mui-icon-extra-cart mui-pull-right" id="cart"></a>
 			</div>
 		</header>
-		<div class="mui-slider mui-scroll" style="margin-top: 44px;">
+		<div class="mui-slider mui-scroll" style="margin-top: 42px;">
 			<!-- <div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" id="navbar">
 				<a class="mui-control-item mui-active " href="#item1">现金商城</a>
 				<a class="mui-control-item " href="#item2">积分商城</a>
@@ -39,21 +39,21 @@
 					<div class="mui-table-view">
 						<div id="slider" class="mui-slider banner" >
 						  <div class="mui-slider-group mui-slider-loop">
-							<!-- <div v-for="(banner,index) in banners" class="mui-slider-item mui-slider-item-duplicate" v-if="index=banners.length">
+							<div v-for="(banner,index) in banners" class="mui-slider-item mui-slider-item-duplicate" v-if="index=banners.length">
 							  <a href="#">
 								<img :src="banner.img">
 							  </a>
-							</div> -->
+							</div>
 							<div v-for="(banner,index) in banners" class="mui-slider-item">
 							  <a href="#">
 								<img :src="banner.img">
 							  </a>
 							</div>
-							<!-- <div v-for="(banner,index) in banners" class="mui-slider-item mui-slider-item-duplicate" v-if="index==0">
+							<div v-for="(banner,index) in banners" class="mui-slider-item mui-slider-item-duplicate" v-if="index==0">
 							  <a href="#">
 								<img :src="banner.img">
 							  </a>
-							</div> -->
+							</div>
 							<!-- <div class="mui-slider-item mui-slider-item-duplicate">
 							  <a href="#">
 								<img src="http://api.tongwujie.cn/public/uploads/20190618/56c66d19aec9816b874b374bb66c24af.png">
@@ -144,6 +144,7 @@
 					banners: [],
 					lists: [],
 					goods:[],
+					keyword:'',
 				}
 			},
 			mounted: function(){
@@ -160,8 +161,18 @@
 					var that = this;
 					
 					$.plusReady(function() {	
-						that.loadData();		
-								
+						that.loadData();	
+							
+						document.getElementById("search").addEventListener("keypress",function(event) {
+							if(event.keyCode == "13") {
+								document.activeElement.blur();//收起虚拟键盘
+								beforeOpenView("classdetails.html","classdetails.html",that.keyword)
+								event.preventDefault(); // 阻止默认事件---阻止页面刷新
+							}
+						});	
+						document.getElementById("cart").addEventListener("tap",function(event) {
+							beforeOpenView("shopcar.html","shopcar.html")
+						});		
 // 								var demo= document.getElementById("navbar").getElementsByTagName("a");
 // 								var demo2= document.getElementsByClassName("contentbarson");
 // 								for(var i=0;i<demo.length;i++){
@@ -235,9 +246,9 @@
 								}
 							};
 							that.banners=results['data']['banner'];
-							that.lists=results['data']['list'];
-							afterOpenView();							
+							that.lists=results['data']['list'];						
 						}
+						afterOpenView();
 					},function(xhr){
 						console.log("失败"+JSON.stringify(xhr));
 					})	

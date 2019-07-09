@@ -61,18 +61,18 @@
 					</span>
 				</div>
 				<div class="record-m">
-					<ul class="overContrl">
-						<li>
+					<ul class="overContrl orderul">
+						<li data-index="1">
 							<span class="mui-icon-extra mui-icon-extra-card"></span>
 							<p>待付款</p>
 						</li>
-						<li>
+						<li data-index="2">
 							<span class="mui-icon-extra mui-icon-extra-cart"></span>
 							<p>待发货</p>
 						</li>
-						<li>
+						<li data-index="3">
 							<span class="mui-icon-extra mui-icon-extra-express"></span>
-							<p>已收货</p>
+							<p>待收货</p>
 						</li>
 					</ul>
 				</div>
@@ -175,7 +175,7 @@
 		<span>{{data.credit3}}</span>
 		<p>金珠</p>
 	</li>
-	<li style="border-left:1px solid #E6E6E6 ;margin-top: -1px;" id="mywallet">
+	<li style="border-left:1px solid #E6E6E6 ;margin-top: -1px;" id="mywallet" data-credit='{{data.credit1}}'>
 		<span class="mui-icon-extra mui-icon-extra-gold"style="font-size:20px"></span>
 		<p style="margin-bottom:0;">我要充值</p>
 	</li>
@@ -245,9 +245,15 @@
 			})
 			settingButton.addEventListener('tap',function(even){
 				loginRequired(function(){
-					openView('setting.html', 'setting.html');
+					beforeOpenView('setting.html', 'setting.html');
 				})
 			})
+			doc.getElementById("useravter").addEventListener('tap',function(even){
+				loginRequired(function(){
+					beforeOpenView('setting.html', 'setting.html');
+				})
+			})
+			
 			
 			addressButton.addEventListener('tap',function(even){
 				loginRequired(function(){
@@ -274,14 +280,23 @@
 					beforeOpenView("orderlist.html");
 				})
 			})
-			transactionButton.addEventListener('tap',function(even){
+			transaction.addEventListener('tap',function(even){
 				loginRequired(function(){
 					beforeOpenView("transaction.html");
 				})
 			})
 			
 			$('body').on('tap','#mywallet',function(e){
-				openView("withdraw.html","withdraw.html");
+				var credit=this.getAttribute("data-credit");
+				if(credit!=null){
+					beforeOpenView("withdraw.html","withdraw.html",{credit:credit});
+				}
+			})
+			$('body').on('tap','.orderul li',function(e){
+				var index=this.getAttribute("data-index");
+				if(index!=null){
+					beforeOpenView("orderlist.html","orderlist.html",{index:index});
+				}
 			})
 			
 			loadData();
@@ -295,7 +310,6 @@
 			diyAjax(url,postData,function(result){
 				console.log("获取用户中心信息");
 				if(result.code == 1){
-					log(result.data.userinfo);
 					var userinfojson = {};
 					userinfojson.data = result.data.userinfo;
 					

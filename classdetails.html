@@ -26,7 +26,7 @@
 				<div class="mui-input-row mui-search">
 					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="addaddress" onclick="goback()"></a>
 					<h1 class="mui-title" style="right: 40px;left: 40px;">
-						<input id="search" type="text" class="mui-input" placeholder="搜索商品" v-model="keyword" style="height: 35px;line-height:40px;color:#000;border-radius: 20px;border: none;">
+						<input id="search" type="text" class="mui-input" placeholder="搜索商品" v-model="keyword" style="height: 30px;line-height:30px;color:#000;border-radius: 20px;border: none;">
 					</h1>
 					<a class="mui-icon mui-icon-search mui-pull-right"></a>
 				</div>
@@ -141,8 +141,8 @@
 								moneyprice:'',
 								integralprice:'',
 								goldprice:'',
-								housenum:10,
-								actionnum:1,
+								housenum:10,  //库存数目
+								actionnum:1,  //操作数目
 							}
 						}
 					},
@@ -161,10 +161,14 @@
 						_init: function() {
 							var that = this;
 
-							$.plusReady(function() {							
+							$.plusReady(function() {
 								toTop();
-								that.loadData();
 								
+								if(appPage.getParam('keyword')){
+									var keyword = appPage.getParam('keyword');
+									that.keyword = keyword;
+								}
+								that.loadData();							
 								document.getElementById("search").addEventListener("keypress",function(event) {
 									if(event.keyCode == "13") {
 										document.activeElement.blur();//收起虚拟键盘
@@ -177,7 +181,24 @@
 							})
 						},
 						addCar: function() {
-							showMessage('开发购物车接口');
+							var url = postUrl + "Home/goods/cart.html";
+							var that =this;
+							
+							var postData = {
+								act:"add",
+								goodsid:this.gooddetail.gid,
+								num:this.gooddetail.actionnum,
+								shop:this.search.shop ,
+							};
+							
+							log(postData);
+							diyAjax(url,postData,function(result){
+								console.log("加入购物车");
+								showMessage(result.msg);
+								that.gooddetail.show = false;
+							},function(xhr){
+								console.log("失败"+JSON.stringify(xhr));
+							})	
 						},
 						buynow:function(){
 							beforeOpenView("confirm.html","confirm.html",{data:this.gooddetail});
@@ -253,16 +274,18 @@
 							}
 							var postData = {
 								goodsid:0,
-								sellnumorder:this.search.priceOrder || 0,
-								pricenumorder:this.search.salesOrder || 0,
+								sellnumorder:this.search.salesOrder || 0,
+								pricenumorder:this.search.priceOrder || 0,
+								shop:this.search.shop || 0,
 								keyword:this.keyword || " ",
 								catg3:appPage.getParam("cid"),
 								page:this.pageParam.page,
 							};
-							
+							log(postData);
 							diyAjax(url,postData,function(result){
 								console.log("获取商品信息");
 								if(result.code == 1){
+									log(result['data']);
 									if(type==0){
 										that.goods = result['data'];
 										if(that.goods.length==0){

@@ -28,25 +28,29 @@
 
 	<div class="" style="margin-top: 44px;">
 		<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background: #efeff4;position: fixed;width: 100%;top: 44px;z-index: 100;">
-			<a class="mui-control-item mui-active" href="#item1">全部</a>
-			<a class="mui-control-item" href="#item2">待付款</a>
-			<a class="mui-control-item" href="#item3">待发货</a>
-			<a class="mui-control-item" href="#item4">待收货</a>
+			<a class="mui-control-item" :class="{'mui-active' : indexa==0}" href="#item1">全部</a>
+			<a class="mui-control-item" :class="{'mui-active' : indexa==1}" href="#item2">待付款</a>
+			<a class="mui-control-item" :class="{'mui-active' : indexa==2}" href="#item3">待发货</a>
+			<a class="mui-control-item" :class="{'mui-active' : indexa==3}" href="#item4">待收货</a>
 		</div>
 		<!-- <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-3"></div> -->
 		<div class="mui-slider-group" style="margin-top: 84px;">
-			<div id="item1" class="mui-slider-item mui-control-content mui-active">
+			<div id="item1" class="mui-slider-item mui-control-content" :class="{'mui-active' : indexa==0}">
 				<!-- 完成订单 -->
-				<div class="item-block product-info" v-for="orderlist in orderlists" @tap='orderInfo(orderlist)'>
-					<div class="con-tit">
+				<div class="item-block product-info" v-for="orderlist in orderlists">
+					<div class="con-tit" @tap='orderInfo(orderlist.id)'>
 						<span class="count"><!---->订单: {{orderlist.ordersn}}</span> 
 						<span class="status-txt fr" v-if="orderlist.status==-1">交易关闭</span>
 						<span class="status-txt off fr" v-if="orderlist.status==0">待付款</span>
 						<span class="status-txt off fr" v-if="orderlist.status==1">待发货</span>
 						<span class="status-txt off fr" v-if="orderlist.status==2">待收货</span>
 						<span class="status-txt off fr" v-if="orderlist.status==3">交易完成</span>
+						
+						<div class="shopflag xianjin" v-if="orderlist.type==3"><span>现</span></div>
+						<div class="shopflag jifen" v-if="orderlist.type==2"><span>积</span></div>
+						<div class="shopflag jinzhu" v-if="orderlist.type==1"><span>金</span></div>
 					</div> 
-					<div class="delivery-con">
+					<div class="delivery-con" @tap='orderInfo(orderlist.id)'>
 						<ul>
 							<li v-for="good in orderlist.goods">
 								<a href="javascript:void(0);" class="flex">
@@ -83,19 +87,23 @@
 								<span v-if="orderlist.type==1" class="fr">{{orderlist.money}}金铢</span>
 						</div> 
 						<div class="order-con-btn">
-							<a href="javascript:void(0);" class="payment" v-if="orderlist.status==0">立即付款</a>
-							<a href="javascript:void(0);" class="payment" v-if="orderlist.status==2">立即收货</a>
+							<a href="javascript:void(0);" class="payment" v-if="orderlist.status==0" @tap="payOrder(orderlist)">立即付款</a>
+							<a href="javascript:void(0);" class="payment" v-if="orderlist.status==2" @tap="sureOrder(orderlist)">立即收货</a>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div id="item2" class="mui-slider-item mui-control-content">
-				<div class="item-block product-info" v-for="orderlist in orderlists" v-if="orderlist.status==0"  @tap='orderInfo(orderlist)'>
-					<div class="con-tit">
+			<div id="item2" class="mui-slider-item mui-control-content" :class="{'mui-active' : indexa==1}">
+				<div class="item-block product-info" v-for="orderlist in orderlists" v-if="orderlist.status==0"  >
+					<div class="con-tit" @tap='orderInfo(orderlist.id)'>
 						<span class="count"><!---->订单: {{orderlist.ordersn}}</span> 
 						<span class="status-txt off fr" v-if="orderlist.status==0">待付款</span>
+						
+						<div class="shopflag xianjin" v-if="orderlist.type==3"><span>现</span></div>
+						<div class="shopflag jifen" v-if="orderlist.type==2"><span>积</span></div>
+						<div class="shopflag jinzhu" v-if="orderlist.type==1"><span>金</span></div>
 					</div> 
-					<div class="delivery-con">
+					<div class="delivery-con" @tap='orderInfo(orderlist.id)'>
 						<ul>
 							<li v-for="good in orderlist.goods">
 								<a href="javascript:void(0);" class="flex">
@@ -117,34 +125,36 @@
 						</ul>
 					</div> 
 					<div class="all-price">
-						<div class="infos"><!----> 
+						<!-- <div class="infos">
 							<p>商品总价
 								<span v-if="orderlist.type==3" class="fr">￥{{orderlist.money}}</span> 
 								<span v-if="orderlist.type==2" class="fr">{{orderlist.money}}积分</span> 
 								<span v-if="orderlist.type==1" class="fr">{{orderlist.money}}金铢</span>
 							</p> 
-							<!-- <p class="deb" style="display: none;">优惠 <span class="fr">-￥0.00</span></p> 
-							<p class="deb" style="display: none;">积分抵扣 <span class="fr">-￥0.00</span></p> -->
-						</div> 
+						</div> -->
 						<div class="all-count">实付款 
 								<span v-if="orderlist.type==3" class="fr">￥{{orderlist.money}}</span> 
 								<span v-if="orderlist.type==2" class="fr">{{orderlist.money}}积分</span> 
 								<span v-if="orderlist.type==1" class="fr">{{orderlist.money}}金铢</span>
 						</div> 
 						<div class="order-con-btn">
-							<a href="javascript:void(0);" class="payment" v-if="orderlist.status==0">立即付款</a>
+							<a href="javascript:void(0);" class="payment" v-if="orderlist.status==0" @tap="payOrder(orderlist)">立即付款</a>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div id="item3" class="mui-slider-item mui-control-content">
+			<div id="item3" class="mui-slider-item mui-control-content mui-active" :class="{'mui-active' : indexa==2}">
 				<!-- 完成订单 -->
-				<div class="item-block product-info" v-for="orderlist in orderlists"  v-if="orderlist.status==1"  @tap='orderInfo(orderlist)'>
-					<div class="con-tit">
+				<div class="item-block product-info" v-for="orderlist in orderlists"  v-if="orderlist.status==1">
+					<div class="con-tit"  @tap='orderInfo(orderlist.id)'>
 						<span class="count"><!---->订单: {{orderlist.ordersn}}</span> 
 						<span class="status-txt off fr" v-if="orderlist.status==1">待发货</span>
+						
+						<div class="shopflag xianjin" v-if="orderlist.type==3"><span>现</span></div>
+						<div class="shopflag jifen" v-if="orderlist.type==2"><span>积</span></div>
+						<div class="shopflag jinzhu" v-if="orderlist.type==1"><span>金</span></div>
 					</div> 
-					<div class="delivery-con">
+					<div class="delivery-con"  @tap='orderInfo(orderlist.id)'>
 						<ul>
 							<li v-for="good in orderlist.goods">
 								<a href="javascript:void(0);" class="flex">
@@ -166,15 +176,6 @@
 						</ul>
 					</div> 
 					<div class="all-price">
-						<div class="infos"><!----> 
-							<p>商品总价
-								<span v-if="orderlist.type==3" class="fr">￥{{orderlist.money}}</span> 
-								<span v-if="orderlist.type==2" class="fr">{{orderlist.money}}积分</span> 
-								<span v-if="orderlist.type==1" class="fr">{{orderlist.money}}金铢</span>
-							</p> 
-							<!-- <p class="deb" style="display: none;">优惠 <span class="fr">-￥0.00</span></p> 
-							<p class="deb" style="display: none;">积分抵扣 <span class="fr">-￥0.00</span></p> -->
-						</div> 
 						<div class="all-count">实付款 
 								<span v-if="orderlist.type==3" class="fr">￥{{orderlist.money}}</span> 
 								<span v-if="orderlist.type==2" class="fr">{{orderlist.money}}积分</span> 
@@ -186,13 +187,17 @@
 					</div>
 				</div>
 			</div>
-			<div id="item4" class="mui-slider-item mui-control-content">
-				<div class="item-block product-info" v-for="orderlist in orderlists" v-if="orderlist.status==2"  @tap='orderInfo(orderlist)'>
-					<div class="con-tit">
+			<div id="item4" class="mui-slider-item mui-control-content" :class="{'mui-active' : indexa==3}">
+				<div class="item-block product-info" v-for="orderlist in orderlists" v-if="orderlist.status==2" >
+					<div class="con-tit" style="position: relative;" @tap='orderInfo(orderlist.id)'>
 						<span class="count"><!---->订单: {{orderlist.ordersn}}</span> 
 						<span class="status-txt off fr" v-if="orderlist.status==2">待收货</span>
+						
+						<div class="shopflag xianjin" v-if="orderlist.type==3"><span>现</span></div>
+						<div class="shopflag jifen" v-if="orderlist.type==2"><span>积</span></div>
+						<div class="shopflag jinzhu" v-if="orderlist.type==1"><span>金</span></div>
 					</div> 
-					<div class="delivery-con">
+					<div class="delivery-con" @tap='orderInfo(orderlist.id)'>
 						<ul>
 							<li v-for="good in orderlist.goods">
 								<a href="javascript:void(0);" class="flex">
@@ -214,22 +219,13 @@
 						</ul>
 					</div> 
 					<div class="all-price">
-						<div class="infos"><!----> 
-							<p>商品总价
-								<span v-if="orderlist.type==3" class="fr">￥{{orderlist.money}}</span> 
-								<span v-if="orderlist.type==2" class="fr">{{orderlist.money}}积分</span> 
-								<span v-if="orderlist.type==1" class="fr">{{orderlist.money}}金铢</span>
-							</p> 
-							<!-- <p class="deb" style="display: none;">优惠 <span class="fr">-￥0.00</span></p> 
-							<p class="deb" style="display: none;">积分抵扣 <span class="fr">-￥0.00</span></p> -->
-						</div> 
 						<div class="all-count">实付款 
 								<span v-if="orderlist.type==3" class="fr">￥{{orderlist.money}}</span> 
 								<span v-if="orderlist.type==2" class="fr">{{orderlist.money}}积分</span> 
 								<span v-if="orderlist.type==1" class="fr">{{orderlist.money}}金铢</span>
 						</div> 
 						<div class="order-con-btn">
-							<a href="javascript:void(0);" class="payment" v-if="orderlist.status==2">立即收货</a>
+							<a href="javascript:void(0);" class="payment" v-if="orderlist.status==2" @tap="sureOrder(orderlist)">立即收货</a>
 						</div>
 					</div>
 				</div>
@@ -245,6 +241,7 @@
 				return {
 					page:1,
 					orderlists:[],
+					indexa:0,
 				}
 			},
 			mounted: function(){
@@ -254,6 +251,8 @@
 				_init: function(){
 					var that = this;
 					$.plusReady(function() {
+						var index=appPage.getParam('index');
+						that.indexa = index||0;
 						that.loadData();
 					})
 				},
@@ -269,7 +268,7 @@
 					}
 					
 					var postData = {
-						// "page":that.page,
+						"page":that.page,
 						'status': 5,
 					};
 					diyAjax(url,postData,function(result){
@@ -306,8 +305,44 @@
 				pullupRefresh: function(){
 					this.loadData(1);
 				},
-				orderInfo:function(orderlist){
-					beforeOpenView("orderinfo.html","orderinfo.html",{data:orderlist})
+				orderInfo:function(oid){
+					beforeOpenView("orderinfo.html","orderinfo.html",{oid:oid})
+				},
+				payOrder:function(orderlist){
+					var url=postUrl+"Home/order/submitOrder.html";
+					var postData = {
+						'orderid': orderlist.id,
+						'shop':orderlist.type,
+					};
+					
+					sureMessage("确定提交订单",function(){	
+						var data={};
+						data["url"]=url;
+						data["postData"]=postData;
+						// 支付密码验证
+						localStorage.setItem('$pwdPost', JSON.stringify(data));
+						beforeOpenView("payCode.html","payCode.html");
+					});	
+				},
+				sureOrder:function(orderlist){
+					var url=postUrl+"/Home/order/sureOrder.html";
+					var postData = {
+						'orderid': orderlist.id,
+					};
+					
+					sureMessage("确定收货？",function(){	
+						diyAjax(url,postData,function(result){
+							showMessage(result.msg);
+							if(result.code>=1){
+								
+								var orderid=result.data.orderid;
+								beforeOpenView('orderinfo.html','orderinfo.html',{oid:orderid});
+							}
+							
+						},function(xhr){
+							console.log("失败"+JSON.stringify(xhr));
+						}) 
+					});	
 				}
 			}
 		});

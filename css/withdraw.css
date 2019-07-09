@@ -9,6 +9,10 @@ html,body{
 }
 .withdrawheader .text2{
 	color: #F25441;
+}
+.withdrawheader .text2 p{
+	display: inline-block;
+	color: #F25441;
 	font-size: 30px; 
 	font-weight: 600;
 	margin-top: 10px;

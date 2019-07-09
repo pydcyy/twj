@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<title>设 置</title>	
-	<link href="css/mui.min.css" rel="stylesheet" />
-	<link href="css/app.css" rel="stylesheet"/>
-	<link href="css/withdraw.css" rel="stylesheet" />
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/mui.min.js"></script>
-	<script type="text/javascript" src="js/common.js"></script>
-	<script src="js/vue.min.js"></script>
-	<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
-	<style>
-		.input_div select{
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>设 置</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/app.css" rel="stylesheet" />
+		<link href="css/withdraw.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script src="js/vue.min.js"></script>
+		<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			.input_div select{
 			width: 100%;
 			height: 45px;
 			line-height: 45px;
@@ -26,159 +26,164 @@
 			background: #fff;
 		}
 	</style>
-</head>
-<body>
-<form action="member.php"  id="myForm" method="post">
-	<div class="container" style="margin-bottom: 60px;">
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()"></a>
-			<h1 class="mui-title" style="right: 80px;left: 80px;">充值</h1>
-		</header>
-		<div class="withdrawheader pd-15">
-			<div class="text1">
-				当前余额
+	</head>
+	<body>
+		<form action="member.php" id="myForm" method="post">
+			<div class="container" style="margin-bottom: 60px;">
+				<header class="mui-bar mui-bar-nav">
+					<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()"></a>
+					<h1 class="mui-title" style="right: 80px;left: 80px;">充值</h1>
+				</header>
+				<!-- <div class="withdrawheader pd-15">
+					<div class="text1">
+						当前余额
+					</div>
+					<div class="text2">
+						<span>￥</span>
+						<p>123123</p>
+					</div>
+				</div> -->
+				<div class="pd-15 paydetail" style="margin-top: 44px;">
+					<div class="center myrow">
+						<div class="withdrawtitle">充值方式</div>
+						<ul class="payment center">
+							<li class="cur" data-value="0"><i></i>支付宝</li>
+							<li data-value="1" style="margin-right: 0;"><i></i>微信</li>
+						</ul>
+					</div>
+					<div class="myrow">
+						<div class="withdrawtitle">充值金额</div>
+						<ul class="paymoney">
+							<li class="cur" data-value="2"><i></i>2元</li>
+							<li data-value="10"><i></i>10元</li>
+							<li data-value="30"><i></i>30元</li>
+							<li data-value="50"><i></i>50元</li>
+							<li data-value="100"><i></i>100元</li>
+							<li data-value="200"><i></i>200元</li>
+							<li data-value="500"><i></i>500元</li>
+							<li data-value="" style="width:63.6%;"><input type="number" id="diymoney" placeholder="其他金额" style="width: 70%;height: 50px;border:0px;padding:0 10px;"
+								 value="">元</li>
+						</ul>
+					</div>
+					<div class="cl"></div>
+					<div class="zysx" style="color: #565656;">
+						注意事项<br>
+						1、<br>
+						2、<br>
+						3、<br>
+					</div>
+				</div>
+				<input type="hidden" id="paymentinput" name="paymentinput" value="0">
+				<input type="hidden" id="paymoneyinput" name="paymoneyinput" value="2">
+				<input type="hidden" name="a" value="withdraw">
 			</div>
-			<div class="text2">
-				<span>￥</span>123123
+			<div class="nextstep">
+				<input type="button" value="下一步" id="withdraw">
 			</div>
-		</div>
-		<div class="pd-15 paydetail">
-			<div class="center myrow">
-				<div class="withdrawtitle">充值方式</div>
-				<ul class="payment center">
-					<li class="cur" data-value="0"><i></i>支付宝</li>
-					<li data-value="1" style="margin-right: 0;"><i></i>微信</li>
-				</ul>
-			</div>
-			<div class="myrow">
-				<div class="withdrawtitle">充值金额</div>
-				<ul class="paymoney">
-					<li class="cur"  data-value="2"><i></i>2元</li>
-					<li data-value="10"><i></i>10元</li>
-					<li data-value="30"><i></i>30元</li>
-					<li data-value="50"><i></i>50元</li>
-					<li data-value="100"><i></i>100元</li>
-					<li data-value="200"><i></i>200元</li>
-					<li data-value="500"><i></i>500元</li>
-					<li data-value="" style="width:63.6%;"><input type="number" id="diymoney" placeholder="其他金额" style="width: 70%;height: 50px;border:0px;padding:0 10px;" value="">元</li>
-				</ul>
-			</div>
-			<div class="cl"></div>
-			<div class="zysx" style="color: #565656;">
-				注意事项<br>
-				1、提现目前最低0.5元提现，不需要任何手续费。<br>
-				2、提现到账会在24小时内发放到账户。<br>
-				1、提现目前最低0.5元提现，不需要任何手续费。<br>
-				2、提现到账会在24小时内发放到账户。<br>
-				1、提现目前最低0.5元提现，不需要任何手续费。<br>
-				2、提现到账会在24小时内发放到账户。<br>
-			</div>
-		</div>
-		<input type="hidden" id="paymentinput" name="paymentinput" value="0">
-		<input type="hidden" id="paymoneyinput" name="paymoneyinput" value="1">
-		<input type="hidden" name="a" value="withdraw">
-	</div>
-	<div class="nextstep">
-		<input type="button" value="下一步" id="withdraw">
-	</div>
-</form>
-<script>
-	(function($, doc) {	
-		var aliChannel = null; // 支付宝支付 
-		var wxChannel = null; // 支付宝支付 
-		var channel = null; //支付通道 
-		
-		$.init();
-		$.plusReady(function() {
-			jQuery(".paymoney li").click(function(){
-				jQuery(".paymoney li").removeClass('cur');
-				jQuery(this).addClass('cur');
-				var value=jQuery(this).attr("data-value");
-				jQuery("#paymoneyinput").val(value);
-			})
-			jQuery(".payment li").click(function(){
-				jQuery(".payment li").removeClass('cur');
-				jQuery(this).addClass('cur');
-				var value=jQuery(this).attr("data-value");
-				jQuery("#paymentinput").val(value);
-			})
-			jQuery("#diymoney").bind("input propertychange", function() {
-				jQuery("#paymoneyinput").val(jQuery(this).val());
-			});	
+		</form>
+		<script>
+			(function($, doc) {
+				var aliChannel = null; // 支付宝支付 
+				var wxChannel = null; // 支付宝支付 
+				var channel = null; //支付通道 
 
-			// 获取支付通道 
-			plus.payment.getChannels(function(channels) {
-				for(var i in channels) {
-					if(channels[i].id == "wxpay") {
-						wxChannel = channels[i];
+				$.init();
+				$.plusReady(function() {
+
+					jQuery(".paymoney li").click(function() {
+						jQuery(".paymoney li").removeClass('cur');
+						jQuery(this).addClass('cur');
+						var value = jQuery(this).attr("data-value");
+						jQuery("#paymoneyinput").val(value);
+					})
+					jQuery(".payment li").click(function() {
+						jQuery(".payment li").removeClass('cur');
+						jQuery(this).addClass('cur');
+						var value = jQuery(this).attr("data-value");
+						jQuery("#paymentinput").val(value);
+					})
+					jQuery("#diymoney").bind("input propertychange", function() {
+						jQuery("#paymoneyinput").val(jQuery(this).val());
+					});
+
+					afterOpenView();
+
+					// 获取支付通道 
+					plus.payment.getChannels(function(channels) {
+						for (var i in channels) {
+							if (channels[i].id == "wxpay") {
+								wxChannel = channels[i];
+							} else {
+								aliChannel = channels[i];
+							}
+						}
+					}, function(e) {
+						alert("获取支付通道失败：" + e.message);
+					});
+
+					doc.getElementById("withdraw").addEventListener("tap", function(even) {
+						if (jQuery("#paymentinput").val() == 0) {
+							pay('alipay');
+						} else {
+							pay('wxpay');
+						}
+
+					});
+
+				})
+
+				//var ALIPAYSERVER = 'http://*****************/alipay/alipay.php?total=';//自己的后台的配置文件（我下一篇会放一个PHP实例），需要写订单信息等等在我的alipay.php中有讲解
+				//var ALIPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';   
+				var ALIPAYSERVER = 'http://api.tongwujie.cn/Home/member/recharge.html?key=' + getAppKey() + '&total=';
+				var WXPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total=';
+
+				// 2. 发起支付请求 
+				function pay(id) {
+					//var ZongJia = document.getElementById("ZongJia").textContent;//我自己的存放应付的金额的元素
+					var ZongJia = jQuery("#paymoneyinput").val();
+					// 从服务器请求支付订单 
+					var PAYSERVER = '';
+					PAYSERVER = WXPAYSERVER;
+					channel = wxChannel;
+
+					if (id == 'alipay') {
+						PAYSERVER = ALIPAYSERVER;
+						channel = aliChannel;
+					} else if (id == 'wxpay') {
+						PAYSERVER = WXPAYSERVER;
+						channel = wxChannel;
 					} else {
-						aliChannel = channels[i];
+						plus.nativeUI.alert("不支持此支付通道！", null, "捐赠");
+						return;
 					}
-				}
-			}, function(e) {
-				alert("获取支付通道失败：" + e.message);
-			});
-			
-			doc.getElementById("withdraw").addEventListener("tap",function (even) {
-				pay('alipay');
-			});
+					var xhr = new XMLHttpRequest();
+					var amount = ZongJia; //amount变量表示要支付的金额;
+					xhr.onreadystatechange = function() {
 
-		})
-		
-		//var ALIPAYSERVER = 'http://*****************/alipay/alipay.php?total=';//自己的后台的配置文件（我下一篇会放一个PHP实例），需要写订单信息等等在我的alipay.php中有讲解
-		// var ALIPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';   
-		var ALIPAYSERVER='http://api.tongwujie.cn/Home/member/recharge.html?key=V1.2&total=';  
-		var WXPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total=';    
-		
-		// 2. 发起支付请求 
-		function pay(id) {
-			//var ZongJia = document.getElementById("ZongJia").textContent;//我自己的存放应付的金额的元素
-			var ZongJia =0.01;
-			// 从服务器请求支付订单 
-			var PAYSERVER = '';
-			PAYSERVER = WXPAYSERVER;
-			channel = wxChannel;
-			
-			if(id=='alipay'){    
-				PAYSERVER=ALIPAYSERVER;    
-				channel = aliChannel;    
-			}else if(id=='wxpay'){    
-				PAYSERVER=WXPAYSERVER;    
-				channel = wxChannel;    
-			}else{    
-				plus.nativeUI.alert("不支持此支付通道！",null,"捐赠");    
-				return;    
-			}   
-			
-			
-			var xhr = new XMLHttpRequest();
-			var amount = ZongJia;//amount变量表示要支付的金额;
-			xhr.onreadystatechange = function() {
-
-				switch(xhr.readyState) {
-					case 4:
-					if(xhr.status == 200) {
-						plus.payment.request(channel, xhr.responseText, function(result) {
-							plus.nativeUI.alert("支付成功！", function() {
-							//这里根据自己的需求写支付成功的函数
-								log("支付成功");
-							});
-						}, function(error) {
-							plus.nativeUI.alert("支付失败：" + error.code);
-						});
-					} else {
-						alert("获取订单信息失败！");
+						var obj = JSON.parse(xhr.responseText);
+						switch (xhr.readyState) {
+							case 4:
+								if (xhr.status == 200) {
+									plus.payment.request(channel, obj.data.payinfo, function(result) {
+										plus.nativeUI.alert("支付成功！", function() {
+											//这里根据自己的需求写支付成功的函数
+											log("支付成功");
+										});
+									}, function(error) {
+										plus.nativeUI.alert("支付失败：" + error.code);
+									});
+								} else {
+									alert("获取订单信息失败！");
+								}
+								break;
+							default:
+								break;
+						}
 					}
-					break;
-					default:
-					break;
+					xhr.open('GET', PAYSERVER + amount);
+					xhr.send();
 				}
-			}
-			xhr.open('GET', PAYSERVER + amount);
-			xhr.send();
-		}
-	}(mui, document))
-	
-</script>
-</body>
+			}(mui, document))
+		</script>
+	</body>
 </html>

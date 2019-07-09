@@ -22,24 +22,26 @@
 	<div id="app" v-cloak>
 		<header class="mui-bar mui-bar-nav">
 			<div class="mui-input-row mui-search">
-				<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="goback()" style="color: #fff;"></a>
+				<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="stback()" style="color: #fff;"></a>
 				<h1 class="mui-title" >
 					订单详情
 				</h1>
 			</div>
 		</header>
-		<div style="margin-top: 44px;">
-			<div class="coc-header send clearfix">
+		<div style="margin-top: 44px;margin-bottom: 54px;">
+			<div class="coc-header send clearfix" v-if="orderinfo.status==1">
 				<div class="logistics-state state-nfh fl"></div> 
 				<div class="logistics-info fr">
 					<div class="logistics-info-txt">
-						<p>未发货</p> 
+						<p>待发货</p> 
 						<span>商家未发货,请耐心等待</span>
 					</div>
 				</div>
 			</div>
-			<div class="coc-header send clearfix"><div class="logistics-state state-ysh fl"></div> <div class="logistics-info fr"><div class="logistics-info-txt"><p>待收货</p> <span>01月01日08时00分服务商已发货</span></div></div></div>
-			<div class="coc-header send clearfix"><div class="logistics-state state-ytk fl"></div> <div class="logistics-info fr"><div class="logistics-info-txt"><p>交易完成</p> <span>交易完成,感谢您的支持</span></div></div></div>
+			<div class="coc-header send clearfix" v-if="orderinfo.status==2"><div class="logistics-state state-ysh fl"></div> <div class="logistics-info fr"><div class="logistics-info-txt"><p>待收货</p> <span>{{orderinfo.posttime}}服务商已发货</span></div></div></div>
+			<div class="coc-header send clearfix" v-if="orderinfo.status==3"><div class="logistics-state state-ytk fl"></div> <div class="logistics-info fr"><div class="logistics-info-txt"><p>交易完成</p> <span>交易完成,感谢您的支持</span></div></div></div>
+			<div class="coc-header send clearfix" v-if="orderinfo.status==0"><div class="logistics-state state-nobuy fl"></div> <div class="logistics-info fr"><div class="logistics-info-txt"><p>待付款</p> <span>交易未付款，请尽快付款</span></div></div></div>
+			<div class="coc-header send clearfix" v-if="orderinfo.status==-1"><div class="logistics-state state-cancel fl"></div> <div class="logistics-info fr"><div class="logistics-info-txt"><p>交易取消</p> <span>交易已取消</span></div></div></div>
 			<div class="address item-block" style="padding: 0;">
 				<div class="list-son " style="width: 100%;">
 					<div class="list-son-show">
@@ -48,10 +50,10 @@
 						</div>
 						<div class="atc">
 							<p>
-								<span class="cname">111111</span>
-								<span>222222</span>
+								<span class="cname">{{address.cname}}</span>
+								<span>{{address.mobile}}</span>
 							</p>
-							<span >333333</span>
+							<span >{{address.address}}</span>
 						</div>
 					</div>
 				</div>
@@ -60,27 +62,35 @@
 				<div class="con-tit">产品信息</div> 
 				<div class="delivery-con">
 					<ul>
-						<li>
+						<li v-for="good in orderinfo.goods">
 							<a href="javascript:void(0);" class="flex">
 								<div class="picture">
-									<img src="http://datong.crmeb.net/public/uploads/attach/2019/01/15/5c3dba1366885.jpg">
+									<img :src="good.img">
 								</div> 
 								<div class="info-centent flex">
-									<p class="name">无线吸尘器F8 玫瑰金礼盒版</p> 
-									<p class="description">黑色</p> 
+									<p class="name">{{good.goodsname}}</p> 
+									<!-- <p class="description">黑色</p> -->
 									<p class="count">
-										<span>￥0.01</span> X1
+										<span v-if="orderinfo.type==3">￥{{good.money}}</span> 
+										<span v-if="orderinfo.type==2">{{good.money}}积分</span> 
+										<span v-if="orderinfo.type==1">{{good.money}}金铢</span> 
+										X{{good.number}}
 									</p>
 								</div>
 							</a>
 						</li>
+
 					</ul>
 				</div> 
 				<div class="all-price">
 					<div class="infos">
-						<p>商品总价 <span class="fr">￥0.01</span></p>
+						<p>商品总价 <span v-if="orderinfo.type==3" class="fr">￥{{orderinfo.money}}</span> 
+								<span v-if="orderinfo.type==2" class="fr">{{orderinfo.money}}积分</span> 
+								<span v-if="orderinfo.type==1" class="fr">{{orderinfo.money}}金铢</span></p>
 					</div> 
-					<div class="all-count">实付款 <span class="fr">￥0.01</span>
+					<div class="all-count">实付款 <span v-if="orderinfo.type==3" class="fr">￥{{orderinfo.money}}</span> 
+								<span v-if="orderinfo.type==2" class="fr">{{orderinfo.money}}积分</span> 
+								<span v-if="orderinfo.type==1" class="fr">{{orderinfo.money}}金铢</span>
 					</div>
 				</div>
 			</div>
@@ -88,17 +98,27 @@
 				<div class="con-tit">订单信息</div> 
 				<div class="delivery-con">
 					<ul>
-						<li>订单编号：wx2019070715202710002</li> 
-						<li>下单时间：2019-07-07 15:20</li> 
-						<li>支付方式：余额支付</li> 
-						<li>支付状态：已支付</li> 
-						<li>支付时间：2019-07-07 15:20</li>
+						<li>订单编号：{{orderinfo.ordersn}}</li> 
+						<li>下单时间：{{orderinfo.addtime}}</li> 
+						
+						<li v-if="orderinfo.type==3">支付方式：余额支付</li> 
+						<li v-if="orderinfo.type==2">支付方式：积分支付</li> 
+						<li v-if="orderinfo.type==1">支付方式：金铢支付</li> 
+						
+						<li v-if="orderinfo.status==0">支付状态：待支付</li> 
+						<li v-if="orderinfo.status>0">支付状态：已支付</li> 
+
+						<li v-if="orderinfo.paytime!=null">支付时间：{{orderinfo.paytime}}</li>
+						<li v-if="orderinfo.posttime!=null">发货时间：{{orderinfo.posttime}}</li>
+						<li v-if="orderinfo.suretime!=null">确定时间：{{orderinfo.suretime}}</li>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<div class="order-con-btn">
-			<a href="javascript:void(0);" class="payment">立即付款</a>
+			<a href="javascript:void(0);" class="payment" v-if="orderinfo.status==0" @tap="payOrder(orderinfo)">立即付款</a>
+			<a href="javascript:void(0);" class="payment" v-if="orderinfo.status==2">立即收货</a>
+			<a href="javascript:void(0);" class="payment" v-if="orderinfo.status==3">再来一单</a>
 		</div>
 	</div>
 	<script type="text/javascript">
@@ -107,13 +127,9 @@
 				el: '#app',
 				data: function() {
 					return {
-						shop:getShop(),
-						goods:[],
-						addressdetail:{
-							index:0,
-							address:[],
-							show:false
-						}
+						shop:'',
+						orderinfo:'',
+						address:''
 					}
 				},
 				mounted: function(){
@@ -125,58 +141,52 @@
 						$.plusReady(function() {
 							
 							// 加载收货地址
-							//that.loadData();
-							afterOpenView();
+							that.loadData();
 						})
 					},
-					submitOrder:function(){
+					payOrder:function(orderlist){
 						var url=postUrl+"Home/order/submitOrder.html";
 						var postData = {
-							'goodsid': this.goods[0].id,
-							'number':this.goods[0].num,
-							'shop':this.shop,
-							'addressid':this.addressdetail.address[this.addressdetail.index]['aid'],
+							'orderid': orderlist.id,
+							'shop':orderlist.type,
 						};
 						
+						sureMessage("确定提交订单",function(){	
+							var data={};
+							data["url"]=url;
+							data["postData"]=postData;
+							data["type"]=1;
+
+							// 支付密码验证
+							localStorage.setItem('$pwdPost', JSON.stringify(data));
+							beforeOpenView("payCode.html","payCode.html");
+						});	
+					},
+					
+					loadData:function(){
+						var oid = appPage.getParam('oid');
+						var that = this;
+						var url = postUrl+"Home/order/orderInfo.html";
+						var postData = {
+							"orderid":oid
+						};	
 						diyAjax(url,postData,function(result){
-							console.log("提交订单");
-							showMessage(result.msg);
-							if(result.code==1){
-								var orderid=result.data.orderid;
-								showMessage("跳转"+orderid);
-								return;
-								beforeOpenView('data','data',{orderid:orderid});
+							console.log("获取订单详细信息");
+							if(result.code == 1){
+								that.shop = result.data.type;
+								that.orderinfo = result.data;	
+								that.address = JSON.parse(result.data.address);
+								log(that.orderinfo);
+								
+							}else{
+								showMessage(result.msg);
 							}
-							
+							afterOpenView();	
 						},function(xhr){
 							console.log("失败"+JSON.stringify(xhr));
-						}) 
-					},
-					loadData:function(){
-						var data = appPage.getParam('data');
-						var price = '';
-						if(shop==3){
-							price = data["moneyprice"];
-						}else if(shop==2){
-							price = data["integralprice"];
-						}else{
-							price = data["goldprice"];
-						}
-						
-						var newgoods = [{
-							id:data["gid"],
-							img:data["img"],
-							name:data["name"],
-							price:price,
-							num:data["actionnum"]
-						}]
-						
-						
-						for(var i=0;i<newgoods.length;i++){
-							newgoods[i]['total'] = parseInt(newgoods[i]['price']*newgoods[i]['num']*100)/100;
-						}
-						this.goods=newgoods;
-						
+						})	
+						// 保存商品类型
+// 										
 						
 					}
 				}
