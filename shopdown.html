@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>商场</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="css/shopcity.css" />
+		<link rel="stylesheet" href="css/mui-icons-extra.css" />
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/lib/artTemplate.js"></script>
+		<script type="text/javascript" src="js/lib/common.js"></script>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<style>
+			.mui-icon-clear{
+				top: 13px!important;
+			} 
+			.mui-table-view-cell > a:not(.mui-btn){
+				padding: 0;
+			}
+			.mui-table-view-cell:after{
+				background: #efeff4;
+			}
+		</style>
+	</head>
+	<body style="min-height: 100%;">
+		<div class="mui-content mui-scroll-wrapper" >
+			<header class="mui-bar mui-bar-nav">
+				<div class="mui-input-row mui-search">
+					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="addaddress" onclick="goback()"></a>
+					<h1 class="mui-title" style="right: 40px;left: 40px;">
+						店铺分类
+					</h1>
+					<!-- <a class="mui-pull-right" style="line-height: 44px;">宣城<span class="mui-icon mui-icon-arrowdown mui-pull-right"></span></a> -->
+					
+				</div>
+			</header>
+			
+			<div class="price-select flex"  class="mui-content">
+				<div class="item mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">宣城</a>
+				</div> 
+				<div class="item  mui-table-view-cell mui-collapse" >
+					<a class="mui-navigate-right" href="#">分类</a>
+					<div class="mui-collapse-content">
+						<p>类1</p>
+						<p>类2</p>
+					</div>
+				</div>
+			</div>
+			<div class="mui-slider mui-scroll"  style="margin-top: 94px;">	
+				<div class="mui-slider-group" id="contentbar">
+					<div id="item1" class="contentbarson mui-slider-item mui-control-content ">
+						<div class="mui-table-view">
+							<div class="p-list vertical" >
+								<ul>
+									<li >
+										<div class="p-content"  >
+											<div class="imgsize" >
+												<img src="picture/carimg.png">
+											</div>
+											<div class="p-content-title">
+												<span style="font-size: 14px;">XXX商铺</span>
+												<p>住宿，美食，自主</p>
+											</div>
+											<div class="p-content-price">
+												<span class="pull-l" style="color: #7D7E82;" >X街X道XX号</span>
+												<span class="pull-r" ><button style="border: 0;color: #fff;padding: 4px 10px;" type="button" class="mui-btn mui-btn-blue">前往</button></span>
+											</div>
+										</div>
+									</li>
+									<li >
+										<div class="p-content"  >
+											<div class="imgsize" >
+												<img src="picture/carimg.png">
+											</div>
+											<div class="p-content-title">
+												<span style="font-size: 14px;">XXX商铺</span>
+												<p>住宿，美食，自主</p>
+											</div>
+											<div class="p-content-price">
+												<span class="pull-l" style="color: #7D7E82;" >X街X道XX号</span>
+												<span class="pull-r" ><button style="border: 0;color: #fff;padding: 4px 10px;" type="button" class="mui-btn mui-btn-blue">前往</button></span>
+											</div>
+										</div>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+						
+					</div>
+				</div>			
+			</div>
+			<a style="display:none;" href="javascript:;"  id="gotop"  title="回到顶部"></a>
+		</div>
+		
+		<script type="text/javascript">
+			(function($, doc) {
+				
+
+			}(mui, document))
+		</script>
+	</body>
+</html>
